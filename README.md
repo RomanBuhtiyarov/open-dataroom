@@ -4,7 +4,7 @@ A self-hosted, open-source data room for investors, due diligence and document s
 One project, one instance, one Docker image. Interface in Russian, Ukrainian, German and English.
 
 > **Status: early development.** Milestone 0 (project skeleton) is done. See the [roadmap](docs/ROADMAP.md) ([на русском](docs/ROADMAP.ru.md)).
-> No license has been chosen yet, so all rights are reserved until one is added.
+> Licensed under the [GNU Affero General Public License v3.0](LICENSE).
 
 ## What works today
 
@@ -55,3 +55,7 @@ The web port is published on `127.0.0.1` only; put a TLS-terminating reverse pro
 ## Contributing
 
 Issues and pull requests are welcome, especially native-speaker review of translations. Never commit secrets or real documents; use synthetic data in tests and demos.
+
+## License
+
+GNU AGPL version 3. If you run a modified version as a network service, you must offer its source to the users of that service. See [LICENSE](LICENSE).
