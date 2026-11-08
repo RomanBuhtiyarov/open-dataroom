@@ -1,0 +1,4 @@
+-r requirements.txt
+pytest>=8.3
+pytest-django>=4.9
+polib>=1.2

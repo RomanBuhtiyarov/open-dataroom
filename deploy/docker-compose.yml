@@ -1,0 +1,54 @@
+# Один экземпляр = один проект Compose со своими томами и секретами.
+# Запуск:  docker compose --env-file ../.env -f docker-compose.yml up -d --build
+# Миграции выполняет оператор:  docker compose run --rm web python manage.py migrate
+name: ${COMPOSE_PROJECT_NAME:-dataroom}
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks: [internal]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    # Порты базы наружу не публикуются.
+
+  web:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    restart: unless-stopped
+    env_file: ../.env
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - private_media:/data/private_media
+    networks: [internal]
+    # Наружу только на loopback; публичный доступ даёт reverse proxy с HTTPS.
+    ports:
+      - "127.0.0.1:${WEB_PORT:-8000}:8000"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import os,urllib.request as u,urllib.parse as p;h=p.urlparse(os.environ['PUBLIC_BASE_URL']).hostname;u.urlopen(u.Request('http://127.0.0.1:8000/healthz/',headers={'Host':h}),timeout=3)"
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+networks:
+  internal:
+
+volumes:
+  db_data:
+  private_media:

@@ -1,0 +1,36 @@
+{% load i18n static %}{% get_current_language as LANGUAGE_CODE %}<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'css/app.css' %}">
+<style>:root{--green:{{ BRAND_COLOR }}}</style>
+</head>
+<body>
+<a class="skip" href="#content">{% translate "Skip to main content" %}</a>
+<header class="top" id="site-header">
+  <strong class="brand">{% if LOGO %}<img src="{{ LOGO }}" alt="" height="24"> {% endif %}{{ SITE_NAME }}</strong>
+  <div class="tools">
+    <form id="language-form" class="lang" method="post" action="{% url 'set_language' %}">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.get_full_path }}">
+      <label for="language">{% translate "Interface language" %}</label>
+      <select id="language" name="language">{% for code, name in SUPPORTED_LANGUAGES %}
+        <option value="{{ code }}" lang="{{ code }}"{% if code == LANGUAGE_CODE %} selected{% endif %}>{{ name }}</option>{% endfor %}
+      </select>
+      <noscript><button type="submit" class="secondary">{% translate "Apply" %}</button></noscript>
+    </form>
+    {% if user.is_authenticated %}
+    <form method="post" action="{% url 'logout' %}">{% csrf_token %}
+      <button type="submit" class="secondary">{% translate "Sign out" %}</button>
+    </form>
+    {% endif %}
+  </div>
+</header>
+<main id="content" tabindex="-1">
+{% block content %}{% endblock %}
+</main>
+<script src="{% static 'js/lang.js' %}" defer></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+# Data Room translations (uk).
+msgid ""
+msgstr ""
+"Project-Id-Version: dataroom\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "Skip to main content"
+msgstr "Перейти до вмісту"
+
+msgid "Interface language"
+msgstr "Мова інтерфейсу"
+
+msgid "Apply"
+msgstr "Застосувати"
+
+msgid "Sign out"
+msgstr "Вийти"
+
+msgid "Sign in to the Data Room"
+msgstr "Вхід до Data Room"
+
+msgid "Use the email address that received your invitation."
+msgstr "Використайте email, на який ви отримали запрошення."
+
+msgid "Sign in"
+msgstr "Увійти"
+
+msgid "Your rooms"
+msgstr "Ваші кімнати"
+
+msgid "No rooms are available to you yet."
+msgstr "Для вас поки немає доступних кімнат."
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Active"
+msgstr "Активний"
+
+msgid "Suspended"
+msgstr "Заблокований"
+
+msgid "Administrator"
+msgstr "Адміністратор"
+
+msgid "Viewer"
+msgstr "Читач"
+
+msgid "email address"
+msgstr "адреса електронної пошти"
+
+msgid "name"
+msgstr "ім’я"

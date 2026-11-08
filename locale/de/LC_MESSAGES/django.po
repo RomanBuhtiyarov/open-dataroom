@@ -1,0 +1,58 @@
+# Data Room translations (de).
+msgid ""
+msgstr ""
+"Project-Id-Version: dataroom\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Skip to main content"
+msgstr "Zum Inhalt springen"
+
+msgid "Interface language"
+msgstr "Oberflächensprache"
+
+msgid "Apply"
+msgstr "Übernehmen"
+
+msgid "Sign out"
+msgstr "Abmelden"
+
+msgid "Sign in to the Data Room"
+msgstr "Anmeldung im Data Room"
+
+msgid "Use the email address that received your invitation."
+msgstr "Verwenden Sie die E-Mail-Adresse, an die Ihre Einladung gesendet wurde."
+
+msgid "Sign in"
+msgstr "Anmelden"
+
+msgid "Your rooms"
+msgstr "Ihre Räume"
+
+msgid "No rooms are available to you yet."
+msgstr "Für Sie sind noch keine Räume verfügbar."
+
+msgid "Email"
+msgstr "E-Mail"
+
+msgid "Password"
+msgstr "Passwort"
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Suspended"
+msgstr "Gesperrt"
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Viewer"
+msgstr "Betrachter"
+
+msgid "email address"
+msgstr "E-Mail-Adresse"
+
+msgid "name"
+msgstr "Name"

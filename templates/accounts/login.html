@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Sign in" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>{% translate "Sign in to the Data Room" %}</h1>
+  <p class="intro">{% translate "Use the email address that received your invitation." %}</p>
+  <div class="card">
+    <form method="post" novalidate>
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}">
+      {% if form.non_field_errors %}
+      <div class="notice warning" role="alert">{% for error in form.non_field_errors %}{{ error }}{% endfor %}</div>
+      {% endif %}
+      {% for field in form %}
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}
+      {% for error in field.errors %}<p class="error" role="alert">{{ error }}</p>{% endfor %}
+      {% endfor %}
+      <div class="row"><button type="submit" class="primary">{% translate "Sign in" %}</button></div>
+    </form>
+  </div>
+</section>
+{% endblock %}

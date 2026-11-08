@@ -1,0 +1,30 @@
+/* Стили по мотивам DataRoom_Screens.html. Цвет бренда задаётся переменной --green из настроек экземпляра. */
+:root{font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;color:#1b2d28;background:#f6f6ef;--muted:#4e645b;--line:#dbe2d6}
+*{box-sizing:border-box}
+body{margin:0}
+.skip{position:absolute;left:-999px;top:0;background:#fff;padding:8px 12px;z-index:10}
+.skip:focus{left:8px;top:8px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:15px 4vw;background:#19392f;color:#fff}
+.brand{letter-spacing:.13em}
+.tools{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.tools form{display:flex;gap:8px;align-items:center;margin:0}
+.lang label{font-size:12px;margin:0;color:#d8e9dc;font-weight:400}
+.lang select{width:auto;margin:0;padding:4px 6px}
+main{max-width:870px;margin:auto;padding:clamp(18px,4vw,55px)}
+main:focus{outline:none}
+section.narrow{max-width:520px;margin:auto}
+h1{font-family:Georgia,serif;line-height:1.15;margin:8px 0 12px;font-size:clamp(30px,5vw,46px);letter-spacing:-.03em}
+.intro,.muted{color:var(--muted)}
+p{margin:0 0 14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:clamp(16px,3vw,27px);margin-top:20px}
+label{display:block;font-weight:650;margin:0 0 5px}
+input:not([type=checkbox]),select{display:block;width:100%;margin:0 0 13px;border:1px solid #b7c8bc;background:#fff;border-radius:8px;padding:10px;font:inherit;color:inherit}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:16px}
+button{cursor:pointer;font:inherit;border-radius:8px;padding:9px 14px;border:1px solid var(--green)}
+.primary{color:#fff;background:var(--green)}
+.secondary{color:var(--green);background:#fff}
+.notice{border-radius:10px;background:#e9f1e6;padding:12px;margin:12px 0}
+.notice.warning{background:#f7ead8}
+.error{color:#9a3412;margin:-8px 0 12px}
+:focus-visible{outline:3px solid #467a61;outline-offset:3px}
+@media(max-width:520px){.lang label{display:none}}

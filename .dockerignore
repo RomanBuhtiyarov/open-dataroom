@@ -1,0 +1,10 @@
+.venv
+.git
+.env
+db.sqlite3
+private_media
+staticfiles
+draft_v0
+__pycache__
+*.pyc
+.pytest_cache

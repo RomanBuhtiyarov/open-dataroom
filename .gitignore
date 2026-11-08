@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+db.sqlite3
+staticfiles/
+private_media/
+*.mo
+.pytest_cache/
+
+# Private, instance-specific material: never published
+CLAUDE.local.md
+DataRoom_Claude_Code.md
+DataRoom_Screens.html
+DEVELOPMENT_PLAN.md
+draft_v0/

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Your rooms" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section>
+  <h1>{% translate "Your rooms" %}</h1>
+  <div class="card"><p class="muted">{% translate "No rooms are available to you yet." %}</p></div>
+</section>
+{% endblock %}
