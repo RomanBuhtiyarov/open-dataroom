@@ -22,6 +22,12 @@
       <noscript><button type="submit" class="secondary">{% translate "Apply" %}</button></noscript>
     </form>
     {% if user.is_authenticated %}
+    {% if not user.is_admin or user.is_verified %}
+    <nav class="links" aria-label="{% translate 'Account' %}">
+      <a href="{% url 'profile' %}">{% translate "Profile" %}</a>
+      {% if user.is_admin %}<a href="{% url 'instance_settings' %}">{% translate "Instance settings" %}</a>{% endif %}
+    </nav>
+    {% endif %}
     <form method="post" action="{% url 'logout' %}">{% csrf_token %}
       <button type="submit" class="secondary">{% translate "Sign out" %}</button>
     </form>
@@ -29,6 +35,7 @@
   </div>
 </header>
 <main id="content" tabindex="-1">
+{% for message in messages %}<div class="notice" role="status">{{ message }}</div>{% endfor %}
 {% block content %}{% endblock %}
 </main>
 <script src="{% static 'js/lang.js' %}" defer></script>

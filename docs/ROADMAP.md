@@ -17,8 +17,8 @@ Status legend: **done**, **next**, **planned**, **later**.
 | # | Milestone | Status | Outcome |
 |---|---|---|---|
 | 0 | Project skeleton | **done** | Django project, settings from environment, Docker image and Compose, four languages with a language switcher, user model, sign-in page |
-| 1 | First launch and administrators | next | `bootstrap_admin` command (runs once, safe against concurrent calls), TOTP two-factor authentication for administrators, first-launch screen, instance profile and default language |
-| 2 | Rooms, documents and access policy | planned | Rooms, folder tree, documents and versions, access grants, central access policy, room templates, private file storage |
+| 1 | First launch and administrators | **done** | `bootstrap_admin` command (runs once, safe against concurrent calls), TOTP two-factor authentication for administrators, first-launch screen, instance profile and default language |
+| 2 | Rooms, documents and access policy | next | Rooms, folder tree, documents and versions, access grants, central access policy, room templates, private file storage |
 | 3 | Invitations and registration | planned | Personal invitation by link or QR code, email verification by one-time code, self-registration with administrator approval, translated emails, rate limits |
 | 4 | Screens, audit and previews | planned | Administrator and investor screens, audit log, raster page previews for view-only documents, download by permission, revocation takes effect immediately |
 | 5 | Operations | planned | Second instance from the same image, backup and restore procedure, deployment guide with reverse proxy examples |
@@ -30,12 +30,13 @@ Status legend: **done**, **next**, **planned**, **later**.
 - Language switch keeps the current screen and typed values, including passwords and codes, in memory only.
 - Custom user model with a normalised, case-insensitive unique email.
 
-### 1. First launch and administrators
+### 1. First launch and administrators (done)
 
 - Interactive `bootstrap_admin`; the second run refuses with a clear message.
 - Administrator actions require a second factor.
 - First-launch screen: name, logo, default language, room template, self-registration switch.
 - No public route can create an administrator.
+- Known limits: no recovery codes (a lost device is reset from the server with `reset_2fa`); the audit trail has no screen yet (milestone 4).
 
 ### 2. Rooms, documents and access policy
 

@@ -26,5 +26,15 @@ button{cursor:pointer;font:inherit;border-radius:8px;padding:9px 14px;border:1px
 .notice{border-radius:10px;background:#e9f1e6;padding:12px;margin:12px 0}
 .notice.warning{background:#f7ead8}
 .error{color:#9a3412;margin:-8px 0 12px}
+.links{display:flex;gap:14px;flex-wrap:wrap}
+.links a{color:#fff;text-underline-offset:3px}
+h2{font-family:Georgia,serif;font-size:22px;margin:0 0 8px}
+.help{color:var(--muted);font-size:13px;margin:-8px 0 13px}
+.check{display:flex;gap:10px;align-items:flex-start;margin:0 0 13px}
+.check input{margin-top:5px}
+.check label{margin:0;font-weight:500}
+.qr{display:flex;justify-content:center;margin:12px 0}
+.qr svg{width:220px;max-width:100%;height:auto}
+.secret{font-family:ui-monospace,Consolas,monospace;letter-spacing:.08em;word-break:break-all}
 :focus-visible{outline:3px solid #467a61;outline-offset:3px}
 @media(max-width:520px){.lang label{display:none}}

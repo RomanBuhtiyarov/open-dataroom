@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dataroom\n"
-"Content-Type: text/plain; charset=UTF-8\n"
 "Language: uk\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 msgid "Skip to main content"
@@ -56,3 +56,134 @@ msgstr "адреса електронної пошти"
 
 msgid "name"
 msgstr "ім’я"
+
+msgid "6-digit code"
+msgstr "6-значний код"
+
+msgid "Account"
+msgstr "Обліковий запис"
+
+msgid ""
+"Administrators sign in with a second factor. Scan the QR code with an "
+"authenticator app, then enter the 6-digit code it shows."
+msgstr ""
+"Адміністратори входять із другим фактором. Скануйте QR-код у застосунку-"
+"автентифікаторі та введіть показаний 6-значний код."
+
+msgid "Allow people to request access without an invitation"
+msgstr "Дозволити запитувати доступ без запрошення"
+
+msgid "Cannot scan? Enter this key in the app manually:"
+msgstr "Не вдається відсканувати? Введіть цей ключ у застосунку вручну:"
+
+msgid "Confirm and continue"
+msgstr "Підтвердити й продовжити"
+
+msgid "Default language of this instance"
+msgstr "Мова екземпляра за замовчуванням"
+
+msgid "Due diligence"
+msgstr "Перевірка (due diligence)"
+
+msgid "Empty room"
+msgstr "Порожня кімната"
+
+msgid "Enabled. An authenticator app is required at every sign-in."
+msgstr ""
+"Увімкнено. Під час кожного входу потрібен код із застосунку-автентифікатора."
+
+msgid "Enter your code"
+msgstr "Введіть код"
+
+msgid "Every request still needs approval by an administrator."
+msgstr "Кожну заявку, як і раніше, схвалює адміністратор."
+
+msgid "Finish setup"
+msgstr "Завершити налаштування"
+
+msgid "First launch"
+msgstr "Перший запуск"
+
+msgid "Fundraising"
+msgstr "Залучення інвестицій"
+
+msgid "Instance settings"
+msgstr "Налаштування екземпляра"
+
+msgid "Logo"
+msgstr "Логотип"
+
+msgid "Name"
+msgstr "Ім’я"
+
+msgid "Name of the data room"
+msgstr "Назва data room"
+
+msgid "Not set up yet."
+msgstr "Ще не налаштовано."
+
+msgid "Open your authenticator app and enter the 6-digit code."
+msgstr "Відкрийте застосунок-автентифікатор і введіть 6-значний код."
+
+msgid "PNG, JPEG or WebP, up to 512 KB."
+msgstr "PNG, JPEG або WebP, до 512 КБ."
+
+msgid "Profile"
+msgstr "Профіль"
+
+msgid "Profile saved."
+msgstr "Профіль збережено."
+
+msgid "QR code for the authenticator app"
+msgstr "QR-код для застосунку-автентифікатора"
+
+msgid "Remove the current logo"
+msgstr "Видалити поточний логотип"
+
+msgid "Room template"
+msgstr "Шаблон кімнати"
+
+msgid "Save"
+msgstr "Зберегти"
+
+msgid "Set up two-factor authentication"
+msgstr "Налаштування двофакторної автентифікації"
+
+msgid "Set up your data room"
+msgstr "Налаштуйте ваш data room"
+
+msgid "Settings saved."
+msgstr "Налаштування збережено."
+
+msgid "The code is not valid. Check the time on your phone and try again."
+msgstr "Код недійсний. Перевірте час на телефоні й спробуйте ще раз."
+
+msgid "The data room is set up."
+msgstr "Data room налаштовано."
+
+msgid "The logo file is too large."
+msgstr "Файл логотипа завеликий."
+
+msgid "The logo image is too large."
+msgstr "Зображення логотипа завелике за розміром."
+
+msgid "These settings can be changed later."
+msgstr "Ці налаштування можна змінити пізніше."
+
+msgid "Too many wrong codes. Wait a little and try again."
+msgstr "Забагато хибних кодів. Зачекайте трохи й повторіть."
+
+msgid "Two-factor authentication"
+msgstr "Двофакторна автентифікація"
+
+msgid "Use a PNG, JPEG or WebP image."
+msgstr "Завантажте зображення PNG, JPEG або WebP."
+
+msgid "Use the instance language"
+msgstr "Мова екземпляра"
+
+msgid "Used when the first room is created."
+msgstr "Застосовується під час створення першої кімнати."
+
+msgid "Verify"
+msgstr "Перевірити"

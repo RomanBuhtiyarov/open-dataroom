@@ -65,7 +65,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_otp",
+    "django_otp.plugins.otp_totp",
     "apps.accounts",
+    "apps.audit",
     "apps.core",
 ]
 
@@ -76,6 +79,8 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django_otp.middleware.OTPMiddleware",
+    "apps.accounts.middleware.RequireTwoFactorMiddleware",
     "apps.core.middleware.InstanceLocaleMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -124,6 +129,10 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
+
+# Администраторам нужен второй фактор (TOTP). Троттлинг неудачных кодов встроен в django-otp.
+OTP_TOTP_ISSUER = SITE_NAME
+OTP_TOTP_THROTTLE_FACTOR = 2
 
 # --- Сессии, cookie, заголовки безопасности --------------------------------
 # Cookie без атрибута Domain: действуют только на хосте экземпляра.
@@ -178,6 +187,9 @@ STORAGES = {
 # Приватный том документов. Не входит в STATIC/MEDIA и не раздаётся напрямую.
 PRIVATE_MEDIA_ROOT = Path(env("PRIVATE_MEDIA_ROOT", str(BASE_DIR / "private_media")))
 MAX_UPLOAD_BYTES = int(env("MAX_UPLOAD_BYTES", str(50 * 1024 * 1024)))
+# Логотип экземпляра: небольшой PNG, JPEG или WebP (SVG не принимается).
+MAX_LOGO_BYTES = 512 * 1024
+MAX_LOGO_PIXELS = 2000
 
 # --- Почта -----------------------------------------------------------------
 EMAIL_BACKEND = (

@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dataroom\n"
-"Content-Type: text/plain; charset=UTF-8\n"
 "Language: de\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Skip to main content"
@@ -22,7 +22,8 @@ msgid "Sign in to the Data Room"
 msgstr "Anmeldung im Data Room"
 
 msgid "Use the email address that received your invitation."
-msgstr "Verwenden Sie die E-Mail-Adresse, an die Ihre Einladung gesendet wurde."
+msgstr ""
+"Verwenden Sie die E-Mail-Adresse, an die Ihre Einladung gesendet wurde."
 
 msgid "Sign in"
 msgstr "Anmelden"
@@ -56,3 +57,139 @@ msgstr "E-Mail-Adresse"
 
 msgid "name"
 msgstr "Name"
+
+msgid "6-digit code"
+msgstr "6-stelliger Code"
+
+msgid "Account"
+msgstr "Konto"
+
+msgid ""
+"Administrators sign in with a second factor. Scan the QR code with an "
+"authenticator app, then enter the 6-digit code it shows."
+msgstr ""
+"Administratoren melden sich mit einem zweiten Faktor an. Scannen Sie den QR-"
+"Code mit einer Authenticator-App und geben Sie den angezeigten 6-stelligen "
+"Code ein."
+
+msgid "Allow people to request access without an invitation"
+msgstr "Zugang auch ohne Einladung anfragen lassen"
+
+msgid "Cannot scan? Enter this key in the app manually:"
+msgstr ""
+"Scannen nicht möglich? Geben Sie diesen Schlüssel manuell in der App ein:"
+
+msgid "Confirm and continue"
+msgstr "Bestätigen und fortfahren"
+
+msgid "Default language of this instance"
+msgstr "Standardsprache dieser Instanz"
+
+msgid "Due diligence"
+msgstr "Due Diligence"
+
+msgid "Empty room"
+msgstr "Leerer Raum"
+
+msgid "Enabled. An authenticator app is required at every sign-in."
+msgstr ""
+"Aktiviert. Bei jeder Anmeldung ist ein Code aus der Authenticator-App nötig."
+
+msgid "Enter your code"
+msgstr "Code eingeben"
+
+msgid "Every request still needs approval by an administrator."
+msgstr "Jede Anfrage muss weiterhin von einem Administrator genehmigt werden."
+
+msgid "Finish setup"
+msgstr "Einrichtung abschließen"
+
+msgid "First launch"
+msgstr "Erster Start"
+
+msgid "Fundraising"
+msgstr "Kapitalbeschaffung"
+
+msgid "Instance settings"
+msgstr "Instanz-Einstellungen"
+
+msgid "Logo"
+msgstr "Logo"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Name of the data room"
+msgstr "Name des Data Rooms"
+
+msgid "Not set up yet."
+msgstr "Noch nicht eingerichtet."
+
+msgid "Open your authenticator app and enter the 6-digit code."
+msgstr ""
+"Öffnen Sie Ihre Authenticator-App und geben Sie den 6-stelligen Code ein."
+
+msgid "PNG, JPEG or WebP, up to 512 KB."
+msgstr "PNG, JPEG oder WebP, bis 512 KB."
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Profile saved."
+msgstr "Profil gespeichert."
+
+msgid "QR code for the authenticator app"
+msgstr "QR-Code für die Authenticator-App"
+
+msgid "Remove the current logo"
+msgstr "Aktuelles Logo entfernen"
+
+msgid "Room template"
+msgstr "Raumvorlage"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Set up two-factor authentication"
+msgstr "Zwei-Faktor-Authentifizierung einrichten"
+
+msgid "Set up your data room"
+msgstr "Richten Sie Ihren Data Room ein"
+
+msgid "Settings saved."
+msgstr "Einstellungen gespeichert."
+
+msgid "The code is not valid. Check the time on your phone and try again."
+msgstr ""
+"Der Code ist ungültig. Prüfen Sie die Uhrzeit auf Ihrem Telefon und "
+"versuchen Sie es erneut."
+
+msgid "The data room is set up."
+msgstr "Der Data Room ist eingerichtet."
+
+msgid "The logo file is too large."
+msgstr "Die Logo-Datei ist zu groß."
+
+msgid "The logo image is too large."
+msgstr "Die Abmessungen des Logo-Bildes sind zu groß."
+
+msgid "These settings can be changed later."
+msgstr "Diese Einstellungen können später geändert werden."
+
+msgid "Too many wrong codes. Wait a little and try again."
+msgstr "Zu viele falsche Codes. Warten Sie kurz und versuchen Sie es erneut."
+
+msgid "Two-factor authentication"
+msgstr "Zwei-Faktor-Authentifizierung"
+
+msgid "Use a PNG, JPEG or WebP image."
+msgstr "Verwenden Sie ein PNG-, JPEG- oder WebP-Bild."
+
+msgid "Use the instance language"
+msgstr "Sprache der Instanz verwenden"
+
+msgid "Used when the first room is created."
+msgstr "Wird beim Anlegen des ersten Raums verwendet."
+
+msgid "Verify"
+msgstr "Prüfen"

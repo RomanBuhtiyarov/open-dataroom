@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Profile" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>{% translate "Profile" %}</h1>
+  <div class="card">
+    <p class="muted">{{ user.email }}</p>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}{% include "includes/field.html" with field=field %}{% endfor %}
+      <div class="row"><button type="submit" class="primary">{% translate "Save" %}</button></div>
+    </form>
+  </div>
+  {% if user.is_admin %}
+  <div class="card">
+    <h2>{% translate "Two-factor authentication" %}</h2>
+    <p>{% if has_2fa %}{% translate "Enabled. An authenticator app is required at every sign-in." %}{% else %}{% translate "Not set up yet." %}{% endif %}</p>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

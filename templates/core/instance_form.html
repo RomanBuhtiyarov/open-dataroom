@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% if setup %}{% translate "First launch" %}{% else %}{% translate "Instance settings" %}{% endif %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>{% if setup %}{% translate "Set up your data room" %}{% else %}{% translate "Instance settings" %}{% endif %}</h1>
+  {% if setup %}<p class="intro">{% translate "These settings can be changed later." %}</p>{% endif %}
+  <div class="card">
+    <form method="post" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+      <div class="notice warning" role="alert">{% for error in form.non_field_errors %}{{ error }}{% endfor %}</div>
+      {% endif %}
+      {% for field in form %}{% include "includes/field.html" with field=field %}{% endfor %}
+      <div class="row"><button type="submit" class="primary">{% if setup %}{% translate "Finish setup" %}{% else %}{% translate "Save" %}{% endif %}</button></div>
+    </form>
+  </div>
+</section>
+{% endblock %}
