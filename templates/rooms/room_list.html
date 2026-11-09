@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Your rooms" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section>
+  <h1>{% translate "Your rooms" %}</h1>
+  {% if user.is_admin %}<p><a class="button primary" href="{% url 'room_create' %}">{% translate "New room" %}</a></p>{% endif %}
+  {% for room in rooms %}
+  <div class="card room">
+    <h2><a href="{% url 'room_detail' room.pk %}">{{ room.name }}</a></h2>
+    {% if room.description %}<p class="muted">{{ room.description }}</p>{% endif %}
+  </div>
+  {% empty %}
+  <div class="card"><p class="muted">{% translate "No rooms are available to you yet." %}</p></div>
+  {% endfor %}
+</section>
+{% endblock %}

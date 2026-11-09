@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     "apps.accounts",
     "apps.audit",
     "apps.core",
+    "apps.rooms",
 ]
 
 MIDDLEWARE = [

@@ -36,5 +36,17 @@ h2{font-family:Georgia,serif;font-size:22px;margin:0 0 8px}
 .qr{display:flex;justify-content:center;margin:12px 0}
 .qr svg{width:220px;max-width:100%;height:auto}
 .secret{font-family:ui-monospace,Consolas,monospace;letter-spacing:.08em;word-break:break-all}
+main a:not(.button){color:var(--green);text-underline-offset:3px}
+a.button{display:inline-block;text-decoration:none;border-radius:8px;padding:9px 14px;border:1px solid var(--green)}
+a.button.primary{color:#fff;background:var(--green)}
+a.button.secondary{color:var(--green);background:#fff}
+.crumbs{color:var(--muted);font-size:13px;margin:0}
+.item{margin:0 0 10px}
+.room h2{margin:0 0 4px}
+.inline-form{display:inline;margin-left:8px}
+.inline-form button{padding:3px 10px}
+form.inline{margin-top:14px}
+.nda-text{max-height:50vh;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:12px;margin-bottom:14px;background:#fbfbf7}
+textarea{display:block;width:100%;margin:0 0 13px;border:1px solid #b7c8bc;background:#fff;border-radius:8px;padding:10px;font:inherit;color:inherit}
 :focus-visible{outline:3px solid #467a61;outline-offset:3px}
 @media(max-width:520px){.lang label{display:none}}

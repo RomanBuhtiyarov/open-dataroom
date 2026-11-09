@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Access" %} · {{ room.name }} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section>
+  <p class="crumbs"><a href="{% url 'room_detail' room.pk %}">{{ room.name }}</a></p>
+  <h1>{% translate "Access" %}</h1>
+  <div class="card">
+    <h2>{% translate "Grant access" %}</h2>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}{% include "includes/field.html" with field=field %}{% endfor %}
+      <div class="row"><button type="submit" class="primary">{% translate "Grant access" %}</button></div>
+    </form>
+  </div>
+  <div class="card">
+    <h2>{% translate "Who has access" %}</h2>
+    {% for row in rows %}
+    <p class="item">
+      <strong>{{ row.grant.user.email }}</strong> ·
+      {% if row.grant.folder %}{{ row.grant.folder.name }}{% else %}{% translate "The whole room" %}{% endif %} ·
+      {% if row.grant.can_download %}{% translate "can download" %}{% else %}{% translate "view only" %}{% endif %} ·
+      {% if row.grant.revoked_at %}{% translate "revoked" %}{% elif not row.active %}{% translate "expired" %}{% else %}{% translate "active" %}{% endif %}
+      {% if row.grant.expires_at %}<span class="muted"> · {% translate "ends" %} {{ row.grant.expires_at|date:"Y-m-d" }}</span>{% endif %}
+      {% if row.active %}
+      <form method="post" action="{% url 'grant_revoke' row.grant.pk %}" class="inline-form">{% csrf_token %}<button type="submit" class="secondary">{% translate "Revoke" %}</button></form>
+      {% endif %}
+    </p>
+    {% empty %}<p class="muted">{% translate "Nobody has access yet." %}</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

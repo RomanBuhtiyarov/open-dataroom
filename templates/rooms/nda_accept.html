@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Confidentiality agreement" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>{% translate "Confidentiality agreement" %}</h1>
+  <p class="intro">{{ room.name }}</p>
+  {% if published %}
+  <div class="card">
+    <div class="nda-text">{{ body|linebreaks }}</div>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% include "includes/field.html" with field=form.accept %}
+      <div class="row"><button type="submit" class="primary">{% translate "Accept and continue" %}</button></div>
+    </form>
+  </div>
+  {% else %}
+  <div class="card"><p class="muted">{% translate "The confidentiality agreement is not available yet. Please try again later." %}</p></div>
+  {% endif %}
+</section>
+{% endblock %}

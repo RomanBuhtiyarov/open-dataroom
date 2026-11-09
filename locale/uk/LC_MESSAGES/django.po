@@ -187,3 +187,298 @@ msgstr "Застосовується під час створення першо
 
 msgid "Verify"
 msgstr "Перевірити"
+
+msgid "A document with this title already exists in the folder."
+msgstr "Документ із такою назвою вже є в папці."
+
+msgid "A folder with this name already exists here."
+msgstr "Папка з такою назвою тут уже є."
+
+msgid "A new version is published."
+msgstr "Нову версію опубліковано."
+
+msgid "Accept and continue"
+msgstr "Прийняти й продовжити"
+
+msgid "Access"
+msgstr "Доступ"
+
+msgid "Access ends on"
+msgstr "Доступ діє до"
+
+msgid "Access is granted."
+msgstr "Доступ надано."
+
+msgid "Access is revoked."
+msgstr "Доступ відкликано."
+
+msgid "Access to"
+msgstr "Доступ до"
+
+msgid "Add folder"
+msgstr "Додати папку"
+
+msgid ""
+"Adds missing folders only. Existing folders, documents and access stay as "
+"they are."
+msgstr ""
+"Додає лише відсутні папки. Наявні папки, документи й доступ не змінюються."
+
+msgid "Apply template"
+msgstr "Застосувати шаблон"
+
+msgid "Can download originals"
+msgstr "Може завантажувати оригінали"
+
+msgid "Cancel"
+msgstr "Скасувати"
+
+msgid "Choose a file."
+msgstr "Виберіть файл."
+
+msgid "Commercial"
+msgstr "Комерція"
+
+msgid "Confidentiality agreement"
+msgstr "Угода про конфіденційність"
+
+msgid "Corporate"
+msgstr "Корпоративні документи"
+
+msgid "Create a folder first."
+msgstr "Спершу створіть папку."
+
+msgid "Current version: %(number)s. Accepted by %(accepted_by)s."
+msgstr "Поточна версія: %(number)s. Прийняли: %(accepted_by)s."
+
+msgid "Delete this folder"
+msgstr "Видалити цю папку"
+
+msgid "Description"
+msgstr "Опис"
+
+msgid "Documents"
+msgstr "Документи"
+
+msgid "Download"
+msgstr "Завантажити"
+
+msgid "Downloading originals is not enabled for your access."
+msgstr "Завантаження оригіналів для вашого доступу не ввімкнено."
+
+msgid "Edit room"
+msgstr "Змінити кімнату"
+
+msgid "Employees"
+msgstr "Працівники"
+
+msgid "Enter a name."
+msgstr "Введіть назву."
+
+msgid "File"
+msgstr "Файл"
+
+msgid "Files with macros are not accepted."
+msgstr "Файли з макросами не приймаються."
+
+msgid "Financial"
+msgstr "Фінанси"
+
+msgid "Financials"
+msgstr "Фінансова звітність"
+
+msgid "Folder"
+msgstr "Папка"
+
+msgid "Folder name"
+msgstr "Назва папки"
+
+msgid "Folders"
+msgstr "Папки"
+
+msgid "Folders are nested too deeply."
+msgstr "Забагато рівнів вкладеності папок."
+
+msgid "Grant access"
+msgstr "Надати доступ"
+
+msgid "I have read the NDA and accept it"
+msgstr "Я прочитав(ла) угоду і приймаю її"
+
+msgid "IT and security"
+msgstr "ІТ і безпека"
+
+msgid "Intellectual property"
+msgstr "Інтелектуальна власність"
+
+msgid "Leave empty to use the file name."
+msgstr "Залиште порожнім, щоб використати назву файлу."
+
+msgid "Legal"
+msgstr "Юридичні питання"
+
+msgid "Legal and corporate"
+msgstr "Юридичні та корпоративні документи"
+
+msgid "NDA"
+msgstr "NDA"
+
+msgid "New room"
+msgstr "Нова кімната"
+
+msgid "New version"
+msgstr "Нова версія"
+
+msgid "No documents here."
+msgstr "Тут немає документів."
+
+msgid "No folders here."
+msgstr "Тут немає папок."
+
+msgid "No version is published yet."
+msgstr "Жодну версію ще не опубліковано."
+
+msgid "Nobody has access yet."
+msgstr "Поки ні в кого немає доступу."
+
+msgid "Only PDF, DOCX and XLSX files are accepted."
+msgstr "Приймаються лише файли PDF, DOCX і XLSX."
+
+msgid "Only an empty folder can be deleted."
+msgstr "Видалити можна лише порожню папку."
+
+msgid "Optional. Access ends at the end of this day (UTC)."
+msgstr "Необов’язково. Доступ закінчується наприкінці цього дня (UTC)."
+
+msgid "PDF, DOCX or XLSX."
+msgstr "PDF, DOCX або XLSX."
+
+msgid "Person"
+msgstr "Особа"
+
+msgid "Product and technology"
+msgstr "Продукт і технології"
+
+msgid "Publish a new version"
+msgstr "Опублікувати нову версію"
+
+msgid "Publish new version"
+msgstr "Опублікувати нову версію"
+
+msgid "Publish the NDA text on the NDA page of the room."
+msgstr "Опублікуйте текст NDA на сторінці NDA кімнати."
+
+msgid "Publishing creates a new version. Everyone must accept it again."
+msgstr "Публікація створює нову версію. Усі мають прийняти її знову."
+
+msgid "Rename"
+msgstr "Перейменувати"
+
+msgid "Rename this folder"
+msgstr "Перейменувати цю папку"
+
+msgid "Require visitors to accept an NDA first"
+msgstr "Вимагати від відвідувачів прийняти NDA"
+
+msgid "Revoke"
+msgstr "Відкликати"
+
+msgid "Room name"
+msgstr "Назва кімнати"
+
+msgid "Summary and pitch deck"
+msgstr "Резюме та презентація"
+
+msgid "Tax"
+msgstr "Податки"
+
+msgid "Team"
+msgstr "Команда"
+
+msgid "Template applied. New folders: %(count)d."
+msgstr "Шаблон застосовано. Нових папок: %(count)d."
+
+msgid ""
+"The NDA is not required for this room. Turn it on in the room settings."
+msgstr ""
+"Для цієї кімнати NDA не потрібна. Увімкніть цю вимогу в налаштуваннях "
+"кімнати."
+
+msgid ""
+"The confidentiality agreement is not available yet. Please try again later."
+msgstr "Угода про конфіденційність поки недоступна. Спробуйте пізніше."
+
+msgid "The document is uploaded."
+msgstr "Документ завантажено."
+
+msgid "The end date must be in the future."
+msgstr "Дата завершення має бути в майбутньому."
+
+msgid "The file content does not match its type."
+msgstr "Вміст файлу не відповідає його типу."
+
+msgid "The file is empty."
+msgstr "Файл порожній."
+
+msgid "The file is too large."
+msgstr "Файл завеликий."
+
+msgid "The folder does not belong to this room."
+msgstr "Папка не належить цій кімнаті."
+
+msgid "The folder is created."
+msgstr "Папку створено."
+
+msgid "The folder is deleted."
+msgstr "Папку видалено."
+
+msgid "The folder is renamed."
+msgstr "Папку перейменовано."
+
+msgid "The new NDA version is published. Everyone must accept it again."
+msgstr "Нову версію угоди опубліковано. Усі мають прийняти її знову."
+
+msgid "The room is created."
+msgstr "Кімнату створено."
+
+msgid "The room is saved."
+msgstr "Кімнату збережено."
+
+msgid "The text in the default language of the instance is required."
+msgstr "Потрібен текст мовою екземпляра за замовчуванням."
+
+msgid "The whole room"
+msgstr "Уся кімната"
+
+msgid "Title"
+msgstr "Назва"
+
+msgid "Upload"
+msgstr "Завантажити"
+
+msgid "Upload a document"
+msgstr "Завантажити документ"
+
+msgid "Versions"
+msgstr "Версії"
+
+msgid "Who has access"
+msgstr "Хто має доступ"
+
+msgid "active"
+msgstr "діє"
+
+msgid "can download"
+msgstr "може завантажувати"
+
+msgid "ends"
+msgstr "до"
+
+msgid "expired"
+msgstr "завершився"
+
+msgid "revoked"
+msgstr "відкликано"
+
+msgid "view only"
+msgstr "лише перегляд"

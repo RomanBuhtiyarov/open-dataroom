@@ -15,6 +15,10 @@ PY_RE = re.compile(r"""\b(?:_|gettext|gettext_lazy)\(\s*(["'])((?:\\.|(?!\1).)*)
 TPL_RE = re.compile(r"""\{%\s*(?:translate|trans)\s+(["'])((?:\\.|(?!\1).)*)\1""")
 
 
+BLOCK_RE = re.compile(r"\{%\s*blocktranslate[^%]*%\}(.*?)\{%\s*endblocktranslate\s*%\}", re.S)
+VAR_RE = re.compile(r"\{\{\s*(\w+)\s*\}\}")
+
+
 def used_msgids():
     found = {}
     for base in (ROOT / "apps", ROOT / "dataroom"):
@@ -24,8 +28,11 @@ def used_msgids():
             for match in PY_RE.finditer(path.read_text(encoding="utf-8")):
                 found.setdefault(match.group(2).replace('\\"', '"'), path.relative_to(ROOT).as_posix())
     for path in (ROOT / "templates").rglob("*.html"):
-        for match in TPL_RE.finditer(path.read_text(encoding="utf-8")):
+        text = path.read_text(encoding="utf-8")
+        for match in TPL_RE.finditer(text):
             found.setdefault(match.group(2), path.relative_to(ROOT).as_posix())
+        for match in BLOCK_RE.finditer(text):
+            found.setdefault(VAR_RE.sub(r"%(\1)s", match.group(1).strip()), path.relative_to(ROOT).as_posix())
     return found
 
 

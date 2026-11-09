@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ room.name }} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section>
+  <p class="crumbs"><a href="{% url 'home' %}">{% translate "Your rooms" %}</a> /
+    <a href="{% url 'room_detail' room.pk %}">{{ room.name }}</a>{% for c in crumbs %} / <a href="{% url 'room_detail' room.pk %}?folder={{ c.pk }}">{{ c.name }}</a>{% endfor %}</p>
+  <h1>{% if folder %}{{ folder.name }}{% else %}{{ room.name }}{% endif %}</h1>
+  {% if not folder and room.description %}<p class="intro">{{ room.description }}</p>{% endif %}
+
+  {% if access.admin %}
+  <p class="row">
+    <a class="button secondary" href="{% url 'room_edit' room.pk %}">{% translate "Edit room" %}</a>
+    <a class="button secondary" href="{% url 'access_list' room.pk %}">{% translate "Access" %}</a>
+    <a class="button secondary" href="{% url 'nda_edit' room.pk %}">{% translate "NDA" %}</a>
+    <a class="button primary" href="{% url 'document_upload' room.pk %}{% if folder %}?folder={{ folder.pk }}{% endif %}">{% translate "Upload a document" %}</a>
+  </p>
+  {% endif %}
+
+  <h2>{% translate "Folders" %}</h2>
+  <div class="card">
+    {% for sub in subfolders %}
+    <p class="item"><a href="{% url 'room_detail' room.pk %}?folder={{ sub.pk }}">{{ sub.name }}</a></p>
+    {% empty %}<p class="muted">{% translate "No folders here." %}</p>
+    {% endfor %}
+    {% if access.admin %}
+    <form method="post" action="{% url 'folder_create' room.pk %}" class="inline">
+      {% csrf_token %}
+      {% if folder %}<input type="hidden" name="parent" value="{{ folder.pk }}">{% endif %}
+      <label for="new-folder">{% translate "Folder name" %}</label>
+      <div class="row"><input id="new-folder" name="name" maxlength="120" required><button class="secondary" type="submit">{% translate "Add folder" %}</button></div>
+    </form>
+    {% endif %}
+  </div>
+
+  {% if folder %}
+  <h2>{% translate "Documents" %}</h2>
+  <div class="card">
+    {% for row in documents %}
+    <p class="item">
+      <a href="{% url 'document_detail' row.doc.pk %}">{{ row.doc.title }}</a>
+      <span class="muted"> · v{{ row.version.number }} · {{ row.version.extension|upper }} · {{ row.version.size|filesizeformat }}</span>
+      {% if row.can_download %} · <a href="{% url 'document_download' row.doc.pk %}">{% translate "Download" %}</a>{% endif %}
+    </p>
+    {% empty %}<p class="muted">{% translate "No documents here." %}</p>
+    {% endfor %}
+  </div>
+  {% if access.admin %}
+  <div class="card">
+    <form method="post" action="{% url 'folder_rename' folder.pk %}">
+      {% csrf_token %}
+      <label for="rename-folder">{% translate "Rename this folder" %}</label>
+      <div class="row"><input id="rename-folder" name="name" value="{{ folder.name }}" maxlength="120" required><button class="secondary" type="submit">{% translate "Rename" %}</button></div>
+    </form>
+    <form method="post" action="{% url 'folder_delete' folder.pk %}">
+      {% csrf_token %}
+      <div class="row"><button class="secondary" type="submit">{% translate "Delete this folder" %}</button>
+      <span class="help">{% translate "Only an empty folder can be deleted." %}</span></div>
+    </form>
+  </div>
+  {% endif %}
+  {% endif %}
+
+  {% if access.admin and not folder %}
+  <div class="card">
+    <h2>{% translate "Room template" %}</h2>
+    <form method="post" action="{% url 'room_apply_template' room.pk %}">
+      {% csrf_token %}
+      <div class="row">
+        <select name="template" aria-label="{% translate 'Room template' %}">{% for key, label in templates %}<option value="{{ key }}">{{ label }}</option>{% endfor %}</select>
+        <button class="secondary" type="submit">{% translate "Apply template" %}</button>
+      </div>
+      <p class="help">{% translate "Adds missing folders only. Existing folders, documents and access stay as they are." %}</p>
+    </form>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

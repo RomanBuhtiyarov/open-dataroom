@@ -193,3 +193,306 @@ msgstr "Wird beim Anlegen des ersten Raums verwendet."
 
 msgid "Verify"
 msgstr "Prüfen"
+
+msgid "A document with this title already exists in the folder."
+msgstr "Ein Dokument mit diesem Titel existiert bereits im Ordner."
+
+msgid "A folder with this name already exists here."
+msgstr "Ein Ordner mit diesem Namen existiert hier bereits."
+
+msgid "A new version is published."
+msgstr "Eine neue Version wurde veröffentlicht."
+
+msgid "Accept and continue"
+msgstr "Akzeptieren und fortfahren"
+
+msgid "Access"
+msgstr "Zugriff"
+
+msgid "Access ends on"
+msgstr "Zugriff endet am"
+
+msgid "Access is granted."
+msgstr "Zugriff wurde gewährt."
+
+msgid "Access is revoked."
+msgstr "Zugriff wurde entzogen."
+
+msgid "Access to"
+msgstr "Zugriff auf"
+
+msgid "Add folder"
+msgstr "Ordner hinzufügen"
+
+msgid ""
+"Adds missing folders only. Existing folders, documents and access stay as "
+"they are."
+msgstr ""
+"Fügt nur fehlende Ordner hinzu. Vorhandene Ordner, Dokumente und Zugriffe "
+"bleiben unverändert."
+
+msgid "Apply template"
+msgstr "Vorlage anwenden"
+
+msgid "Can download originals"
+msgstr "Darf Originale herunterladen"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Choose a file."
+msgstr "Wählen Sie eine Datei."
+
+msgid "Commercial"
+msgstr "Kommerziell"
+
+msgid "Confidentiality agreement"
+msgstr "Vertraulichkeitsvereinbarung"
+
+msgid "Corporate"
+msgstr "Gesellschaftsrecht"
+
+msgid "Create a folder first."
+msgstr "Legen Sie zuerst einen Ordner an."
+
+msgid "Current version: %(number)s. Accepted by %(accepted_by)s."
+msgstr "Aktuelle Version: %(number)s. Akzeptiert von: %(accepted_by)s."
+
+msgid "Delete this folder"
+msgstr "Diesen Ordner löschen"
+
+msgid "Description"
+msgstr "Beschreibung"
+
+msgid "Documents"
+msgstr "Dokumente"
+
+msgid "Download"
+msgstr "Herunterladen"
+
+msgid "Downloading originals is not enabled for your access."
+msgstr ""
+"Das Herunterladen von Originalen ist für Ihren Zugriff nicht aktiviert."
+
+msgid "Edit room"
+msgstr "Raum bearbeiten"
+
+msgid "Employees"
+msgstr "Mitarbeiter"
+
+msgid "Enter a name."
+msgstr "Geben Sie einen Namen ein."
+
+msgid "File"
+msgstr "Datei"
+
+msgid "Files with macros are not accepted."
+msgstr "Dateien mit Makros werden nicht akzeptiert."
+
+msgid "Financial"
+msgstr "Finanzen"
+
+msgid "Financials"
+msgstr "Finanzkennzahlen"
+
+msgid "Folder"
+msgstr "Ordner"
+
+msgid "Folder name"
+msgstr "Ordnername"
+
+msgid "Folders"
+msgstr "Ordner"
+
+msgid "Folders are nested too deeply."
+msgstr "Die Ordner sind zu tief verschachtelt."
+
+msgid "Grant access"
+msgstr "Zugriff gewähren"
+
+msgid "I have read the NDA and accept it"
+msgstr "Ich habe die Vereinbarung gelesen und akzeptiere sie"
+
+msgid "IT and security"
+msgstr "IT und Sicherheit"
+
+msgid "Intellectual property"
+msgstr "Geistiges Eigentum"
+
+msgid "Leave empty to use the file name."
+msgstr "Leer lassen, um den Dateinamen zu verwenden."
+
+msgid "Legal"
+msgstr "Recht"
+
+msgid "Legal and corporate"
+msgstr "Recht und Gesellschaft"
+
+msgid "NDA"
+msgstr "NDA"
+
+msgid "New room"
+msgstr "Neuer Raum"
+
+msgid "New version"
+msgstr "Neue Version"
+
+msgid "No documents here."
+msgstr "Hier gibt es keine Dokumente."
+
+msgid "No folders here."
+msgstr "Hier gibt es keine Ordner."
+
+msgid "No version is published yet."
+msgstr "Es ist noch keine Version veröffentlicht."
+
+msgid "Nobody has access yet."
+msgstr "Noch hat niemand Zugriff."
+
+msgid "Only PDF, DOCX and XLSX files are accepted."
+msgstr "Nur PDF-, DOCX- und XLSX-Dateien werden akzeptiert."
+
+msgid "Only an empty folder can be deleted."
+msgstr "Nur ein leerer Ordner kann gelöscht werden."
+
+msgid "Optional. Access ends at the end of this day (UTC)."
+msgstr "Optional. Der Zugriff endet am Ende dieses Tages (UTC)."
+
+msgid "PDF, DOCX or XLSX."
+msgstr "PDF, DOCX oder XLSX."
+
+msgid "Person"
+msgstr "Person"
+
+msgid "Product and technology"
+msgstr "Produkt und Technologie"
+
+msgid "Publish a new version"
+msgstr "Neue Version veröffentlichen"
+
+msgid "Publish new version"
+msgstr "Neue Version veröffentlichen"
+
+msgid "Publish the NDA text on the NDA page of the room."
+msgstr "Veröffentlichen Sie den NDA-Text auf der NDA-Seite des Raums."
+
+msgid "Publishing creates a new version. Everyone must accept it again."
+msgstr ""
+"Das Veröffentlichen erstellt eine neue Version. Alle müssen sie erneut "
+"akzeptieren."
+
+msgid "Rename"
+msgstr "Umbenennen"
+
+msgid "Rename this folder"
+msgstr "Diesen Ordner umbenennen"
+
+msgid "Require visitors to accept an NDA first"
+msgstr "Besucher müssen zuerst eine NDA akzeptieren"
+
+msgid "Revoke"
+msgstr "Entziehen"
+
+msgid "Room name"
+msgstr "Raumname"
+
+msgid "Summary and pitch deck"
+msgstr "Zusammenfassung und Pitch Deck"
+
+msgid "Tax"
+msgstr "Steuern"
+
+msgid "Team"
+msgstr "Team"
+
+msgid "Template applied. New folders: %(count)d."
+msgstr "Vorlage angewendet. Neue Ordner: %(count)d."
+
+msgid ""
+"The NDA is not required for this room. Turn it on in the room settings."
+msgstr ""
+"Für diesen Raum ist keine NDA erforderlich. Aktivieren Sie sie in den "
+"Raumeinstellungen."
+
+msgid ""
+"The confidentiality agreement is not available yet. Please try again later."
+msgstr ""
+"Die Vertraulichkeitsvereinbarung ist noch nicht verfügbar. Bitte versuchen "
+"Sie es später erneut."
+
+msgid "The document is uploaded."
+msgstr "Das Dokument wurde hochgeladen."
+
+msgid "The end date must be in the future."
+msgstr "Das Enddatum muss in der Zukunft liegen."
+
+msgid "The file content does not match its type."
+msgstr "Der Dateiinhalt passt nicht zum Dateityp."
+
+msgid "The file is empty."
+msgstr "Die Datei ist leer."
+
+msgid "The file is too large."
+msgstr "Die Datei ist zu groß."
+
+msgid "The folder does not belong to this room."
+msgstr "Der Ordner gehört nicht zu diesem Raum."
+
+msgid "The folder is created."
+msgstr "Der Ordner wurde angelegt."
+
+msgid "The folder is deleted."
+msgstr "Der Ordner wurde gelöscht."
+
+msgid "The folder is renamed."
+msgstr "Der Ordner wurde umbenannt."
+
+msgid "The new NDA version is published. Everyone must accept it again."
+msgstr ""
+"Die neue Version der Vereinbarung ist veröffentlicht. Alle müssen sie erneut"
+" akzeptieren."
+
+msgid "The room is created."
+msgstr "Der Raum wurde angelegt."
+
+msgid "The room is saved."
+msgstr "Der Raum wurde gespeichert."
+
+msgid "The text in the default language of the instance is required."
+msgstr "Der Text in der Standardsprache der Instanz ist erforderlich."
+
+msgid "The whole room"
+msgstr "Der ganze Raum"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Upload"
+msgstr "Hochladen"
+
+msgid "Upload a document"
+msgstr "Dokument hochladen"
+
+msgid "Versions"
+msgstr "Versionen"
+
+msgid "Who has access"
+msgstr "Wer hat Zugriff"
+
+msgid "active"
+msgstr "aktiv"
+
+msgid "can download"
+msgstr "darf herunterladen"
+
+msgid "ends"
+msgstr "endet"
+
+msgid "expired"
+msgstr "abgelaufen"
+
+msgid "revoked"
+msgstr "entzogen"
+
+msgid "view only"
+msgstr "nur ansehen"

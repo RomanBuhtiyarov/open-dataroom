@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.db import connection
 from django.http import FileResponse, Http404, HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import redirect, render
@@ -17,15 +16,6 @@ from .decorators import admin_required
 from .forms import InstanceSettingsForm
 from .instance import get_instance
 from .models import InstanceSettings
-
-
-@login_required
-@never_cache
-def home(request):
-    # Список комнат появится на этапе 2. Пока администратор сначала проходит первичную настройку.
-    if request.user.is_admin and not get_instance(request).is_setup_complete:
-        return redirect("setup")
-    return render(request, "core/home.html")
 
 
 @require_POST

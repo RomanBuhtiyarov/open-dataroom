@@ -186,3 +186,298 @@ msgstr "Применяется при создании первой комнат
 
 msgid "Verify"
 msgstr "Проверить"
+
+msgid "A document with this title already exists in the folder."
+msgstr "Документ с таким названием уже есть в папке."
+
+msgid "A folder with this name already exists here."
+msgstr "Папка с таким именем здесь уже есть."
+
+msgid "A new version is published."
+msgstr "Новая версия опубликована."
+
+msgid "Accept and continue"
+msgstr "Принять и продолжить"
+
+msgid "Access"
+msgstr "Доступ"
+
+msgid "Access ends on"
+msgstr "Доступ действует до"
+
+msgid "Access is granted."
+msgstr "Доступ предоставлен."
+
+msgid "Access is revoked."
+msgstr "Доступ отозван."
+
+msgid "Access to"
+msgstr "Доступ к"
+
+msgid "Add folder"
+msgstr "Добавить папку"
+
+msgid ""
+"Adds missing folders only. Existing folders, documents and access stay as "
+"they are."
+msgstr ""
+"Добавляет только недостающие папки. Существующие папки, документы и доступ "
+"не меняются."
+
+msgid "Apply template"
+msgstr "Применить шаблон"
+
+msgid "Can download originals"
+msgstr "Может скачивать оригиналы"
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "Choose a file."
+msgstr "Выберите файл."
+
+msgid "Commercial"
+msgstr "Коммерция"
+
+msgid "Confidentiality agreement"
+msgstr "Соглашение о конфиденциальности"
+
+msgid "Corporate"
+msgstr "Корпоративные документы"
+
+msgid "Create a folder first."
+msgstr "Сначала создайте папку."
+
+msgid "Current version: %(number)s. Accepted by %(accepted_by)s."
+msgstr "Текущая версия: %(number)s. Приняли: %(accepted_by)s."
+
+msgid "Delete this folder"
+msgstr "Удалить эту папку"
+
+msgid "Description"
+msgstr "Описание"
+
+msgid "Documents"
+msgstr "Документы"
+
+msgid "Download"
+msgstr "Скачать"
+
+msgid "Downloading originals is not enabled for your access."
+msgstr "Скачивание оригиналов для вашего доступа не включено."
+
+msgid "Edit room"
+msgstr "Изменить комнату"
+
+msgid "Employees"
+msgstr "Сотрудники"
+
+msgid "Enter a name."
+msgstr "Введите название."
+
+msgid "File"
+msgstr "Файл"
+
+msgid "Files with macros are not accepted."
+msgstr "Файлы с макросами не принимаются."
+
+msgid "Financial"
+msgstr "Финансы"
+
+msgid "Financials"
+msgstr "Финансовая отчётность"
+
+msgid "Folder"
+msgstr "Папка"
+
+msgid "Folder name"
+msgstr "Название папки"
+
+msgid "Folders"
+msgstr "Папки"
+
+msgid "Folders are nested too deeply."
+msgstr "Слишком глубокая вложенность папок."
+
+msgid "Grant access"
+msgstr "Предоставить доступ"
+
+msgid "I have read the NDA and accept it"
+msgstr "Я прочитал(а) соглашение и принимаю его"
+
+msgid "IT and security"
+msgstr "ИТ и безопасность"
+
+msgid "Intellectual property"
+msgstr "Интеллектуальная собственность"
+
+msgid "Leave empty to use the file name."
+msgstr "Оставьте пустым, чтобы использовать имя файла."
+
+msgid "Legal"
+msgstr "Юридические вопросы"
+
+msgid "Legal and corporate"
+msgstr "Юридические и корпоративные документы"
+
+msgid "NDA"
+msgstr "NDA"
+
+msgid "New room"
+msgstr "Новая комната"
+
+msgid "New version"
+msgstr "Новая версия"
+
+msgid "No documents here."
+msgstr "Здесь нет документов."
+
+msgid "No folders here."
+msgstr "Здесь нет папок."
+
+msgid "No version is published yet."
+msgstr "Ни одна версия ещё не опубликована."
+
+msgid "Nobody has access yet."
+msgstr "Пока ни у кого нет доступа."
+
+msgid "Only PDF, DOCX and XLSX files are accepted."
+msgstr "Принимаются только файлы PDF, DOCX и XLSX."
+
+msgid "Only an empty folder can be deleted."
+msgstr "Удалить можно только пустую папку."
+
+msgid "Optional. Access ends at the end of this day (UTC)."
+msgstr "Необязательно. Доступ заканчивается в конце этого дня (UTC)."
+
+msgid "PDF, DOCX or XLSX."
+msgstr "PDF, DOCX или XLSX."
+
+msgid "Person"
+msgstr "Человек"
+
+msgid "Product and technology"
+msgstr "Продукт и технологии"
+
+msgid "Publish a new version"
+msgstr "Опубликовать новую версию"
+
+msgid "Publish new version"
+msgstr "Опубликовать новую версию"
+
+msgid "Publish the NDA text on the NDA page of the room."
+msgstr "Опубликуйте текст NDA на странице NDA комнаты."
+
+msgid "Publishing creates a new version. Everyone must accept it again."
+msgstr "Публикация создаёт новую версию. Все должны принять её заново."
+
+msgid "Rename"
+msgstr "Переименовать"
+
+msgid "Rename this folder"
+msgstr "Переименовать эту папку"
+
+msgid "Require visitors to accept an NDA first"
+msgstr "Требовать от посетителей принять NDA"
+
+msgid "Revoke"
+msgstr "Отозвать"
+
+msgid "Room name"
+msgstr "Название комнаты"
+
+msgid "Summary and pitch deck"
+msgstr "Резюме и презентация"
+
+msgid "Tax"
+msgstr "Налоги"
+
+msgid "Team"
+msgstr "Команда"
+
+msgid "Template applied. New folders: %(count)d."
+msgstr "Шаблон применён. Новых папок: %(count)d."
+
+msgid ""
+"The NDA is not required for this room. Turn it on in the room settings."
+msgstr ""
+"Для этой комнаты NDA не требуется. Включите требование в настройках комнаты."
+
+msgid ""
+"The confidentiality agreement is not available yet. Please try again later."
+msgstr "Соглашение о конфиденциальности пока недоступно. Попробуйте позже."
+
+msgid "The document is uploaded."
+msgstr "Документ загружен."
+
+msgid "The end date must be in the future."
+msgstr "Дата окончания должна быть в будущем."
+
+msgid "The file content does not match its type."
+msgstr "Содержимое файла не соответствует его типу."
+
+msgid "The file is empty."
+msgstr "Файл пустой."
+
+msgid "The file is too large."
+msgstr "Файл слишком большой."
+
+msgid "The folder does not belong to this room."
+msgstr "Папка не принадлежит этой комнате."
+
+msgid "The folder is created."
+msgstr "Папка создана."
+
+msgid "The folder is deleted."
+msgstr "Папка удалена."
+
+msgid "The folder is renamed."
+msgstr "Папка переименована."
+
+msgid "The new NDA version is published. Everyone must accept it again."
+msgstr "Новая версия соглашения опубликована. Все должны принять её заново."
+
+msgid "The room is created."
+msgstr "Комната создана."
+
+msgid "The room is saved."
+msgstr "Комната сохранена."
+
+msgid "The text in the default language of the instance is required."
+msgstr "Нужен текст на языке экземпляра по умолчанию."
+
+msgid "The whole room"
+msgstr "Вся комната"
+
+msgid "Title"
+msgstr "Название"
+
+msgid "Upload"
+msgstr "Загрузить"
+
+msgid "Upload a document"
+msgstr "Загрузить документ"
+
+msgid "Versions"
+msgstr "Версии"
+
+msgid "Who has access"
+msgstr "У кого есть доступ"
+
+msgid "active"
+msgstr "действует"
+
+msgid "can download"
+msgstr "может скачивать"
+
+msgid "ends"
+msgstr "до"
+
+msgid "expired"
+msgstr "истёк"
+
+msgid "revoked"
+msgstr "отозван"
+
+msgid "view only"
+msgstr "только просмотр"

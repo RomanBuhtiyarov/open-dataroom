@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% if room %}{% translate "Edit room" %}{% else %}{% translate "New room" %}{% endif %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>{% if room %}{% translate "Edit room" %}{% else %}{% translate "New room" %}{% endif %}</h1>
+  <div class="card">
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}{% include "includes/field.html" with field=field %}{% endfor %}
+      <div class="row">
+        <button type="submit" class="primary">{% translate "Save" %}</button>
+        <a class="button secondary" href="{% if room %}{% url 'room_detail' room.pk %}{% else %}{% url 'home' %}{% endif %}">{% translate "Cancel" %}</a>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

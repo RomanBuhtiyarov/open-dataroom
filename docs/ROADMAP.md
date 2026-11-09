@@ -18,8 +18,8 @@ Status legend: **done**, **next**, **planned**, **later**.
 |---|---|---|---|
 | 0 | Project skeleton | **done** | Django project, settings from environment, Docker image and Compose, four languages with a language switcher, user model, sign-in page |
 | 1 | First launch and administrators | **done** | `bootstrap_admin` command (runs once, safe against concurrent calls), TOTP two-factor authentication for administrators, first-launch screen, instance profile and default language |
-| 2 | Rooms, documents and access policy | next | Rooms, folder tree, documents and versions, access grants, central access policy, room templates, private file storage |
-| 3 | Invitations and registration | planned | Personal invitation by link or QR code, email verification by one-time code, self-registration with administrator approval, translated emails, rate limits |
+| 2 | Rooms, documents and access policy | **done** | Rooms, folder tree, documents and versions, access grants, central access policy, room templates, private file storage |
+| 3 | Invitations and registration | next | Personal invitation by link or QR code, email verification by one-time code, self-registration with administrator approval, translated emails, rate limits |
 | 4 | Screens, audit and previews | planned | Administrator and investor screens, audit log, raster page previews for view-only documents, download by permission, revocation takes effect immediately |
 | 5 | Operations | planned | Second instance from the same image, backup and restore procedure, deployment guide with reverse proxy examples |
 
@@ -38,7 +38,7 @@ Status legend: **done**, **next**, **planned**, **later**.
 - No public route can create an administrator.
 - Known limits: no recovery codes (a lost device is reset from the server with `reset_2fa`); the audit trail has no screen yet (milestone 4).
 
-### 2. Rooms, documents and access policy
+### 2. Rooms, documents and access policy (done)
 
 - Rooms and nested folders; an access scope on a folder includes its descendants.
 - Documents with immutable versions; a new version is published only after the file is stored successfully.
@@ -46,6 +46,7 @@ Status legend: **done**, **next**, **planned**, **later**.
 - Optional NDA requirement per room, with versioned, per-language NDA texts and a recorded acceptance.
 - PDF, DOCX and XLSX accepted after server-side checks of type, extension and size.
 - Room templates that can be applied repeatedly without creating duplicates or resetting permissions.
+- Known limits: originals are served whole (no HTTP Range, no page previews until milestone 4); visitors get the current version only; a document cannot be deleted or a folder moved yet; viewers are created with the `create_viewer` development helper until invitations exist.
 
 ### 3. Invitations and registration
 

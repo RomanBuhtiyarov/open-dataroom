@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Confidentiality agreement" %} · {{ room.name }} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section>
+  <p class="crumbs"><a href="{% url 'room_detail' room.pk %}">{{ room.name }}</a></p>
+  <h1>{% translate "Confidentiality agreement" %}</h1>
+  <p class="intro">
+    {% if current %}{% blocktranslate with number=current.number accepted_by=accepted %}Current version: {{ number }}. Accepted by {{ accepted_by }}.{% endblocktranslate %}{% else %}{% translate "No version is published yet." %}{% endif %}
+    {% if not room.nda_required %}{% translate "The NDA is not required for this room. Turn it on in the room settings." %}{% endif %}
+  </p>
+  <div class="card">
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}{% include "includes/field.html" with field=field %}{% endfor %}
+      <div class="row"><button type="submit" class="primary">{% translate "Publish a new version" %}</button></div>
+      <p class="help">{% translate "Publishing creates a new version. Everyone must accept it again." %}</p>
+    </form>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ document.title }} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section>
+  <p class="crumbs"><a href="{% url 'home' %}">{% translate "Your rooms" %}</a> /
+    <a href="{% url 'room_detail' room.pk %}">{{ room.name }}</a>{% for c in crumbs %} / <a href="{% url 'room_detail' room.pk %}?folder={{ c.pk }}">{{ c.name }}</a>{% endfor %}</p>
+  <h1>{{ document.title }}</h1>
+  <div class="card">
+    <h2>{% translate "Versions" %}</h2>
+    {% for v in versions %}
+    <p class="item">
+      <strong>v{{ v.number }}</strong> · {{ v.original_name }} · {{ v.size|filesizeformat }} · {{ v.created_at|date:"Y-m-d H:i" }} UTC
+      {% if can_download %} · <a href="{% url 'document_download' document.pk %}{% if access.admin %}?version={{ v.number }}{% endif %}">{% translate "Download" %}</a>{% endif %}
+    </p>
+    {% endfor %}
+    {% if not can_download %}<p class="help">{% translate "Downloading originals is not enabled for your access." %}</p>{% endif %}
+  </div>
+  {% if form %}
+  <div class="card">
+    <form method="post" action="{% url 'version_upload' document.pk %}" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+      {% include "includes/field.html" with field=form.file %}
+      <div class="row"><button type="submit" class="secondary">{% translate "Publish new version" %}</button></div>
+    </form>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

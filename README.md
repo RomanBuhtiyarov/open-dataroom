@@ -3,7 +3,7 @@
 A self-hosted, open-source data room for investors, due diligence and document sharing.
 One project, one instance, one Docker image. Interface in Russian, Ukrainian, German and English.
 
-> **Status: early development.** Milestones 0 (skeleton) and 1 (first launch and administrators) are done. See the [roadmap](docs/ROADMAP.md) ([на русском](docs/ROADMAP.ru.md)).
+> **Status: early development.** Milestones 0 (skeleton), 1 (first launch and administrators) and 2 (rooms, documents, access policy) are done. See the [roadmap](docs/ROADMAP.md) ([на русском](docs/ROADMAP.ru.md)).
 > Licensed under the [GNU Affero General Public License v3.0](LICENSE).
 
 ## What works today
@@ -15,9 +15,13 @@ One project, one instance, one Docker image. Interface in Russian, Ukrainian, Ge
 - TOTP two-factor authentication is required for every administrator action; `reset_2fa` recovers a lost device (server access only).
 - First-launch screen and instance settings: name, logo, default language, room template, self-registration switch.
 - Profile page (name, interface language) and a minimal audit trail of these events (stored as event codes).
+- Rooms with nested folders and room templates (applying a template twice creates no duplicates).
+- Documents (PDF, DOCX, XLSX) with immutable versions; files checked by type, extension, size and content, stored in the private volume under random names.
+- One access policy for every check (list, open, download): closed by default, grants per room or folder (including subfolders), optional download right and expiry, immediate revocation.
+- Optional per-room NDA with versioned per-language texts and recorded acceptance; a new version must be accepted again.
 - Dockerfile and Compose file (not yet exercised in CI).
 
-Rooms, documents, invitations and the audit screens are on the roadmap.
+Invitations, self-registration, page previews and the audit screens are on the roadmap. Until invitations arrive (milestone 3), create test viewers with `manage.py create_viewer <email>` (development helper).
 
 ## Local development (no Docker)
 
