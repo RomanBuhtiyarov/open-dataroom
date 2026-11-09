@@ -135,7 +135,9 @@ CSRF_COOKIE_NAME = env("CSRF_COOKIE_NAME", "dataroom_csrf")
 CSRF_COOKIE_SECURE = _HTTPS
 CSRF_COOKIE_HTTPONLY = True
 CSRF_COOKIE_SAMESITE = "Lax"
-SECURE_REFERRER_POLICY = "no-referrer"
+# "same-origin": nothing is leaked to other sites, but browsers still send a real
+# Origin header on same-site POSTs (with "no-referrer" some send "null" and CSRF fails).
+SECURE_REFERRER_POLICY = "same-origin"
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = "DENY"
 if _HTTPS:

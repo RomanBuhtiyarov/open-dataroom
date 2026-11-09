@@ -39,7 +39,7 @@ def test_home_requires_login():
 @pytest.mark.django_db
 def test_security_headers_and_cookie_names():
     response = Client().get(reverse("login"))
-    assert response["Referrer-Policy"] == "no-referrer"
+    assert response["Referrer-Policy"] == "same-origin"
     assert response["X-Frame-Options"] == "DENY"
 
 
