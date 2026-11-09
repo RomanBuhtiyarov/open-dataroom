@@ -27,7 +27,7 @@ def used_msgids():
                 continue
             for match in PY_RE.finditer(path.read_text(encoding="utf-8")):
                 found.setdefault(match.group(2).replace('\\"', '"'), path.relative_to(ROOT).as_posix())
-    for path in (ROOT / "templates").rglob("*.html"):
+    for path in [*(ROOT / "templates").rglob("*.html"), *(ROOT / "templates").rglob("*.txt")]:
         text = path.read_text(encoding="utf-8")
         for match in TPL_RE.finditer(text):
             found.setdefault(match.group(2), path.relative_to(ROOT).as_posix())

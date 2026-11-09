@@ -2,11 +2,9 @@
 import base64
 from urllib.parse import quote
 
-import segno
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.utils.http import url_has_allowed_host_and_scheme
-from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import never_cache
 from django_otp import login as otp_login
@@ -16,6 +14,7 @@ from apps.audit import events
 from apps.audit.models import AuditEvent
 from apps.audit.service import record
 from apps.core.instance import get_instance
+from apps.core.qr import qr_svg
 
 
 def _safe_next(request):
@@ -28,11 +27,6 @@ def _otpauth_url(device, issuer, account):
     issuer = issuer.replace(":", "")
     secret = base64.b32encode(device.bin_key).decode()
     return f"otpauth://totp/{quote(issuer)}:{quote(account)}?secret={secret}&issuer={quote(issuer)}&algorithm=SHA1&digits=6&period=30"
-
-
-def _qr_svg(url):
-    svg = segno.make(url, error="m").svg_inline(scale=5, border=2, dark="#000000", light="#ffffff")
-    return mark_safe(svg)  # noqa: S308 - SVG собран библиотекой из наших данных
 
 
 @login_required
@@ -69,7 +63,7 @@ def two_factor(request):
     context = {"enrolling": enrolling, "error": error, "next": next_url}
     if enrolling:
         issuer = get_instance(request).effective_site_name
-        context["qr"] = _qr_svg(_otpauth_url(device, issuer, user.email))
+        context["qr"] = qr_svg(_otpauth_url(device, issuer, user.email))
         secret = base64.b32encode(device.bin_key).decode()
         context["secret"] = " ".join(secret[i : i + 4] for i in range(0, len(secret), 4))
     return render(request, "accounts/two_factor.html", context)

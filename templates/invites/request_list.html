@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Access requests" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section>
+  <h1>{% translate "Access requests" %}</h1>
+  <h2>{% translate "Waiting for a decision" %}</h2>
+  <div class="card">
+    {% for req in pending %}
+    <p class="item"><a href="{% url 'request_detail' req.pk %}">{{ req.name }}</a> · {{ req.email }} <span class="muted">· {{ req.created_at|date:"Y-m-d" }}</span></p>
+    {% empty %}<p class="muted">{% translate "No requests are waiting." %}</p>
+    {% endfor %}
+  </div>
+  <h2>{% translate "Decided" %}</h2>
+  <div class="card">
+    {% for req in decided %}
+    <p class="item">
+      {{ req.name }} · {{ req.email }} ·
+      {% if req.status == "approved" %}{% translate "approved" %}{% else %}{% translate "rejected" %}{% endif %}
+      {% if req.notify_failed_at and not req.notified_at %}
+      <span class="error-inline"> · {% translate "email was not delivered" %}</span>
+      <form method="post" action="{% url 'request_retry_email' req.pk %}" class="inline-form">{% csrf_token %}<button type="submit" class="secondary">{% translate "Send the email again" %}</button></form>
+      {% endif %}
+    </p>
+    {% empty %}<p class="muted">{% translate "Nothing decided yet." %}</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

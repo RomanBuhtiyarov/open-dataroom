@@ -19,8 +19,8 @@ Status legend: **done**, **next**, **planned**, **later**.
 | 0 | Project skeleton | **done** | Django project, settings from environment, Docker image and Compose, four languages with a language switcher, user model, sign-in page |
 | 1 | First launch and administrators | **done** | `bootstrap_admin` command (runs once, safe against concurrent calls), TOTP two-factor authentication for administrators, first-launch screen, instance profile and default language |
 | 2 | Rooms, documents and access policy | **done** | Rooms, folder tree, documents and versions, access grants, central access policy, room templates, private file storage |
-| 3 | Invitations and registration | next | Personal invitation by link or QR code, email verification by one-time code, self-registration with administrator approval, translated emails, rate limits |
-| 4 | Screens, audit and previews | planned | Administrator and investor screens, audit log, raster page previews for view-only documents, download by permission, revocation takes effect immediately |
+| 3 | Invitations and registration | **done** | Personal invitation by link or QR code, email verification by one-time code, self-registration with administrator approval, translated emails, rate limits |
+| 4 | Screens, audit and previews | next | Administrator and investor screens, audit log, raster page previews for view-only documents, download by permission, revocation takes effect immediately |
 | 5 | Operations | planned | Second instance from the same image, backup and restore procedure, deployment guide with reverse proxy examples |
 
 ### 0. Project skeleton (done)
@@ -48,13 +48,14 @@ Status legend: **done**, **next**, **planned**, **later**.
 - Room templates that can be applied repeatedly without creating duplicates or resetting permissions.
 - Known limits: originals are served whole (no HTTP Range, no page previews until milestone 4); visitors get the current version only; a document cannot be deleted or a folder moved yet; viewers are created with the `create_viewer` development helper until invitations exist.
 
-### 3. Invitations and registration
+### 3. Invitations and registration (done)
 
 - Invitation links with opaque tokens stored only as hashes; opening the link never consumes it, submitting the form does, in one transaction.
 - Ownership of the invited address confirmed by a one-time code.
 - Self-registration with an approval queue; each request is decided once.
 - Emails are sent after the transaction commits, in the recipient's language, and can be retried safely.
 - Rate limits on sign-in, email sending and code checks.
+- Known limits: no QR scanner screen of its own (the invitation page is mobile friendly); emails are sent right after commit with no retry queue (the administrator resends; the recipient can ask for a new code); invitations target viewers only, administrators are created with `bootstrap_admin`; rate limits count by client address, which needs `TRUST_PROXY_HEADERS` behind a proxy.
 
 ### 4. Screens, audit and previews
 

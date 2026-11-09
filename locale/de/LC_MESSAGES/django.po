@@ -496,3 +496,337 @@ msgstr "entzogen"
 
 msgid "view only"
 msgstr "nur ansehen"
+
+msgid "Access added to your account."
+msgstr "Der Zugriff wurde Ihrem Konto hinzugefügt."
+
+msgid "Access requests"
+msgstr "Zugriffsanfragen"
+
+msgid "Access to the room “%(room)s”."
+msgstr "Zugriff auf den Raum „%(room)s“."
+
+msgid "Add this access to my account"
+msgstr "Diesen Zugriff meinem Konto hinzufügen"
+
+msgid "An account with this address already exists."
+msgstr "Für diese Adresse existiert bereits ein Konto."
+
+msgid ""
+"An administrator reviews every request. You will confirm your email address "
+"with a code first."
+msgstr ""
+"Jede Anfrage wird von einem Administrator geprüft. Zuerst bestätigen Sie "
+"Ihre E-Mail-Adresse mit einem Code."
+
+msgid ""
+"Anyone with this link can start the invitation, but must confirm the invited"
+" email address with a code."
+msgstr ""
+"Wer diesen Link hat, kann die Einladung beginnen, muss aber die eingeladene "
+"E-Mail-Adresse mit einem Code bestätigen."
+
+msgid "Approve"
+msgstr "Genehmigen"
+
+msgid "Back to invitations"
+msgstr "Zurück zu den Einladungen"
+
+msgid "Choose the room of this folder."
+msgstr "Wählen Sie den Raum dieses Ordners."
+
+msgid "Confirm"
+msgstr "Bestätigen"
+
+msgid "Confirm your email"
+msgstr "E-Mail-Adresse bestätigen"
+
+msgid "Confirmation code from the email"
+msgstr "Bestätigungscode aus der E-Mail"
+
+msgid "Create invitation"
+msgstr "Einladung erstellen"
+
+msgid "Create my account"
+msgstr "Mein Konto erstellen"
+
+msgid "Decided"
+msgstr "Entschieden"
+
+msgid "First, confirm that this address is yours. We will email you a code."
+msgstr ""
+"Bestätigen Sie zuerst, dass diese Adresse Ihnen gehört. Wir senden Ihnen "
+"einen Code."
+
+msgid "If the address can be confirmed, we sent a new code."
+msgstr ""
+"Wenn die Adresse bestätigt werden kann, haben wir einen neuen Code gesendet."
+
+msgid "If the address can be used, we sent a 6-digit code to it."
+msgstr ""
+"Wenn die Adresse verwendet werden kann, haben wir einen 6-stelligen Code "
+"dorthin gesendet."
+
+msgid "If this was not you, you can ignore this message."
+msgstr "Wenn Sie das nicht waren, können Sie diese Nachricht ignorieren."
+
+msgid "If you did not expect this message, you can ignore it."
+msgstr ""
+"Wenn Sie diese Nachricht nicht erwartet haben, können Sie sie ignorieren."
+
+msgid "If you did not request this code, you can ignore this message."
+msgstr ""
+"Wenn Sie diesen Code nicht angefordert haben, können Sie diese Nachricht "
+"ignorieren."
+
+msgid ""
+"If you think this is a mistake, contact the person who shared the data room "
+"with you."
+msgstr ""
+"Wenn Sie glauben, dass es sich um einen Fehler handelt, wenden Sie sich an "
+"die Person, die den Data Room mit Ihnen geteilt hat."
+
+msgid "Invitation"
+msgstr "Einladung"
+
+msgid "Invitation created"
+msgstr "Einladung erstellt"
+
+msgid "Invitation link"
+msgstr "Einladungslink"
+
+msgid "Invitation to %(site)s"
+msgstr "Einladung zu %(site)s"
+
+msgid "Invitations"
+msgstr "Einladungen"
+
+msgid "Language of emails"
+msgstr "Sprache der E-Mails"
+
+msgid "Language of the invitation"
+msgstr "Sprache der Einladung"
+
+msgid "Link not valid"
+msgstr "Link ungültig"
+
+msgid "New invitation"
+msgstr "Neue Einladung"
+
+msgid "No access yet"
+msgstr "Noch kein Zugriff"
+
+msgid "No invitation? Request access"
+msgstr "Keine Einladung? Zugriff anfragen"
+
+msgid "No invitations yet."
+msgstr "Noch keine Einladungen."
+
+msgid "No requests are waiting."
+msgstr "Keine Anfragen warten auf eine Entscheidung."
+
+msgid "Nothing decided yet."
+msgstr "Noch nichts entschieden."
+
+msgid "Nothing to resend."
+msgstr "Nichts erneut zu senden."
+
+msgid "Open this link to create your account:"
+msgstr "Öffnen Sie diesen Link, um Ihr Konto zu erstellen:"
+
+msgid "Please wait a little before asking for another code."
+msgstr "Bitte warten Sie etwas, bevor Sie einen weiteren Code anfordern."
+
+msgid "Please wait a while and try again."
+msgstr "Bitte warten Sie eine Weile und versuchen Sie es erneut."
+
+msgid "QR code of the invitation link"
+msgstr "QR-Code des Einladungslinks"
+
+msgid "Reject"
+msgstr "Ablehnen"
+
+msgid "Repeat the password"
+msgstr "Passwort wiederholen"
+
+msgid "Request access"
+msgstr "Zugriff anfragen"
+
+msgid "Request received"
+msgstr "Anfrage erhalten"
+
+msgid "Room"
+msgstr "Raum"
+
+msgid "Send a new code"
+msgstr "Neuen Code senden"
+
+msgid "Send again"
+msgstr "Erneut senden"
+
+msgid "Send me a code"
+msgstr "Code an mich senden"
+
+msgid "Send request"
+msgstr "Anfrage senden"
+
+msgid "Send the email again"
+msgstr "E-Mail erneut senden"
+
+msgid "Send the invitation by email"
+msgstr "Einladung per E-Mail senden"
+
+msgid "Sign in to accept"
+msgstr "Zum Annehmen anmelden"
+
+msgid ""
+"Someone asked for access to %(site)s using this address. An account already "
+"exists."
+msgstr ""
+"Jemand hat mit dieser Adresse Zugriff auf %(site)s angefragt. Es existiert "
+"bereits ein Konto."
+
+msgid "The code is not valid or has expired. Ask for a new one."
+msgstr "Der Code ist ungültig oder abgelaufen. Fordern Sie einen neuen an."
+
+msgid "The code is valid for %(minutes)s minutes."
+msgstr "Der Code ist %(minutes)s Minuten gültig."
+
+msgid "The invitation email is being sent."
+msgstr "Die Einladungs-E-Mail wird gesendet."
+
+msgid ""
+"The invitation is not valid. It may have expired, been used, or been "
+"withdrawn. Ask the person who invited you to send a new one."
+msgstr ""
+"Die Einladung ist ungültig. Sie ist möglicherweise abgelaufen, bereits "
+"verwendet oder zurückgezogen worden. Bitten Sie die einladende Person um "
+"eine neue."
+
+msgid "The invitation is revoked."
+msgstr "Die Einladung wurde zurückgezogen."
+
+msgid "The invitation is valid for (days)"
+msgstr "Die Einladung ist gültig für (Tage)"
+
+msgid "The invitation is valid until %(until)s (UTC)."
+msgstr "Die Einladung ist bis %(until)s (UTC) gültig."
+
+msgid ""
+"The link and the QR code are shown only now and are not stored. To get a new"
+" link later, use “Send again”."
+msgstr ""
+"Der Link und der QR-Code werden nur jetzt angezeigt und nicht gespeichert. "
+"Einen neuen Link erhalten Sie später über „Erneut senden“."
+
+msgid "The notification is queued again."
+msgstr "Die Benachrichtigung wurde erneut eingereiht."
+
+msgid "The passwords do not match."
+msgstr "Die Passwörter stimmen nicht überein."
+
+msgid "The request is approved."
+msgstr "Die Anfrage wurde genehmigt."
+
+msgid "The request is rejected."
+msgstr "Die Anfrage wurde abgelehnt."
+
+msgid "This invitation is already used or revoked."
+msgstr "Diese Einladung wurde bereits verwendet oder zurückgezogen."
+
+msgid "This invitation is for %(email)s."
+msgstr "Diese Einladung gilt für %(email)s."
+
+msgid "This link does not work"
+msgstr "Dieser Link funktioniert nicht"
+
+msgid "This request has already been decided."
+msgstr "Über diese Anfrage wurde bereits entschieden."
+
+msgid "Too many attempts"
+msgstr "Zu viele Versuche"
+
+msgid "Too many attempts. Wait a few minutes and try again."
+msgstr ""
+"Zu viele Versuche. Warten Sie einige Minuten und versuchen Sie es erneut."
+
+msgid ""
+"Too many emails were sent recently. Try again later or share the link "
+"yourself."
+msgstr ""
+"Zuletzt wurden zu viele E-Mails gesendet. Versuchen Sie es später erneut "
+"oder geben Sie den Link selbst weiter."
+
+msgid "Waiting for a decision"
+msgstr "Warten auf Entscheidung"
+
+msgid "We sent a confirmation code to the invited address."
+msgstr "Wir haben einen Bestätigungscode an die eingeladene Adresse gesendet."
+
+msgid "Why do you need access?"
+msgstr "Wofür benötigen Sie den Zugriff?"
+
+msgid "You already have an account"
+msgstr "Sie haben bereits ein Konto"
+
+msgid "You are invited"
+msgstr "Sie sind eingeladen"
+
+msgid ""
+"You are signed in with another account. Sign out and open the invitation "
+"again."
+msgstr ""
+"Sie sind mit einem anderen Konto angemeldet. Melden Sie sich ab und öffnen "
+"Sie die Einladung erneut."
+
+msgid "You can sign in here:"
+msgstr "Hier können Sie sich anmelden:"
+
+msgid "You have been invited to %(site)s."
+msgstr "Sie wurden zu %(site)s eingeladen."
+
+msgid "Your access request to %(site)s has been approved."
+msgstr "Ihre Zugriffsanfrage für %(site)s wurde genehmigt."
+
+msgid "Your access request to %(site)s was not approved."
+msgstr "Ihre Zugriffsanfrage für %(site)s wurde nicht genehmigt."
+
+msgid "Your access request was approved"
+msgstr "Ihre Zugriffsanfrage wurde genehmigt"
+
+msgid "Your access request was not approved"
+msgstr "Ihre Zugriffsanfrage wurde nicht genehmigt"
+
+msgid "Your account is ready."
+msgstr "Ihr Konto ist bereit."
+
+msgid ""
+"Your address is confirmed. An administrator will review your request, and we"
+" will email you the decision."
+msgstr ""
+"Ihre Adresse ist bestätigt. Ein Administrator prüft Ihre Anfrage, die "
+"Entscheidung senden wir Ihnen per E-Mail."
+
+msgid "Your confirmation code"
+msgstr "Ihr Bestätigungscode"
+
+msgid "Your confirmation code for %(site)s: %(code)s"
+msgstr "Ihr Bestätigungscode für %(site)s: %(code)s"
+
+msgid "accepted"
+msgstr "angenommen"
+
+msgid "approved"
+msgstr "genehmigt"
+
+msgid "email was not delivered"
+msgstr "E-Mail wurde nicht zugestellt"
+
+msgid "rejected"
+msgstr "abgelehnt"
+
+msgid "valid until"
+msgstr "gültig bis"
+
+msgid "waiting"
+msgstr "wartet"

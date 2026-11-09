@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "New invitation" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="narrow">
+  <p class="crumbs"><a href="{% url 'invitation_list' %}">{% translate "Invitations" %}</a></p>
+  <h1>{% translate "New invitation" %}</h1>
+  <div class="card">
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% if form.non_field_errors %}<div class="notice warning" role="alert">{% for e in form.non_field_errors %}{{ e }} {% endfor %}</div>{% endif %}
+      {% for field in form %}{% include "includes/field.html" with field=field %}{% endfor %}
+      <div class="row">
+        <button type="submit" class="primary">{% translate "Create invitation" %}</button>
+        <a class="button secondary" href="{% url 'invitation_list' %}">{% translate "Cancel" %}</a>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

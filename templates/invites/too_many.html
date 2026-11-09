@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Too many attempts" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>{% translate "Too many attempts" %}</h1>
+  <div class="card"><p>{% translate "Please wait a while and try again." %}</p></div>
+</section>
+{% endblock %}

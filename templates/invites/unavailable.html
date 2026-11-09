@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Link not valid" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>{% translate "This link does not work" %}</h1>
+  <div class="card">
+    <p>{% translate "The invitation is not valid. It may have expired, been used, or been withdrawn. Ask the person who invited you to send a new one." %}</p>
+    <p><a href="{% url 'login' %}">{% translate "Sign in" %}</a></p>
+  </div>
+</section>
+{% endblock %}

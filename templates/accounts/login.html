@@ -20,5 +20,6 @@
       <div class="row"><button type="submit" class="primary">{% translate "Sign in" %}</button></div>
     </form>
   </div>
+  {% if SELF_REGISTRATION %}<p class="muted"><a href="{% url 'request_access' %}">{% translate "No invitation? Request access" %}</a></p>{% endif %}
 </section>
 {% endblock %}

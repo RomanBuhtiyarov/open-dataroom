@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Invitations" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section>
+  <h1>{% translate "Invitations" %}</h1>
+  <p><a class="button primary" href="{% url 'invitation_create' %}">{% translate "New invitation" %}</a></p>
+  <div class="card">
+    {% for row in rows %}
+    <p class="item">
+      <strong>{{ row.inv.email }}</strong> · {{ row.inv.room.name }}{% if row.inv.folder %} / {{ row.inv.folder.name }}{% endif %} ·
+      {% if row.status == "pending" %}{% translate "waiting" %}{% elif row.status == "accepted" %}{% translate "accepted" %}{% elif row.status == "revoked" %}{% translate "revoked" %}{% else %}{% translate "expired" %}{% endif %}
+      <span class="muted"> · {% translate "valid until" %} {{ row.inv.expires_at|date:"Y-m-d" }}</span>
+      {% if row.inv.email_failed_at %}<span class="error-inline"> · {% translate "email was not delivered" %}</span>{% endif %}
+      {% if row.status == "pending" or row.status == "expired" %}
+      <form method="post" action="{% url 'invitation_resend' row.inv.pk %}" class="inline-form">{% csrf_token %}<button type="submit" class="secondary">{% translate "Send again" %}</button></form>
+      {% endif %}
+      {% if row.status == "pending" %}
+      <form method="post" action="{% url 'invitation_revoke' row.inv.pk %}" class="inline-form">{% csrf_token %}<button type="submit" class="secondary">{% translate "Revoke" %}</button></form>
+      {% endif %}
+    </p>
+    {% empty %}<p class="muted">{% translate "No invitations yet." %}</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

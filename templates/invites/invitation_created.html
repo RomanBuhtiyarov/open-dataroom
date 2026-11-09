@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Invitation created" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>{% translate "Invitation created" %}</h1>
+  <div class="notice warning" role="status">{% translate "The link and the QR code are shown only now and are not stored. To get a new link later, use “Send again”." %}</div>
+  <div class="card">
+    <p><strong>{{ invitation.email }}</strong> · {{ invitation.room.name }}</p>
+    {% if send_email %}<p class="muted">{% translate "The invitation email is being sent." %}</p>{% endif %}
+    <label for="invite-link">{% translate "Invitation link" %}</label>
+    <input id="invite-link" type="text" value="{{ link }}" readonly onfocus="this.select()">
+    <div class="qr" role="img" aria-label="{% translate 'QR code of the invitation link' %}">{{ qr }}</div>
+    <p class="help">{% translate "Anyone with this link can start the invitation, but must confirm the invited email address with a code." %}</p>
+    <div class="row"><a class="button secondary" href="{% url 'invitation_list' %}">{% translate "Back to invitations" %}</a></div>
+  </div>
+</section>
+{% endblock %}

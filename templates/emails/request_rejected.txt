@@ -1,0 +1,4 @@
+{% load i18n %}{% autoescape off %}{% blocktranslate %}Your access request to {{ site }} was not approved.{% endblocktranslate %}
+
+{% translate "If you think this is a mistake, contact the person who shared the data room with you." %}
+{% endautoescape %}

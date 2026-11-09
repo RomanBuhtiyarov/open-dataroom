@@ -3,7 +3,7 @@
 A self-hosted, open-source data room for investors, due diligence and document sharing.
 One project, one instance, one Docker image. Interface in Russian, Ukrainian, German and English.
 
-> **Status: early development.** Milestones 0 (skeleton), 1 (first launch and administrators) and 2 (rooms, documents, access policy) are done. See the [roadmap](docs/ROADMAP.md) ([на русском](docs/ROADMAP.ru.md)).
+> **Status: early development.** Milestones 0 (skeleton), 1 (first launch and administrators), 2 (rooms, documents, access policy) and 3 (invitations and registration) are done. See the [roadmap](docs/ROADMAP.md) ([на русском](docs/ROADMAP.ru.md)).
 > Licensed under the [GNU Affero General Public License v3.0](LICENSE).
 
 ## What works today
@@ -19,9 +19,14 @@ One project, one instance, one Docker image. Interface in Russian, Ukrainian, Ge
 - Documents (PDF, DOCX, XLSX) with immutable versions; files checked by type, extension, size and content, stored in the private volume under random names.
 - One access policy for every check (list, open, download): closed by default, grants per room or folder (including subfolders), optional download right and expiry, immediate revocation.
 - Optional per-room NDA with versioned per-language texts and recorded acceptance; a new version must be accepted again.
+- Personal invitations by link or QR code: the token is stored only as a hash, opening the link consumes nothing, the invited address is confirmed by a one-time emailed code, and the account plus access are created in one transaction (a retry grants nothing twice). The token is removed from the address bar right after the first visit.
+- Optional self-registration: an access request is confirmed by email code, then waits in an approval queue; each request is decided once and the decision email can be resent safely.
+- Emails are sent only after the transaction commits, in the recipient's language. Rate limits (database based) on sign-in, code requests, code checks, token guessing and requests; keys are hashed.
 - Dockerfile and Compose file (not yet exercised in CI).
 
-Invitations, self-registration, page previews and the audit screens are on the roadmap. Until invitations arrive (milestone 3), create test viewers with `manage.py create_viewer <email>` (development helper).
+Page previews and the audit screens are on the roadmap. `manage.py create_viewer <email>` remains as a development helper.
+
+> Development note: without `EMAIL_HOST`, `DJANGO_DEBUG=1` prints emails (including invitation links and codes) to the server console. Production sends through SMTP and never logs message text. The Docker image and `deploy/nginx.example.conf` log request paths without the query string, because the invitation token travels there.
 
 ## Local development (no Docker)
 

@@ -1,0 +1,5 @@
+{% load i18n %}{% autoescape off %}{% blocktranslate %}Your access request to {{ site }} has been approved.{% endblocktranslate %}
+
+{% translate "You can sign in here:" %}
+{{ link }}
+{% endautoescape %}

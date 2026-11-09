@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Invitation" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>{% translate "You are invited" %}</h1>
+  <p class="intro">{% blocktranslate with room=invitation.room.name %}Access to the room “{{ room }}”.{% endblocktranslate %}</p>
+  <div class="card">
+    <p>{% blocktranslate with email=masked_email %}This invitation is for {{ email }}.{% endblocktranslate %}</p>
+
+    {% if existing %}
+      <p>{% translate "An account with this address already exists." %}</p>
+      {% if signed_in %}
+        <form method="post">{% csrf_token %}
+          <div class="row"><button type="submit" class="primary">{% translate "Add this access to my account" %}</button></div>
+        </form>
+      {% elif wrong_account %}
+        <div class="notice warning" role="alert">{% translate "You are signed in with another account. Sign out and open the invitation again." %}</div>
+      {% else %}
+        <p><a class="button primary" href="{{ login_url }}">{% translate "Sign in to accept" %}</a></p>
+      {% endif %}
+    {% else %}
+      <form method="post" class="inline" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="action" value="send_code">
+        <p>{% translate "First, confirm that this address is yours. We will email you a code." %}</p>
+        <div class="row"><button type="submit" class="secondary">{% translate "Send me a code" %}</button></div>
+      </form>
+      <hr>
+      <form method="post" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="action" value="accept">
+        {% if form.non_field_errors %}<div class="notice warning" role="alert">{% for e in form.non_field_errors %}{{ e }} {% endfor %}</div>{% endif %}
+        {% for field in form %}{% include "includes/field.html" with field=field %}{% endfor %}
+        <div class="row"><button type="submit" class="primary">{% translate "Create my account" %}</button></div>
+      </form>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

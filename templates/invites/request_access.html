@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Request access" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>{% translate "Request access" %}</h1>
+  <p class="intro">{% translate "An administrator reviews every request. You will confirm your email address with a code first." %}</p>
+  <div class="card">
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}{% include "includes/field.html" with field=field %}{% endfor %}
+      <div class="row"><button type="submit" class="primary">{% translate "Send request" %}</button></div>
+    </form>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ req.name }} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="narrow">
+  <p class="crumbs"><a href="{% url 'request_list' %}">{% translate "Access requests" %}</a></p>
+  <h1>{{ req.name }}</h1>
+  <div class="card">
+    <p><strong>{{ req.email }}</strong> · {{ req.created_at|date:"Y-m-d H:i" }} UTC</p>
+    {% if req.message %}<p>{{ req.message|linebreaksbr }}</p>{% endif %}
+    {% if not pending %}<p class="muted">{% if req.status == "approved" %}{% translate "approved" %}{% else %}{% translate "rejected" %}{% endif %}</p>{% endif %}
+  </div>
+  {% if pending %}
+  <div class="card">
+    <h2>{% translate "Approve" %}</h2>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      <input type="hidden" name="action" value="approve">
+      {% for field in form %}{% include "includes/field.html" with field=field %}{% endfor %}
+      <div class="row"><button type="submit" class="primary">{% translate "Approve" %}</button></div>
+    </form>
+  </div>
+  <div class="card">
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="reject">
+      <div class="row"><button type="submit" class="secondary">{% translate "Reject" %}</button></div>
+    </form>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

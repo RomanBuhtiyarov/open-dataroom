@@ -1,14 +1,17 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import never_cache
 from django_otp.plugins.otp_totp.models import TOTPDevice
 
+from apps.core import ratelimit
 from apps.core.views import set_language_cookie
 
 from .forms import ProfileForm
+from .models import normalize_email
 
 
 @login_required
@@ -27,3 +30,29 @@ def profile(request):
         return response
     has_2fa = request.user.is_admin and TOTPDevice.objects.filter(user=request.user, confirmed=True).exists()
     return render(request, "accounts/profile.html", {"form": form, "has_2fa": has_2fa})
+
+
+class RateLimitedLoginView(LoginView):
+    """Вход с ограничением частоты: по адресу клиента и по адресу почты. Считаются только неудачные попытки."""
+
+    IP_LIMIT, EMAIL_LIMIT, WINDOW = 20, 5, 600
+
+    def _keys(self):
+        email = normalize_email(self.request.POST.get("username", ""))
+        return (
+            ratelimit.make_key("login_ip", ratelimit.client_ip(self.request)),
+            ratelimit.make_key("login_email", email),
+        )
+
+    def post(self, request, *args, **kwargs):
+        ip_key, email_key = self._keys()
+        if ratelimit.exceeded(ip_key, self.IP_LIMIT, self.WINDOW) or ratelimit.exceeded(email_key, self.EMAIL_LIMIT, self.WINDOW):
+            form = self.get_form()
+            form.add_error(None, _("Too many attempts. Wait a few minutes and try again."))
+            return self.render_to_response(self.get_context_data(form=form), status=429)
+        return super().post(request, *args, **kwargs)
+
+    def form_invalid(self, form):
+        for key in self._keys():
+            ratelimit.hit(key)
+        return super().form_invalid(form)

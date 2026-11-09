@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Confirm your email" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="narrow">
+  {% if done %}
+  <h1>{% translate "Request received" %}</h1>
+  <div class="card"><p>{% translate "Your address is confirmed. An administrator will review your request, and we will email you the decision." %}</p></div>
+  {% else %}
+  <h1>{% translate "Confirm your email" %}</h1>
+  <p class="intro">{% translate "If the address can be used, we sent a 6-digit code to it." %}</p>
+  <div class="card">
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}{% include "includes/field.html" with field=field %}{% endfor %}
+      <div class="row"><button type="submit" class="primary">{% translate "Confirm" %}</button></div>
+    </form>
+    <form method="post" class="inline">{% csrf_token %}
+      <input type="hidden" name="action" value="send_code">
+      <div class="row"><button type="submit" class="secondary">{% translate "Send a new code" %}</button></div>
+    </form>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

@@ -481,3 +481,326 @@ msgstr "отозван"
 
 msgid "view only"
 msgstr "только просмотр"
+
+msgid "Access added to your account."
+msgstr "Доступ добавлен в вашу учётную запись."
+
+msgid "Access requests"
+msgstr "Заявки на доступ"
+
+msgid "Access to the room “%(room)s”."
+msgstr "Доступ к комнате «%(room)s»."
+
+msgid "Add this access to my account"
+msgstr "Добавить этот доступ в мою учётную запись"
+
+msgid "An account with this address already exists."
+msgstr "Учётная запись с этим адресом уже существует."
+
+msgid ""
+"An administrator reviews every request. You will confirm your email address "
+"with a code first."
+msgstr ""
+"Каждую заявку рассматривает администратор. Сначала вы подтвердите адрес "
+"почты кодом."
+
+msgid ""
+"Anyone with this link can start the invitation, but must confirm the invited"
+" email address with a code."
+msgstr ""
+"Любой, у кого есть эта ссылка, может начать приглашение, но должен "
+"подтвердить приглашённый адрес почты кодом."
+
+msgid "Approve"
+msgstr "Одобрить"
+
+msgid "Back to invitations"
+msgstr "К приглашениям"
+
+msgid "Choose the room of this folder."
+msgstr "Выберите комнату этой папки."
+
+msgid "Confirm"
+msgstr "Подтвердить"
+
+msgid "Confirm your email"
+msgstr "Подтвердите адрес почты"
+
+msgid "Confirmation code from the email"
+msgstr "Код подтверждения из письма"
+
+msgid "Create invitation"
+msgstr "Создать приглашение"
+
+msgid "Create my account"
+msgstr "Создать мою учётную запись"
+
+msgid "Decided"
+msgstr "Рассмотрены"
+
+msgid "First, confirm that this address is yours. We will email you a code."
+msgstr "Сначала подтвердите, что этот адрес ваш. Мы отправим на него код."
+
+msgid "If the address can be confirmed, we sent a new code."
+msgstr "Если адрес можно подтвердить, мы отправили новый код."
+
+msgid "If the address can be used, we sent a 6-digit code to it."
+msgstr "Если адрес можно использовать, мы отправили на него 6-значный код."
+
+msgid "If this was not you, you can ignore this message."
+msgstr "Если это были не вы, просто проигнорируйте письмо."
+
+msgid "If you did not expect this message, you can ignore it."
+msgstr "Если вы не ждали это письмо, просто проигнорируйте его."
+
+msgid "If you did not request this code, you can ignore this message."
+msgstr "Если вы не запрашивали этот код, просто проигнорируйте письмо."
+
+msgid ""
+"If you think this is a mistake, contact the person who shared the data room "
+"with you."
+msgstr ""
+"Если вы считаете, что это ошибка, свяжитесь с человеком, который поделился с"
+" вами data room."
+
+msgid "Invitation"
+msgstr "Приглашение"
+
+msgid "Invitation created"
+msgstr "Приглашение создано"
+
+msgid "Invitation link"
+msgstr "Ссылка-приглашение"
+
+msgid "Invitation to %(site)s"
+msgstr "Приглашение в %(site)s"
+
+msgid "Invitations"
+msgstr "Приглашения"
+
+msgid "Language of emails"
+msgstr "Язык писем"
+
+msgid "Language of the invitation"
+msgstr "Язык приглашения"
+
+msgid "Link not valid"
+msgstr "Ссылка недействительна"
+
+msgid "New invitation"
+msgstr "Новое приглашение"
+
+msgid "No access yet"
+msgstr "Пока без доступа"
+
+msgid "No invitation? Request access"
+msgstr "Нет приглашения? Запросите доступ"
+
+msgid "No invitations yet."
+msgstr "Приглашений пока нет."
+
+msgid "No requests are waiting."
+msgstr "Нет заявок, ожидающих решения."
+
+msgid "Nothing decided yet."
+msgstr "Пока ничего не рассмотрено."
+
+msgid "Nothing to resend."
+msgstr "Нечего отправлять повторно."
+
+msgid "Open this link to create your account:"
+msgstr "Откройте эту ссылку, чтобы создать учётную запись:"
+
+msgid "Please wait a little before asking for another code."
+msgstr "Подождите немного, прежде чем запрашивать новый код."
+
+msgid "Please wait a while and try again."
+msgstr "Подождите некоторое время и попробуйте снова."
+
+msgid "QR code of the invitation link"
+msgstr "QR-код ссылки-приглашения"
+
+msgid "Reject"
+msgstr "Отклонить"
+
+msgid "Repeat the password"
+msgstr "Повторите пароль"
+
+msgid "Request access"
+msgstr "Запросить доступ"
+
+msgid "Request received"
+msgstr "Заявка получена"
+
+msgid "Room"
+msgstr "Комната"
+
+msgid "Send a new code"
+msgstr "Отправить новый код"
+
+msgid "Send again"
+msgstr "Отправить снова"
+
+msgid "Send me a code"
+msgstr "Отправьте мне код"
+
+msgid "Send request"
+msgstr "Отправить заявку"
+
+msgid "Send the email again"
+msgstr "Отправить письмо ещё раз"
+
+msgid "Send the invitation by email"
+msgstr "Отправить приглашение по почте"
+
+msgid "Sign in to accept"
+msgstr "Войдите, чтобы принять"
+
+msgid ""
+"Someone asked for access to %(site)s using this address. An account already "
+"exists."
+msgstr ""
+"Кто-то запросил доступ к %(site)s с этим адресом. Учётная запись уже "
+"существует."
+
+msgid "The code is not valid or has expired. Ask for a new one."
+msgstr "Код неверный или устарел. Запросите новый."
+
+msgid "The code is valid for %(minutes)s minutes."
+msgstr "Код действует %(minutes)s мин."
+
+msgid "The invitation email is being sent."
+msgstr "Письмо с приглашением отправляется."
+
+msgid ""
+"The invitation is not valid. It may have expired, been used, or been "
+"withdrawn. Ask the person who invited you to send a new one."
+msgstr ""
+"Приглашение недействительно. Возможно, срок истёк, оно уже использовано или "
+"отозвано. Попросите пригласившего прислать новое."
+
+msgid "The invitation is revoked."
+msgstr "Приглашение отозвано."
+
+msgid "The invitation is valid for (days)"
+msgstr "Приглашение действует (дней)"
+
+msgid "The invitation is valid until %(until)s (UTC)."
+msgstr "Приглашение действует до %(until)s (UTC)."
+
+msgid ""
+"The link and the QR code are shown only now and are not stored. To get a new"
+" link later, use “Send again”."
+msgstr ""
+"Ссылка и QR-код показываются только сейчас и нигде не хранятся. Чтобы позже "
+"получить новую ссылку, нажмите «Отправить снова»."
+
+msgid "The notification is queued again."
+msgstr "Уведомление поставлено в очередь повторно."
+
+msgid "The passwords do not match."
+msgstr "Пароли не совпадают."
+
+msgid "The request is approved."
+msgstr "Заявка одобрена."
+
+msgid "The request is rejected."
+msgstr "Заявка отклонена."
+
+msgid "This invitation is already used or revoked."
+msgstr "Это приглашение уже использовано или отозвано."
+
+msgid "This invitation is for %(email)s."
+msgstr "Это приглашение для %(email)s."
+
+msgid "This link does not work"
+msgstr "Эта ссылка не работает"
+
+msgid "This request has already been decided."
+msgstr "По этой заявке решение уже принято."
+
+msgid "Too many attempts"
+msgstr "Слишком много попыток"
+
+msgid "Too many attempts. Wait a few minutes and try again."
+msgstr "Слишком много попыток. Подождите несколько минут и повторите."
+
+msgid ""
+"Too many emails were sent recently. Try again later or share the link "
+"yourself."
+msgstr ""
+"Недавно отправлено слишком много писем. Повторите позже или передайте ссылку"
+" сами."
+
+msgid "Waiting for a decision"
+msgstr "Ожидают решения"
+
+msgid "We sent a confirmation code to the invited address."
+msgstr "Мы отправили код подтверждения на приглашённый адрес."
+
+msgid "Why do you need access?"
+msgstr "Зачем вам нужен доступ?"
+
+msgid "You already have an account"
+msgstr "У вас уже есть учётная запись"
+
+msgid "You are invited"
+msgstr "Вас пригласили"
+
+msgid ""
+"You are signed in with another account. Sign out and open the invitation "
+"again."
+msgstr ""
+"Вы вошли под другой учётной записью. Выйдите и откройте приглашение снова."
+
+msgid "You can sign in here:"
+msgstr "Войти можно здесь:"
+
+msgid "You have been invited to %(site)s."
+msgstr "Вас пригласили в %(site)s."
+
+msgid "Your access request to %(site)s has been approved."
+msgstr "Ваша заявка на доступ к %(site)s одобрена."
+
+msgid "Your access request to %(site)s was not approved."
+msgstr "Ваша заявка на доступ к %(site)s не одобрена."
+
+msgid "Your access request was approved"
+msgstr "Ваша заявка на доступ одобрена"
+
+msgid "Your access request was not approved"
+msgstr "Ваша заявка на доступ не одобрена"
+
+msgid "Your account is ready."
+msgstr "Ваша учётная запись готова."
+
+msgid ""
+"Your address is confirmed. An administrator will review your request, and we"
+" will email you the decision."
+msgstr ""
+"Ваш адрес подтверждён. Администратор рассмотрит заявку, а решение мы пришлём"
+" по почте."
+
+msgid "Your confirmation code"
+msgstr "Ваш код подтверждения"
+
+msgid "Your confirmation code for %(site)s: %(code)s"
+msgstr "Ваш код подтверждения для %(site)s: %(code)s"
+
+msgid "accepted"
+msgstr "принято"
+
+msgid "approved"
+msgstr "одобрена"
+
+msgid "email was not delivered"
+msgstr "письмо не доставлено"
+
+msgid "rejected"
+msgstr "отклонена"
+
+msgid "valid until"
+msgstr "действует до"
+
+msgid "waiting"
+msgstr "ожидает"

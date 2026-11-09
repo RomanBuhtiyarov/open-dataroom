@@ -15,4 +15,5 @@ def branding(request):
         "BRAND_COLOR": settings.BRAND_COLOR,
         "LOGO": logo,
         "SUPPORTED_LANGUAGES": settings.LANGUAGES,
+        "SELF_REGISTRATION": inst.self_registration_enabled,
     }

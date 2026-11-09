@@ -41,3 +41,13 @@ class InstanceSettings(models.Model):
     @property
     def is_setup_complete(self):
         return self.setup_completed_at is not None
+
+
+class RateLimitHit(models.Model):
+    """Одно обращение для ограничения частоты. Ключ — хеш (область:значение), без открытых адресов."""
+
+    key = models.CharField(max_length=80)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        indexes = [models.Index(fields=["key", "created_at"])]

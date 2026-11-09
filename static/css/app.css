@@ -48,5 +48,7 @@ a.button.secondary{color:var(--green);background:#fff}
 form.inline{margin-top:14px}
 .nda-text{max-height:50vh;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:12px;margin-bottom:14px;background:#fbfbf7}
 textarea{display:block;width:100%;margin:0 0 13px;border:1px solid #b7c8bc;background:#fff;border-radius:8px;padding:10px;font:inherit;color:inherit}
+.error-inline{color:#9a3412}
+hr{border:0;border-top:1px solid var(--line);margin:18px 0}
 :focus-visible{outline:3px solid #467a61;outline-offset:3px}
 @media(max-width:520px){.lang label{display:none}}

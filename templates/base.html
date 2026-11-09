@@ -25,7 +25,9 @@
     {% if not user.is_admin or user.is_verified %}
     <nav class="links" aria-label="{% translate 'Account' %}">
       <a href="{% url 'profile' %}">{% translate "Profile" %}</a>
-      {% if user.is_admin %}<a href="{% url 'instance_settings' %}">{% translate "Instance settings" %}</a>{% endif %}
+      {% if user.is_admin %}<a href="{% url 'invitation_list' %}">{% translate "Invitations" %}</a>
+      <a href="{% url 'request_list' %}">{% translate "Access requests" %}</a>
+      <a href="{% url 'instance_settings' %}">{% translate "Instance settings" %}</a>{% endif %}
     </nav>
     {% endif %}
     <form method="post" action="{% url 'logout' %}">{% csrf_token %}

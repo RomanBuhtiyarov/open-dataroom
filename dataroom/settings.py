@@ -48,7 +48,8 @@ ALLOWED_HOSTS = [_parsed.hostname] + [h.strip() for h in env("ALLOWED_HOSTS_EXTR
 CSRF_TRUSTED_ORIGINS = [f"{_parsed.scheme}://{_parsed.netloc}"]
 
 # Заголовки от proxy принимаем только если оператор включил доверие.
-if env_bool("TRUST_PROXY_HEADERS", False):
+TRUST_PROXY_HEADERS = env_bool("TRUST_PROXY_HEADERS", False)
+if TRUST_PROXY_HEADERS:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # --- Бренд экземпляра ------------------------------------------------------
@@ -71,6 +72,7 @@ INSTALLED_APPS = [
     "apps.audit",
     "apps.core",
     "apps.rooms",
+    "apps.invites",
 ]
 
 MIDDLEWARE = [
@@ -202,3 +204,23 @@ EMAIL_HOST_USER = env("EMAIL_HOST_USER", "")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", "")
 EMAIL_USE_TLS = env_bool("EMAIL_USE_TLS", True)
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", f"no-reply@{_parsed.hostname}")
+
+# --- Приглашения и коды ----------------------------------------------------
+INVITATION_DEFAULT_DAYS = 7
+INVITATION_MAX_DAYS = 30
+EMAIL_CODE_TTL_SECONDS = 15 * 60
+EMAIL_CODE_MAX_ATTEMPTS = 5
+
+# --- Журналы ---------------------------------------------------------------
+# В журналах не должно быть токенов из ссылок приглашений: фильтр вырезает параметр t=.
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "filters": {"redact": {"()": "apps.core.log_filters.RedactTokenFilter"}},
+    "handlers": {"console": {"class": "logging.StreamHandler", "filters": ["redact"]}},
+    "loggers": {
+        "django.server": {"handlers": ["console"], "level": "INFO", "propagate": False},
+        "django.request": {"handlers": ["console"], "level": "WARNING", "propagate": False},
+        "apps": {"handlers": ["console"], "level": "INFO", "propagate": False},
+    },
+}

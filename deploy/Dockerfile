@@ -22,5 +22,7 @@ RUN useradd --system --uid 10001 --home /app app \
     && chown -R app:app /data
 USER app
 
+# Формат журнала без query string: в ссылках приглашений есть токен.
 EXPOSE 8000
-CMD ["gunicorn", "dataroom.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3", "--access-logfile", "-"]
+CMD ["gunicorn", "dataroom.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3", "--access-logfile", "-",
+     "--access-logformat", "%(h)s %(t)s \"%(m)s %(U)s %(H)s\" %(s)s %(b)s"]

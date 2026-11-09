@@ -1,0 +1,9 @@
+{% load i18n %}{% autoescape off %}{% blocktranslate %}You have been invited to {{ site }}.{% endblocktranslate %}
+
+{% translate "Open this link to create your account:" %}
+{{ link }}
+
+{% blocktranslate %}The invitation is valid until {{ until }} (UTC).{% endblocktranslate %}
+
+{% translate "If you did not expect this message, you can ignore it." %}
+{% endautoescape %}

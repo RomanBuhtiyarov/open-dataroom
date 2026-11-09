@@ -1,0 +1,7 @@
+{% load i18n %}{% autoescape off %}{% blocktranslate %}Someone asked for access to {{ site }} using this address. An account already exists.{% endblocktranslate %}
+
+{% translate "You can sign in here:" %}
+{{ link }}
+
+{% translate "If this was not you, you can ignore this message." %}
+{% endautoescape %}
