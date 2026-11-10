@@ -1078,3 +1078,78 @@ msgstr "Backup erstellt"
 
 msgid "Instance restored from a backup"
 msgstr "Instanz aus einem Backup wiederhergestellt"
+
+msgid "Back to sign in"
+msgstr "Zurück zur Anmeldung"
+
+msgid "Change the password"
+msgstr "Passwort ändern"
+
+msgid "Check your email"
+msgstr "Prüfen Sie Ihr Postfach"
+
+msgid "Choose a new password"
+msgstr "Neues Passwort wählen"
+
+msgid ""
+"Enter your email address. If an account exists, we will send a link to "
+"choose a new password."
+msgstr ""
+"Geben Sie Ihre E-Mail-Adresse ein. Falls ein Konto existiert, senden wir "
+"einen Link zum Festlegen eines neuen Passworts."
+
+msgid "Forgot your password?"
+msgstr "Passwort vergessen?"
+
+msgid ""
+"If an account exists for this address, we sent a link. It works once and "
+"expires in one hour."
+msgstr ""
+"Falls für diese Adresse ein Konto existiert, haben wir einen Link gesendet. "
+"Er funktioniert einmal und läuft nach einer Stunde ab."
+
+msgid ""
+"If this was not you, ignore this message. Your password stays the same."
+msgstr ""
+"Wenn Sie das nicht waren, ignorieren Sie diese Nachricht. Ihr Passwort "
+"bleibt unverändert."
+
+msgid "New password"
+msgstr "Neues Passwort"
+
+msgid "Open this link to choose a new password:"
+msgstr "Öffnen Sie diesen Link, um ein neues Passwort zu wählen:"
+
+msgid "Password changed by reset link"
+msgstr "Passwort per Reset-Link geändert"
+
+msgid "Password reset requested"
+msgstr "Passwort-Reset angefordert"
+
+msgid "Request ID"
+msgstr "Anfrage-ID"
+
+msgid "Reset your password"
+msgstr "Passwort zurücksetzen"
+
+msgid "Send the link"
+msgstr "Link senden"
+
+msgid "Someone asked to reset the password for your account on %(site)s."
+msgstr ""
+"Jemand hat das Zurücksetzen des Passworts für Ihr Konto bei %(site)s "
+"angefordert."
+
+msgid ""
+"The link is expired, was already used or is not valid. You can ask for a new"
+" one."
+msgstr ""
+"Der Link ist abgelaufen, wurde bereits verwendet oder ist ungültig. Sie "
+"können einen neuen anfordern."
+
+msgid "The link works once and expires in %(minutes)s minutes."
+msgstr "Der Link funktioniert einmal und läuft nach %(minutes)s Minuten ab."
+
+msgid "Your password was changed. Sign in with the new password."
+msgstr ""
+"Ihr Passwort wurde geändert. Melden Sie sich mit dem neuen Passwort an."

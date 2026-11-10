@@ -27,7 +27,7 @@
         <td class="nowrap">{{ row.time|date:"Y-m-d H:i:s" }}</td>
         <td>{% if row.actor %}{{ row.actor }}{% else %}<span class="muted">—</span>{% endif %}</td>
         <td>{{ row.label }}<br><code class="muted">{{ row.code }}</code></td>
-        <td><code>{{ row.target }}</code></td>
+        <td><code>{{ row.target }}</code>{% if row.request_id %}<br><code class="muted" title="{% translate "Request ID" %}">{{ row.request_id }}</code>{% endif %}</td>
         <td><span class="badge badge-{{ row.outcome }}">{{ row.outcome_label }}</span></td>
       </tr>
       {% empty %}

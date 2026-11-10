@@ -9,6 +9,8 @@ LABELS = {
     events.AUTH_2FA_VERIFIED: _("Two-factor code accepted"),
     events.AUTH_2FA_FAILED: _("Two-factor code rejected"),
     events.AUTH_2FA_RESET: _("Two-factor devices removed"),
+    events.AUTH_PASSWORD_RESET_REQUESTED: _("Password reset requested"),
+    events.AUTH_PASSWORD_RESET_COMPLETED: _("Password changed by reset link"),
     events.AUTH_SIGNED_IN: _("Signed in"),
     events.AUTH_SIGNED_OUT: _("Signed out"),
     events.AUTH_SIGN_IN_FAILED: _("Sign-in failed"),

@@ -372,7 +372,7 @@ def test_csv_export_respects_filters_neutralises_formulas_and_is_itself_audited(
     assert response.status_code == 200 and response["Content-Type"].startswith("text/csv")
     assert "attachment" in response["Content-Disposition"]
     rows = list(csv.reader(io.StringIO(response.content.decode())))
-    assert rows[0] == ["time_utc", "actor", "event_code", "event", "target", "outcome"]
+    assert rows[0] == ["time_utc", "actor", "event_code", "event", "target", "outcome", "request_id"]
     assert len(rows) == 2 and rows[1][2] == "room.created" and rows[1][4].startswith("'=")
     assert AuditEvent.objects.filter(code="audit.exported", actor=admin, target="rows:1").exists()
 

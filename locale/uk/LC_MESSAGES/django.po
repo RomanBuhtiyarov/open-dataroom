@@ -1051,3 +1051,72 @@ msgstr "Резервну копію створено"
 
 msgid "Instance restored from a backup"
 msgstr "Екземпляр відновлено з резервної копії"
+
+msgid "Back to sign in"
+msgstr "Назад до входу"
+
+msgid "Change the password"
+msgstr "Змінити пароль"
+
+msgid "Check your email"
+msgstr "Перевірте пошту"
+
+msgid "Choose a new password"
+msgstr "Оберіть новий пароль"
+
+msgid ""
+"Enter your email address. If an account exists, we will send a link to "
+"choose a new password."
+msgstr ""
+"Вкажіть адресу пошти. Якщо обліковий запис існує, ми надішлемо посилання для"
+" вибору нового пароля."
+
+msgid "Forgot your password?"
+msgstr "Забули пароль?"
+
+msgid ""
+"If an account exists for this address, we sent a link. It works once and "
+"expires in one hour."
+msgstr ""
+"Якщо для цієї адреси є обліковий запис, ми надіслали посилання. Воно працює "
+"один раз і діє одну годину."
+
+msgid ""
+"If this was not you, ignore this message. Your password stays the same."
+msgstr "Якщо це були не ви, проігноруйте лист. Пароль залишиться попереднім."
+
+msgid "New password"
+msgstr "Новий пароль"
+
+msgid "Open this link to choose a new password:"
+msgstr "Відкрийте посилання, щоб обрати новий пароль:"
+
+msgid "Password changed by reset link"
+msgstr "Пароль змінено за посиланням скидання"
+
+msgid "Password reset requested"
+msgstr "Запрошено скидання пароля"
+
+msgid "Request ID"
+msgstr "Ідентифікатор запиту"
+
+msgid "Reset your password"
+msgstr "Скидання пароля"
+
+msgid "Send the link"
+msgstr "Надіслати посилання"
+
+msgid "Someone asked to reset the password for your account on %(site)s."
+msgstr "Хтось запросив скидання пароля вашого облікового запису в %(site)s."
+
+msgid ""
+"The link is expired, was already used or is not valid. You can ask for a new"
+" one."
+msgstr ""
+"Посилання прострочене, уже використане або недійсне. Можна запросити нове."
+
+msgid "The link works once and expires in %(minutes)s minutes."
+msgstr "Посилання працює один раз і діє %(minutes)s хв."
+
+msgid "Your password was changed. Sign in with the new password."
+msgstr "Пароль змінено. Увійдіть з новим паролем."

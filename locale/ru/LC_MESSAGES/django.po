@@ -1050,3 +1050,73 @@ msgstr "Резервная копия создана"
 
 msgid "Instance restored from a backup"
 msgstr "Экземпляр восстановлен из резервной копии"
+
+msgid "Back to sign in"
+msgstr "Назад ко входу"
+
+msgid "Change the password"
+msgstr "Сменить пароль"
+
+msgid "Check your email"
+msgstr "Проверьте почту"
+
+msgid "Choose a new password"
+msgstr "Выберите новый пароль"
+
+msgid ""
+"Enter your email address. If an account exists, we will send a link to "
+"choose a new password."
+msgstr ""
+"Укажите адрес почты. Если учётная запись существует, мы отправим ссылку для "
+"выбора нового пароля."
+
+msgid "Forgot your password?"
+msgstr "Забыли пароль?"
+
+msgid ""
+"If an account exists for this address, we sent a link. It works once and "
+"expires in one hour."
+msgstr ""
+"Если для этого адреса есть учётная запись, мы отправили ссылку. Она работает"
+" один раз и действует один час."
+
+msgid ""
+"If this was not you, ignore this message. Your password stays the same."
+msgstr "Если это были не вы, проигнорируйте письмо. Пароль останется прежним."
+
+msgid "New password"
+msgstr "Новый пароль"
+
+msgid "Open this link to choose a new password:"
+msgstr "Откройте ссылку, чтобы выбрать новый пароль:"
+
+msgid "Password changed by reset link"
+msgstr "Пароль изменён по ссылке сброса"
+
+msgid "Password reset requested"
+msgstr "Запрошен сброс пароля"
+
+msgid "Request ID"
+msgstr "Идентификатор запроса"
+
+msgid "Reset your password"
+msgstr "Сброс пароля"
+
+msgid "Send the link"
+msgstr "Отправить ссылку"
+
+msgid "Someone asked to reset the password for your account on %(site)s."
+msgstr "Кто-то запросил сброс пароля вашей учётной записи в %(site)s."
+
+msgid ""
+"The link is expired, was already used or is not valid. You can ask for a new"
+" one."
+msgstr ""
+"Ссылка просрочена, уже использована или недействительна. Можно запросить "
+"новую."
+
+msgid "The link works once and expires in %(minutes)s minutes."
+msgstr "Ссылка работает один раз и действует %(minutes)s мин."
+
+msgid "Your password was changed. Sign in with the new password."
+msgstr "Пароль изменён. Войдите с новым паролем."

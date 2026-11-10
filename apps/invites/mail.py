@@ -22,7 +22,7 @@ def _site_name():
     return InstanceSettings.current().effective_site_name
 
 
-def _absolute(path, **query):
+def absolute(path, **query):
     url = settings.PUBLIC_BASE_URL + path
     return f"{url}?{urlencode(query)}" if query else url
 
@@ -51,7 +51,7 @@ def queue_invitation_email(invitation, token):
     """Письмо со ссылкой-приглашением. Токен живёт только в этой функции и в письме."""
     from .models import Invitation
 
-    link = _absolute(reverse("invite_entry"), t=token)
+    link = absolute(reverse("invite_entry"), t=token)
     subject, body = _render(
         "invitation", invitation.language, _("Invitation to %(site)s"),
         {"link": link, "until": f"{invitation.expires_at:%Y-%m-%d %H:%M}"},
@@ -77,7 +77,7 @@ def queue_code_email(to, code, language):
 
 
 def queue_existing_account_email(to, language):
-    subject, body = _render("existing_account", language, _("You already have an account"), {"link": _absolute(reverse("login"))})
+    subject, body = _render("existing_account", language, _("You already have an account"), {"link": absolute(reverse("login"))})
     transaction.on_commit(lambda: deliver("existing_account", to, subject, body))
 
 
@@ -87,7 +87,7 @@ def queue_decision_email(access_request, approved):
 
     template = "request_approved" if approved else "request_rejected"
     subject_template = _("Your access request was approved") if approved else _("Your access request was not approved")
-    subject, body = _render(template, access_request.language, subject_template, {"link": _absolute(reverse("login"))})
+    subject, body = _render(template, access_request.language, subject_template, {"link": absolute(reverse("login"))})
     pk, to = access_request.pk, access_request.email
 
     def send():
@@ -98,3 +98,13 @@ def queue_decision_email(access_request, approved):
         )
 
     transaction.on_commit(send)
+
+
+def queue_password_reset_email(to, link, language):
+    """Письмо со ссылкой сброса. Язык: профиль пользователя, затем язык экземпляра."""
+    language = language or InstanceSettings.current().effective_locale
+    subject, body = _render(
+        "password_reset", language, _("Reset your password"),
+        {"link": link, "minutes": settings.PASSWORD_RESET_TIMEOUT // 60},
+    )
+    transaction.on_commit(lambda: deliver("password_reset", to, subject, body))

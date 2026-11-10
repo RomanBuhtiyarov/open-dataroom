@@ -22,6 +22,7 @@ Status legend: **done**, **next**, **planned**, **later**.
 | 3 | Invitations and registration | **done** | Personal invitation by link or QR code, email verification by one-time code, self-registration with administrator approval, translated emails, rate limits |
 | 4 | Screens, audit and previews | **done** | Administrator and investor screens, audit log, raster page previews for view-only documents, download by permission, revocation takes effect immediately |
 | 5 | Operations | done | Second instance from the same image, backup and restore procedure, deployment guide with reverse proxy examples |
+| 6 | Specification gaps: security | done | Password reset by one-time link, no-store and no-referrer on token pages, request id in the audit log |
 
 ### 0. Project skeleton (done)
 
@@ -72,6 +73,13 @@ Status legend: **done**, **next**, **planned**, **later**.
 - Two instances from one image: separate Compose project, port, database, volume, secrets and cookie names; a test checks that hosts, cookies and volume paths follow the environment.
 - Deployment guide: [docs/DEPLOYMENT.md](DEPLOYMENT.md).
 - Known limits: the Compose files, the Nginx and Caddy examples and the PostgreSQL branch of backup and restore have not been run against a real Docker daemon or PostgreSQL (the archive logic and the SQLite branch are tested); no built-in scheduler, encryption or retention for backups; failed emails have no background retry queue. See [docs/DEPLOYMENT.md](DEPLOYMENT.md).
+
+### 6. Specification gaps: security (done)
+
+- Password reset: `/password-reset/`. The same answer for known and unknown addresses; the link carries a signed, one-time token in `?t=` (opening it consumes nothing, the token moves into the session and out of the address bar); valid for one hour; a sign-in or a password change invalidates it; rate limited by address and by client; suspended accounts get no link; the administrator's second factor is not bypassed. Emails use the user's language.
+- Invitation, access-request and password-reset pages send `Cache-Control: no-store` and `Referrer-Policy: no-referrer`; other pages keep `same-origin`.
+- Each audit event stores a server-generated request id (also returned as `X-Request-ID`, shown in the audit screen and the CSV). A value sent by the client is ignored.
+- Known limits: response timing is not equalised between known and unknown addresses; existing sessions of the user are ended by the password change but the reset does not notify other devices.
 
 ## After the first release
 

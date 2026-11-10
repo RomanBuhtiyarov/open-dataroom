@@ -20,6 +20,8 @@ class AuditEvent(models.Model):
     code = models.CharField(max_length=64, db_index=True)
     target = models.CharField(max_length=200, blank=True)
     outcome = models.CharField(max_length=16, choices=Outcome.choices, default=Outcome.OK)
+    # Идентификатор запроса: связывает события одного запроса. Создаётся сервером, не берётся от клиента.
+    request_id = models.CharField(max_length=32, blank=True, default="")
 
     class Meta:
         ordering = ["-created_at", "-id"]

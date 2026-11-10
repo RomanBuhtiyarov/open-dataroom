@@ -47,6 +47,7 @@ def _row(event):
         "label": labels.label(event.code),
         "target": event.target,
         "outcome": event.outcome,
+        "request_id": event.request_id,
         "outcome_label": labels.outcome_label(event.outcome),
     }
 
@@ -78,12 +79,13 @@ def audit_export(request):
     response = HttpResponse(content_type="text/csv; charset=utf-8")
     response["Content-Disposition"] = 'attachment; filename="audit-log.csv"'
     writer = csv.writer(response)
-    writer.writerow(["time_utc", "actor", "event_code", "event", "target", "outcome"])
+    writer.writerow(["time_utc", "actor", "event_code", "event", "target", "outcome", "request_id"])
     count = 0
     for event in _filtered(form)[:EXPORT_LIMIT]:
         row = _row(event)
         writer.writerow([row["time"].strftime("%Y-%m-%d %H:%M:%S"), _csv_safe(row["actor"]), row["code"],
-                         _csv_safe(row["label"]), _csv_safe(row["target"]), row["outcome"]])
+                         _csv_safe(row["label"]), _csv_safe(row["target"]), row["outcome"],
+                         _csv_safe(row["request_id"])])
         count += 1
     record(events.AUDIT_EXPORTED, actor=request.user, target=f"rows:{count}")
     return response
