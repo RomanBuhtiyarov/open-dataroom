@@ -3,7 +3,7 @@
 A self-hosted, open-source data room for investors, due diligence and document sharing.
 One project, one instance, one Docker image. Interface in Russian, Ukrainian, German and English.
 
-> **Status: early development.** Milestones 0 to 4 are done: skeleton, first launch and administrators, rooms and access policy, invitations and registration, screens, audit and previews. See the [roadmap](docs/ROADMAP.md) ([на русском](docs/ROADMAP.ru.md)).
+> **Status: early development.** Milestones 0 to 5 are done: skeleton, first launch and administrators, rooms and access policy, invitations and registration, screens, audit and previews, backups and deployment guide. See the [roadmap](docs/ROADMAP.md) ([на русском](docs/ROADMAP.ru.md)).
 > Licensed under the [GNU Affero General Public License v3.0](LICENSE).
 
 ## What works today
@@ -79,7 +79,9 @@ docker compose --env-file .env -f deploy/docker-compose.yml run --rm web python 
 docker compose --env-file .env -f deploy/docker-compose.yml run --rm web python manage.py bootstrap_admin
 ```
 
-The web port is published on `127.0.0.1` only; put a TLS-terminating reverse proxy in front (see `deploy/nginx.example.conf`).
+The web port is published on `127.0.0.1` only; put a TLS-terminating reverse proxy in front (see `deploy/nginx.example.conf` or `deploy/Caddyfile.example`).
+
+Backups, restore, a second instance and upgrades are described in the [deployment guide](docs/DEPLOYMENT.md). In short: `python manage.py backup_instance FILE` and `python manage.py restore_instance FILE`. The archive holds confidential documents; store it encrypted.
 
 ## Contributing
 

@@ -1072,3 +1072,9 @@ msgstr "Räume"
 
 msgid "success"
 msgstr "erfolgreich"
+
+msgid "Backup created"
+msgstr "Backup erstellt"
+
+msgid "Instance restored from a backup"
+msgstr "Instanz aus einem Backup wiederhergestellt"

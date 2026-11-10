@@ -1044,3 +1044,9 @@ msgstr "комнат"
 
 msgid "success"
 msgstr "успешно"
+
+msgid "Backup created"
+msgstr "Резервная копия создана"
+
+msgid "Instance restored from a backup"
+msgstr "Экземпляр восстановлен из резервной копии"

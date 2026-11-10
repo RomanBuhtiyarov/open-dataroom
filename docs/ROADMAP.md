@@ -21,7 +21,7 @@ Status legend: **done**, **next**, **planned**, **later**.
 | 2 | Rooms, documents and access policy | **done** | Rooms, folder tree, documents and versions, access grants, central access policy, room templates, private file storage |
 | 3 | Invitations and registration | **done** | Personal invitation by link or QR code, email verification by one-time code, self-registration with administrator approval, translated emails, rate limits |
 | 4 | Screens, audit and previews | **done** | Administrator and investor screens, audit log, raster page previews for view-only documents, download by permission, revocation takes effect immediately |
-| 5 | Operations | next | Second instance from the same image, backup and restore procedure, deployment guide with reverse proxy examples |
+| 5 | Operations | done | Second instance from the same image, backup and restore procedure, deployment guide with reverse proxy examples |
 
 ### 0. Project skeleton (done)
 
@@ -65,11 +65,13 @@ Status legend: **done**, **next**, **planned**, **later**.
 - Mobile-friendly flow for scanning an invitation QR code.
 - Known limits: previews exist for PDF only (DOCX and XLSX are download-only; a PDF copy can be uploaded as a version); rendering runs in the web process with page and size caps but no sandbox; no watermarks, so view-only is a deterrent, not a guarantee; the audit log is not tamper-evident yet (hash chain is on the post-release list); mobile layout was checked in a browser at 375 px, not on real devices.
 
-### 5. Operations
+### 5. Operations (done)
 
-- Reverse proxy examples for Nginx and Caddy.
-- Consistent backups of the database and documents together; documented, tested restore.
-- Verified isolation between two instances run from one image.
+- Reverse proxy examples for Nginx and Caddy (`deploy/`), neither logging the query string.
+- `backup_instance` and `restore_instance`: database and documents in one checksummed archive; the restore verifies everything before changing anything and refuses data-bearing instances without `--replace`.
+- Two instances from one image: separate Compose project, port, database, volume, secrets and cookie names; a test checks that hosts, cookies and volume paths follow the environment.
+- Deployment guide: [docs/DEPLOYMENT.md](DEPLOYMENT.md).
+- Known limits: the Compose files, the Nginx and Caddy examples and the PostgreSQL branch of backup and restore have not been run against a real Docker daemon or PostgreSQL (the archive logic and the SQLite branch are tested); no built-in scheduler, encryption or retention for backups; failed emails have no background retry queue. See [docs/DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## After the first release
 

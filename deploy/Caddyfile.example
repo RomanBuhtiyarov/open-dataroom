@@ -1,0 +1,27 @@
+# Пример для Caddy. Отдельный поддомен; HTTPS-сертификат Caddy получает сам.
+# Не логируем query string: в ссылках приглашения есть токен.
+dataroom.example.com {
+	encode zstd gzip
+
+	request_body {
+		max_size 55MB
+	}
+
+	log {
+		output file /var/log/caddy/dataroom.access.log
+		format filter {
+			wrap json
+			fields {
+				request>uri query {
+					delete t
+				}
+				request>headers delete
+			}
+		}
+	}
+
+	# Caddy перезаписывает X-Forwarded-For адресом клиента: приложение берёт последний элемент.
+	reverse_proxy 127.0.0.1:8000 {
+		header_up X-Forwarded-For {remote_host}
+	}
+}
