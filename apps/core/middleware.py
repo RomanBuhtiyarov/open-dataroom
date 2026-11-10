@@ -48,5 +48,8 @@ class SensitivePagesMiddleware:
         match = getattr(request, "resolver_match", None)
         if match is not None and match.url_name in SENSITIVE_URL_NAMES:
             response["Cache-Control"] = "no-store, private"
-            response["Referrer-Policy"] = "no-referrer"
+            # Не "no-referrer": при такой политике браузер шлёт на POST заголовок "Origin: null",
+            # и проверка CSRF отклоняет каждую форму. "same-origin" ничего не передаёт на чужие сайты,
+            # а токен с этих страниц уходит из адреса сразу после первого открытия.
+            response["Referrer-Policy"] = "same-origin"
         return response

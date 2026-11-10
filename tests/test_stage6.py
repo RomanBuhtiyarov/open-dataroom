@@ -131,7 +131,7 @@ def test_reset_emails_are_sent_in_user_language(django_capture_on_commit_callbac
 def test_sensitive_pages_headers(name, settings):
     settings.SELF_REGISTRATION = True
     response = Client().get(reverse(name))
-    assert response["Referrer-Policy"] == "no-referrer"
+    assert response["Referrer-Policy"] == "same-origin"  # не no-referrer: иначе браузер шлёт Origin: null и CSRF отклоняет формы
     assert "no-store" in response["Cache-Control"]
 
 
