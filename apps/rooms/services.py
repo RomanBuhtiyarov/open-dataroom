@@ -106,14 +106,14 @@ def create_document(folder, title, uploaded, user):
     title = title[:200]
     if _title_taken(folder, title):
         raise ValidationError(_("A document with this title already exists in the folder."))
-    ext = files.check_upload(uploaded)
+    ext, pages = files.check_upload(uploaded)
     stored, size, sha = files.store_upload(folder.room_id, uploaded)
     try:
         with transaction.atomic():
             document = Document.objects.create(folder=folder, title=title, created_by=user)
             version = DocumentVersion.objects.create(
                 document=document, number=1, original_name=_safe_original_name(uploaded.name),
-                stored_name=stored, extension=ext, size=size, sha256=sha, uploaded_by=user,
+                stored_name=stored, extension=ext, size=size, sha256=sha, page_count=pages, uploaded_by=user,
             )
     except IntegrityError:
         files.remove_file(folder.room_id, stored)
@@ -126,7 +126,7 @@ def create_document(folder, title, uploaded, user):
 
 def add_version(document, uploaded, user):
     """Публикует новую версию только после успешного сохранения файла. Старые версии не меняются."""
-    ext = files.check_upload(uploaded)
+    ext, pages = files.check_upload(uploaded)
     room_id = document.folder.room_id
     stored, size, sha = files.store_upload(room_id, uploaded)
     try:
@@ -135,7 +135,7 @@ def add_version(document, uploaded, user):
             number = (DocumentVersion.objects.filter(document=document).aggregate(m=Max("number"))["m"] or 0) + 1
             version = DocumentVersion.objects.create(
                 document=document, number=number, original_name=_safe_original_name(uploaded.name),
-                stored_name=stored, extension=ext, size=size, sha256=sha, uploaded_by=user,
+                stored_name=stored, extension=ext, size=size, sha256=sha, page_count=pages, uploaded_by=user,
             )
     except BaseException:
         files.remove_file(room_id, stored)

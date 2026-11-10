@@ -87,6 +87,7 @@ class DocumentVersion(models.Model):
     stored_name = models.CharField(max_length=64, unique=True)  # случайное имя файла в приватном томе
     extension = models.CharField(max_length=8)
     size = models.PositiveBigIntegerField()
+    page_count = models.PositiveIntegerField(null=True, blank=True)  # только для PDF
     sha256 = models.CharField(max_length=64)
     uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, related_name="+")
     created_at = models.DateTimeField(default=timezone.now)

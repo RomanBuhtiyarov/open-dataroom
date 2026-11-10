@@ -40,6 +40,7 @@
     <p class="item">
       <a href="{% url 'document_detail' row.doc.pk %}">{{ row.doc.title }}</a>
       <span class="muted"> · v{{ row.version.number }} · {{ row.version.extension|upper }} · {{ row.version.size|filesizeformat }}</span>
+      · <a href="{% url 'document_view' row.doc.pk %}">{% translate "View" %}</a>
       {% if row.can_download %} · <a href="{% url 'document_download' row.doc.pk %}">{% translate "Download" %}</a>{% endif %}
     </p>
     {% empty %}<p class="muted">{% translate "No documents here." %}</p>

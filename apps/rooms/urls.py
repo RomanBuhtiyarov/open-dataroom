@@ -15,8 +15,11 @@ urlpatterns = [
     path("documents/<int:document_id>/", views.document_detail, name="document_detail"),
     path("documents/<int:document_id>/versions/new/", views.version_upload, name="version_upload"),
     path("documents/<int:document_id>/download/", views.document_download, name="document_download"),
+    path("documents/<int:document_id>/view/", views.document_view, name="document_view"),
+    path("documents/<int:document_id>/pages/<int:number>.png", views.document_page, name="document_page"),
     path("rooms/<int:room_id>/access/", views.access_list, name="access_list"),
     path("grants/<int:grant_id>/revoke/", views.grant_revoke, name="grant_revoke"),
+    path("access/", views.access_overview, name="access_overview"),
     path("rooms/<int:room_id>/nda/", views.nda_accept, name="nda_accept"),
     path("rooms/<int:room_id>/nda/edit/", views.nda_edit, name="nda_edit"),
 ]

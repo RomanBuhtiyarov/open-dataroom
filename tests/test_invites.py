@@ -554,7 +554,9 @@ def test_request_is_confirmed_by_code_then_waits_for_approval(commit):
     wrong = "000000" if code != "000000" else "111111"
     assert "not valid" in client.post(reverse("request_confirm"), {"code": wrong}).content.decode()
     done = client.post(reverse("request_confirm"), {"code": code})
-    assert done.status_code == 200 and "Request received" in done.content.decode()
+    assert done.status_code == 302 and done["Location"] == reverse("request_status")
+    status = client.get(reverse("request_status")).content.decode()
+    assert "An administrator will review your request" in status
     req.refresh_from_db()
     assert req.status == AccessRequest.Status.PENDING and req.email_confirmed_at
     assert "Nina New" in admin_client.get(reverse("request_list")).content.decode()

@@ -804,3 +804,243 @@ msgstr "действует до"
 
 msgid "waiting"
 msgstr "ожидает"
+
+msgid "%(total)s pages"
+msgstr "страниц: %(total)s"
+
+msgid ""
+"A preview is available only for PDF files. This document cannot be shown on "
+"screen."
+msgstr ""
+"Просмотр на экране доступен только для PDF. Этот документ нельзя показать на"
+" экране."
+
+msgid "Access granted"
+msgstr "Доступ предоставлен"
+
+msgid "Access request approved"
+msgstr "Заявка на доступ одобрена"
+
+msgid "Access request code rejected"
+msgstr "Код по заявке на доступ отклонён"
+
+msgid "Access request confirmed by email"
+msgstr "Заявка на доступ подтверждена по почте"
+
+msgid "Access request rejected"
+msgstr "Заявка на доступ отклонена"
+
+msgid "Access request submitted"
+msgstr "Заявка на доступ подана"
+
+msgid "Access revoked"
+msgstr "Доступ отозван"
+
+msgid "Active access"
+msgstr "Действующий доступ"
+
+msgid "All events"
+msgstr "Все события"
+
+msgid "Any outcome"
+msgstr "Любой результат"
+
+msgid "Audit log"
+msgstr "Журнал аудита"
+
+msgid "Audit log exported"
+msgstr "Журнал аудита выгружен"
+
+msgid "Document download refused"
+msgstr "В скачивании документа отказано"
+
+msgid "Document downloaded"
+msgstr "Документ скачан"
+
+msgid "Document uploaded"
+msgstr "Документ загружен"
+
+msgid "Document viewed"
+msgstr "Документ просмотрен"
+
+msgid "Download CSV"
+msgstr "Скачать CSV"
+
+msgid "Ends"
+msgstr "Окончание"
+
+msgid "Event"
+msgstr "Событие"
+
+msgid "Filter"
+msgstr "Отфильтровать"
+
+msgid "First administrator created"
+msgstr "Создан первый администратор"
+
+msgid "First launch completed"
+msgstr "Первый запуск завершён"
+
+msgid "Folder created"
+msgstr "Папка создана"
+
+msgid "Folder deleted"
+msgstr "Папка удалена"
+
+msgid "Folder renamed"
+msgstr "Папка переименована"
+
+msgid "From (UTC)"
+msgstr "С (UTC)"
+
+msgid "Instance settings changed"
+msgstr "Настройки экземпляра изменены"
+
+msgid "Invitation accepted"
+msgstr "Приглашение принято"
+
+msgid "Invitation code rejected"
+msgstr "Код по приглашению отклонён"
+
+msgid "Invitation revoked"
+msgstr "Приглашение отозвано"
+
+msgid "Invitation sent again"
+msgstr "Приглашение отправлено повторно"
+
+msgid "NDA accepted"
+msgstr "NDA принято"
+
+msgid "NDA version published"
+msgstr "Опубликована версия NDA"
+
+msgid "New document version published"
+msgstr "Опубликована новая версия документа"
+
+msgid "Newer"
+msgstr "Новее"
+
+msgid "No events match."
+msgstr "Нет подходящих событий."
+
+msgid "Object"
+msgstr "Объект"
+
+msgid "Older"
+msgstr "Старше"
+
+msgid "Open the audit log"
+msgstr "Открыть журнал аудита"
+
+msgid "Outcome"
+msgstr "Результат"
+
+msgid "Overview"
+msgstr "Сводка"
+
+msgid "Page %(page)s of %(total)s"
+msgstr "Страница %(page)s из %(total)s"
+
+msgid "Person (part of the email)"
+msgstr "Человек (часть адреса почты)"
+
+msgid "Recent activity"
+msgstr "Недавние действия"
+
+msgid "Request status"
+msgstr "Состояние заявки"
+
+msgid "Reset"
+msgstr "Сбросить"
+
+msgid "Rights"
+msgstr "Права"
+
+msgid "Room changed"
+msgstr "Комната изменена"
+
+msgid "Room created"
+msgstr "Комната создана"
+
+msgid "Room template applied"
+msgstr "Шаблон комнаты применён"
+
+msgid "Sign-in failed"
+msgstr "Неудачный вход"
+
+msgid "Signed in"
+msgstr "Вход выполнен"
+
+msgid "Signed out"
+msgstr "Выход выполнен"
+
+msgid "The PDF file cannot be read or is protected by a password."
+msgstr "PDF-файл не читается или защищён паролем."
+
+msgid "The PDF has too many pages."
+msgstr "В PDF слишком много страниц."
+
+msgid "Time (UTC)"
+msgstr "Время (UTC)"
+
+msgid ""
+"Times are in UTC. The log stores event codes only; no passwords, codes, "
+"tokens or file contents."
+msgstr ""
+"Время указано в UTC. В журнале хранятся только коды событий: без паролей, "
+"кодов, токенов и содержимого файлов."
+
+msgid "To (UTC)"
+msgstr "По (UTC)"
+
+msgid "Two-factor code accepted"
+msgstr "Код второго фактора принят"
+
+msgid "Two-factor code rejected"
+msgstr "Код второго фактора отклонён"
+
+msgid "Two-factor device added"
+msgstr "Добавлено устройство второго фактора"
+
+msgid "Two-factor devices removed"
+msgstr "Устройства второго фактора удалены"
+
+msgid "View"
+msgstr "Смотреть"
+
+msgid "View only"
+msgstr "Только просмотр"
+
+msgid ""
+"You can close this page. Open it again from this browser to see the current "
+"status."
+msgstr ""
+"Страницу можно закрыть. Откройте её снова в этом браузере, чтобы увидеть "
+"текущее состояние."
+
+msgid "Your request is approved. You can sign in with the password you chose."
+msgstr "Ваша заявка одобрена. Войти можно с выбранным вами паролем."
+
+msgid "Your request was not approved."
+msgstr "Ваша заявка не одобрена."
+
+msgid "active access rights"
+msgstr "действующих прав доступа"
+
+msgid "denied"
+msgstr "отказано"
+
+msgid "failed"
+msgstr "неудачно"
+
+msgid "invitations waiting"
+msgstr "приглашений ждут"
+
+msgid "requests waiting"
+msgstr "заявок ждут решения"
+
+msgid "rooms"
+msgstr "комнат"
+
+msgid "success"
+msgstr "успешно"

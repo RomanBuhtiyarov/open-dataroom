@@ -3,22 +3,25 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import transaction
 from django.db.models import Max
-from django.http import FileResponse, Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone, translation
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
 
 from apps.audit import events
+from apps.audit import labels as audit_labels
 from apps.audit.models import AuditEvent
 from apps.audit.service import record
 from apps.core.decorators import admin_required
 from apps.core.instance import get_instance
 from apps.core.models import InstanceSettings
+from apps.invites.models import AccessRequest, Invitation
 
-from . import files, policy, services
+from . import files, policy, previews, serving, services
 from .forms import FolderNameForm, GrantForm, NdaAcceptForm, NdaForm, RoomCreateForm, RoomForm, UploadForm, VersionForm
 from .models import AccessGrant, Document, Folder, NdaAcceptance, NdaText, NdaVersion, Room
 
@@ -49,7 +52,26 @@ def room_list(request):
     if request.user.is_admin and not get_instance(request).is_setup_complete:
         return redirect("setup")
     rooms = policy.visible_rooms(request.user)
-    return render(request, "rooms/room_list.html", {"rooms": rooms})
+    return render(request, "rooms/room_list.html", {"rooms": rooms, "overview": _overview() if policy.is_trusted_admin(request.user) else None})
+
+
+def _overview():
+    """Сводка для администратора: что требует внимания и что происходило последним."""
+    now = timezone.now()
+    active_grants = AccessGrant.objects.filter(revoked_at__isnull=True).exclude(expires_at__lte=now)
+    recent = [
+        {"time": e.created_at, "label": audit_labels.label(e.code), "outcome": e.outcome, "actor": e.actor.email if e.actor else ""}
+        for e in AuditEvent.objects.select_related("actor")[:5]
+    ]
+    return {
+        "rooms": Room.objects.count(),
+        "active_grants": active_grants.count(),
+        "pending_requests": AccessRequest.objects.filter(status=AccessRequest.Status.PENDING).count(),
+        "pending_invitations": Invitation.objects.filter(
+            consumed_at__isnull=True, revoked_at__isnull=True, expires_at__gt=now
+        ).count(),
+        "recent": recent,
+    }
 
 
 @admin_required
@@ -290,11 +312,82 @@ def document_download(request, document_id):
     path = files.file_path(room.pk, version.stored_name)
     if not path.exists():
         raise Http404
-    record(events.DOCUMENT_DOWNLOADED, actor=request.user, target=f"document:{document.pk}:v{version.number}")
-    response = FileResponse(open(path, "rb"), as_attachment=True, filename=version.original_name,
-                            content_type=files.ALLOWED[version.extension])
+    if serving.is_first_chunk(request):
+        record(events.DOCUMENT_DOWNLOADED, actor=request.user, target=f"document:{document.pk}:v{version.number}")
+    return serving.file_response(request, path, filename=version.original_name, content_type=files.ALLOWED[version.extension])
+
+
+# --- Просмотр без скачивания ------------------------------------------------
+
+
+def _viewable_version(request, document, access):
+    """Версия для просмотра: администратор может выбрать любую, остальные видят только актуальную."""
+    versions = document.versions.all()
+    number = request.GET.get("v")
+    if number and access.admin and number.isdigit():
+        return get_object_or_404(versions, number=int(number))
+    version = versions.first()
+    if version is None:
+        raise Http404
+    return version
+
+
+def _page_total(room, version):
+    """Число страниц PDF; для старых записей без значения считаем и запоминаем."""
+    if version.page_count is None:
+        try:
+            version.page_count = previews.pages_from_path(files.file_path(room.pk, version.stored_name))
+        except previews.PreviewError:
+            raise Http404
+        version.save(update_fields=["page_count"])
+    return version.page_count
+
+
+@login_required
+@never_cache
+def document_view(request, document_id):
+    """Страницы документа картинками. Для просмотра достаточно права видеть; оригинал не отдаётся."""
+    document = get_object_or_404(Document.objects.select_related("folder__room", "folder__parent"), pk=document_id)
+    room = document.folder.room
+    access = policy.access_for(request.user, room)
+    if access is None or not access.can_view_folder(document.folder_id):
+        raise Http404
+    if policy.needs_nda(request.user, room):
+        return redirect("nda_accept", room_id=room.pk)
+    version = _viewable_version(request, document, access)
+    pages = None
+    if version.extension == "pdf":
+        pages = range(1, _page_total(room, version) + 1)
+    record(events.DOCUMENT_VIEWED, actor=request.user, target=f"document:{document.pk}:v{version.number}")
+    return render(request, "rooms/document_view.html", {
+        "document": document, "room": room, "version": version, "pages": pages,
+        "total": len(pages) if pages is not None else 0,
+        "can_download": policy.can_download_document(request.user, document),
+        "crumbs": _breadcrumbs(access, document.folder),
+    })
+
+
+@login_required
+def document_page(request, document_id, number):
+    """Картинка одной страницы. Политика проверяется на каждый запрос, поэтому отзыв доступа действует сразу."""
+    document = get_object_or_404(Document.objects.select_related("folder__room"), pk=document_id)
+    room = document.folder.room
+    access = policy.access_for(request.user, room)
+    if access is None or not access.can_view_folder(document.folder_id) or policy.needs_nda(request.user, room):
+        raise Http404
+    version = _viewable_version(request, document, access)
+    if version.extension != "pdf":
+        raise Http404
+    total = _page_total(room, version)
+    if not 1 <= number <= total:
+        raise Http404
+    try:
+        png = previews.render_page(room.pk, version.stored_name, files.file_path(room.pk, version.stored_name), number)
+    except previews.PreviewError:
+        raise Http404
+    response = HttpResponse(png, content_type="image/png")
     response["Cache-Control"] = "private, no-store"
-    response["Accept-Ranges"] = "none"
+    response["Content-Disposition"] = "inline"
     return response
 
 
@@ -330,7 +423,22 @@ def grant_revoke(request, grant_id):
         grant.save(update_fields=["revoked_at"])
         record(events.GRANT_REVOKED, actor=request.user, target=f"grant:{grant.pk}")
         messages.success(request, _("Access is revoked."))
+    target = request.POST.get("next", "")
+    if target and url_has_allowed_host_and_scheme(target, allowed_hosts={request.get_host()}, require_https=request.is_secure()):
+        return redirect(target)
     return redirect("access_list", room_id=grant.room_id)
+
+
+@admin_required
+@never_cache
+def access_overview(request):
+    """Все действующие права по всем комнатам: кто, куда, на какой срок."""
+    now = timezone.now()
+    grants = (
+        AccessGrant.objects.filter(revoked_at__isnull=True).exclude(expires_at__lte=now)
+        .select_related("user", "room", "folder").order_by("room__name", "user__email")
+    )
+    return render(request, "rooms/access_overview.html", {"grants": grants})
 
 
 # --- NDA --------------------------------------------------------------------

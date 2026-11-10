@@ -9,6 +9,8 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
+from . import previews
+
 ALLOWED = {
     "pdf": "application/pdf",
     "docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -32,7 +34,9 @@ def _extension(name):
 
 
 def check_upload(uploaded):
-    """Проверяет тип, расширение и размер. Возвращает расширение. Бросает ValidationError."""
+    """Проверяет тип, расширение, размер и содержимое. Возвращает (расширение, число страниц PDF или None).
+
+    PDF должен открываться без пароля: иначе превью построить нельзя. Бросает ValidationError."""
     ext = _extension(uploaded.name)
     if ext not in ALLOWED:
         raise ValidationError(_("Only PDF, DOCX and XLSX files are accepted."))
@@ -41,13 +45,16 @@ def check_upload(uploaded):
     if uploaded.size > settings.MAX_UPLOAD_BYTES:
         raise ValidationError(_("The file is too large."))
     uploaded.seek(0)
+    pages = None
     if ext == "pdf":
         if b"%PDF-" not in uploaded.read(1024):
             raise ValidationError(_("The file content does not match its type."))
+        uploaded.seek(0)
+        pages = previews.pages_from_bytes(uploaded.read())
     else:
         _check_office(uploaded, ext)
     uploaded.seek(0)
-    return ext
+    return ext, pages
 
 
 def _check_office(uploaded, ext):

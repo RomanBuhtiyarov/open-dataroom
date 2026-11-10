@@ -3,7 +3,7 @@
 A self-hosted, open-source data room for investors, due diligence and document sharing.
 One project, one instance, one Docker image. Interface in Russian, Ukrainian, German and English.
 
-> **Status: early development.** Milestones 0 (skeleton), 1 (first launch and administrators), 2 (rooms, documents, access policy) and 3 (invitations and registration) are done. See the [roadmap](docs/ROADMAP.md) ([на русском](docs/ROADMAP.ru.md)).
+> **Status: early development.** Milestones 0 to 4 are done: skeleton, first launch and administrators, rooms and access policy, invitations and registration, screens, audit and previews. See the [roadmap](docs/ROADMAP.md) ([на русском](docs/ROADMAP.ru.md)).
 > Licensed under the [GNU Affero General Public License v3.0](LICENSE).
 
 ## What works today
@@ -24,7 +24,12 @@ One project, one instance, one Docker image. Interface in Russian, Ukrainian, Ge
 - Emails are sent only after the transaction commits, in the recipient's language. Rate limits (database based) on sign-in, code requests, code checks, token guessing and requests; keys are hashed.
 - Dockerfile and Compose file (not yet exercised in CI).
 
-Page previews and the audit screens are on the roadmap. `manage.py create_viewer <email>` remains as a development helper.
+- View-only PDFs are shown as page images (pypdfium2, no system packages); the original is never sent without the download right. Every request, including each page image and each HTTP Range request, goes through the same access policy, so revocation applies at once. Page images are cached in the private volume.
+- Downloads support single HTTP Range requests; a transfer is audited once.
+- Audit log screen for administrators: filters (event, outcome, person, UTC dates), pagination, CSV export (formula-safe). The log stores event codes; labels are translated on display. Sign-in, sign-out and failed sign-in events are recorded without addresses or passwords.
+- Administrator overview (counts, recent activity), active access across all rooms with in-place revoke, and a request status page for applicants.
+
+`manage.py create_viewer <email>` remains as a development helper.
 
 > Development note: without `EMAIL_HOST`, `DJANGO_DEBUG=1` prints emails (including invitation links and codes) to the server console. Production sends through SMTP and never logs message text. The Docker image and `deploy/nginx.example.conf` log request paths without the query string, because the invitation token travels there.
 

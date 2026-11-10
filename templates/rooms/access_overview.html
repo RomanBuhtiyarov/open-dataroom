@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Active access" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section>
+  <h1>{% translate "Active access" %}</h1>
+  <div class="card table-wrap">
+    <table>
+      <thead><tr>
+        <th>{% translate "Person" %}</th><th>{% translate "Room" %}</th><th>{% translate "Access to" %}</th>
+        <th>{% translate "Rights" %}</th><th>{% translate "Ends" %}</th><th></th>
+      </tr></thead>
+      <tbody>
+      {% for g in grants %}
+      <tr>
+        <td>{{ g.user.email }}</td>
+        <td><a href="{% url 'access_list' g.room.pk %}">{{ g.room.name }}</a></td>
+        <td>{% if g.folder %}{{ g.folder.name }}{% else %}{% translate "The whole room" %}{% endif %}</td>
+        <td>{% if g.can_download %}{% translate "can download" %}{% else %}{% translate "view only" %}{% endif %}</td>
+        <td class="nowrap">{% if g.expires_at %}{{ g.expires_at|date:"Y-m-d" }}{% else %}<span class="muted">—</span>{% endif %}</td>
+        <td>
+          <form method="post" action="{% url 'grant_revoke' g.pk %}">{% csrf_token %}
+            <input type="hidden" name="next" value="{% url 'access_overview' %}">
+            <button type="submit" class="secondary">{% translate "Revoke" %}</button>
+          </form>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="6" class="muted">{% translate "Nobody has access yet." %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

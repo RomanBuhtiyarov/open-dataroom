@@ -6,3 +6,4 @@ dj-database-url>=2.3
 django-otp>=1.5,<2
 segno>=1.6
 Pillow>=10.4
+pypdfium2>=4.30

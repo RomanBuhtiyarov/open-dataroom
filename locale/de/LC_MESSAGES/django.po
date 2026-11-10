@@ -830,3 +830,245 @@ msgstr "gültig bis"
 
 msgid "waiting"
 msgstr "wartet"
+
+msgid "%(total)s pages"
+msgstr "%(total)s Seiten"
+
+msgid ""
+"A preview is available only for PDF files. This document cannot be shown on "
+"screen."
+msgstr ""
+"Die Bildschirmansicht ist nur für PDF-Dateien verfügbar. Dieses Dokument "
+"kann nicht angezeigt werden."
+
+msgid "Access granted"
+msgstr "Zugriff gewährt"
+
+msgid "Access request approved"
+msgstr "Zugriffsanfrage genehmigt"
+
+msgid "Access request code rejected"
+msgstr "Code zur Zugriffsanfrage abgelehnt"
+
+msgid "Access request confirmed by email"
+msgstr "Zugriffsanfrage per E-Mail bestätigt"
+
+msgid "Access request rejected"
+msgstr "Zugriffsanfrage abgelehnt"
+
+msgid "Access request submitted"
+msgstr "Zugriffsanfrage gestellt"
+
+msgid "Access revoked"
+msgstr "Zugriff entzogen"
+
+msgid "Active access"
+msgstr "Aktiver Zugriff"
+
+msgid "All events"
+msgstr "Alle Ereignisse"
+
+msgid "Any outcome"
+msgstr "Beliebiges Ergebnis"
+
+msgid "Audit log"
+msgstr "Audit-Protokoll"
+
+msgid "Audit log exported"
+msgstr "Audit-Protokoll exportiert"
+
+msgid "Document download refused"
+msgstr "Dokument-Download verweigert"
+
+msgid "Document downloaded"
+msgstr "Dokument heruntergeladen"
+
+msgid "Document uploaded"
+msgstr "Dokument hochgeladen"
+
+msgid "Document viewed"
+msgstr "Dokument angesehen"
+
+msgid "Download CSV"
+msgstr "CSV herunterladen"
+
+msgid "Ends"
+msgstr "Ende"
+
+msgid "Event"
+msgstr "Ereignis"
+
+msgid "Filter"
+msgstr "Filtern"
+
+msgid "First administrator created"
+msgstr "Erster Administrator angelegt"
+
+msgid "First launch completed"
+msgstr "Erster Start abgeschlossen"
+
+msgid "Folder created"
+msgstr "Ordner angelegt"
+
+msgid "Folder deleted"
+msgstr "Ordner gelöscht"
+
+msgid "Folder renamed"
+msgstr "Ordner umbenannt"
+
+msgid "From (UTC)"
+msgstr "Von (UTC)"
+
+msgid "Instance settings changed"
+msgstr "Instanz-Einstellungen geändert"
+
+msgid "Invitation accepted"
+msgstr "Einladung angenommen"
+
+msgid "Invitation code rejected"
+msgstr "Code zur Einladung abgelehnt"
+
+msgid "Invitation revoked"
+msgstr "Einladung zurückgezogen"
+
+msgid "Invitation sent again"
+msgstr "Einladung erneut gesendet"
+
+msgid "NDA accepted"
+msgstr "NDA akzeptiert"
+
+msgid "NDA version published"
+msgstr "NDA-Version veröffentlicht"
+
+msgid "New document version published"
+msgstr "Neue Dokumentversion veröffentlicht"
+
+msgid "Newer"
+msgstr "Neuer"
+
+msgid "No events match."
+msgstr "Keine passenden Ereignisse."
+
+msgid "Object"
+msgstr "Objekt"
+
+msgid "Older"
+msgstr "Älter"
+
+msgid "Open the audit log"
+msgstr "Audit-Protokoll öffnen"
+
+msgid "Outcome"
+msgstr "Ergebnis"
+
+msgid "Overview"
+msgstr "Übersicht"
+
+msgid "Page %(page)s of %(total)s"
+msgstr "Seite %(page)s von %(total)s"
+
+msgid "Person (part of the email)"
+msgstr "Person (Teil der E-Mail-Adresse)"
+
+msgid "Recent activity"
+msgstr "Letzte Aktivität"
+
+msgid "Request status"
+msgstr "Status der Anfrage"
+
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+msgid "Rights"
+msgstr "Rechte"
+
+msgid "Room changed"
+msgstr "Raum geändert"
+
+msgid "Room created"
+msgstr "Raum angelegt"
+
+msgid "Room template applied"
+msgstr "Raumvorlage angewendet"
+
+msgid "Sign-in failed"
+msgstr "Anmeldung fehlgeschlagen"
+
+msgid "Signed in"
+msgstr "Angemeldet"
+
+msgid "Signed out"
+msgstr "Abgemeldet"
+
+msgid "The PDF file cannot be read or is protected by a password."
+msgstr "Die PDF-Datei kann nicht gelesen werden oder ist passwortgeschützt."
+
+msgid "The PDF has too many pages."
+msgstr "Das PDF hat zu viele Seiten."
+
+msgid "Time (UTC)"
+msgstr "Zeit (UTC)"
+
+msgid ""
+"Times are in UTC. The log stores event codes only; no passwords, codes, "
+"tokens or file contents."
+msgstr ""
+"Zeiten in UTC. Das Protokoll speichert nur Ereigniscodes, keine Passwörter, "
+"Codes, Tokens oder Dateiinhalte."
+
+msgid "To (UTC)"
+msgstr "Bis (UTC)"
+
+msgid "Two-factor code accepted"
+msgstr "Zwei-Faktor-Code akzeptiert"
+
+msgid "Two-factor code rejected"
+msgstr "Zwei-Faktor-Code abgelehnt"
+
+msgid "Two-factor device added"
+msgstr "Zwei-Faktor-Gerät hinzugefügt"
+
+msgid "Two-factor devices removed"
+msgstr "Zwei-Faktor-Geräte entfernt"
+
+msgid "View"
+msgstr "Ansehen"
+
+msgid "View only"
+msgstr "Nur Ansicht"
+
+msgid ""
+"You can close this page. Open it again from this browser to see the current "
+"status."
+msgstr ""
+"Sie können diese Seite schließen. Öffnen Sie sie später in diesem Browser "
+"erneut, um den aktuellen Status zu sehen."
+
+msgid "Your request is approved. You can sign in with the password you chose."
+msgstr ""
+"Ihre Anfrage wurde genehmigt. Sie können sich mit dem gewählten Passwort "
+"anmelden."
+
+msgid "Your request was not approved."
+msgstr "Ihre Anfrage wurde nicht genehmigt."
+
+msgid "active access rights"
+msgstr "aktive Zugriffsrechte"
+
+msgid "denied"
+msgstr "verweigert"
+
+msgid "failed"
+msgstr "fehlgeschlagen"
+
+msgid "invitations waiting"
+msgstr "Einladungen warten"
+
+msgid "requests waiting"
+msgstr "Anfragen warten"
+
+msgid "rooms"
+msgstr "Räume"
+
+msgid "success"
+msgstr "erfolgreich"

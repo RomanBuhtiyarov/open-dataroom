@@ -22,6 +22,7 @@ from .models import AccessRequest, Invitation
 
 INVITE_SESSION_KEY = "invite_id"
 REQUEST_SESSION_KEY = "access_request_id"
+STATUS_SESSION_KEY = "access_request_status_id"
 
 HOUR = 3600
 
@@ -181,7 +182,6 @@ def request_confirm(request):
     request_id = request.session[REQUEST_SESSION_KEY]
     access_request = AccessRequest.objects.filter(pk=request_id, status=AccessRequest.Status.UNCONFIRMED).first()
     form = CodeForm(request.POST or None)
-    done = False
     if request.method == "POST":
         if request.POST.get("action") == "send_code":
             if access_request is not None:
@@ -195,10 +195,22 @@ def request_confirm(request):
             if access_request is not None and codes.verify_code(form.cleaned_data["code"], access_request=access_request):
                 services.confirm_request(access_request.pk)
                 request.session.pop(REQUEST_SESSION_KEY, None)
-                done = True
+                request.session[STATUS_SESSION_KEY] = access_request.pk
+                return redirect("request_status")
             else:
                 ratelimit.hit(check_key)
                 if access_request is not None:
                     record(events.REQUEST_CODE_FAILED, target=f"request:{access_request.pk}", outcome=AuditEvent.Outcome.FAILED)
                 form.add_error("code", _("The code is not valid or has expired. Ask for a new one."))
-    return render(request, "invites/request_confirm.html", {"form": form, "done": done})
+    return render(request, "invites/request_confirm.html", {"form": form})
+
+
+@never_cache
+@require_http_methods(["GET"])
+def request_status(request):
+    """Состояние своей заявки. Доступно только в той сессии, где адрес был подтверждён кодом."""
+    _self_registration_or_404(request)
+    access_request = AccessRequest.objects.filter(pk=request.session.get(STATUS_SESSION_KEY)).first()
+    if access_request is None:
+        return redirect("request_access")
+    return render(request, "invites/request_status.html", {"status": access_request.status})

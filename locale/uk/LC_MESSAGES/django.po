@@ -805,3 +805,243 @@ msgstr "діє до"
 
 msgid "waiting"
 msgstr "очікує"
+
+msgid "%(total)s pages"
+msgstr "сторінок: %(total)s"
+
+msgid ""
+"A preview is available only for PDF files. This document cannot be shown on "
+"screen."
+msgstr ""
+"Перегляд на екрані доступний лише для PDF. Цей документ не можна показати на"
+" екрані."
+
+msgid "Access granted"
+msgstr "Доступ надано"
+
+msgid "Access request approved"
+msgstr "Заявку на доступ схвалено"
+
+msgid "Access request code rejected"
+msgstr "Код за заявкою на доступ відхилено"
+
+msgid "Access request confirmed by email"
+msgstr "Заявку на доступ підтверджено поштою"
+
+msgid "Access request rejected"
+msgstr "Заявку на доступ відхилено"
+
+msgid "Access request submitted"
+msgstr "Заявку на доступ подано"
+
+msgid "Access revoked"
+msgstr "Доступ відкликано"
+
+msgid "Active access"
+msgstr "Чинний доступ"
+
+msgid "All events"
+msgstr "Усі події"
+
+msgid "Any outcome"
+msgstr "Будь-який результат"
+
+msgid "Audit log"
+msgstr "Журнал аудиту"
+
+msgid "Audit log exported"
+msgstr "Журнал аудиту вивантажено"
+
+msgid "Document download refused"
+msgstr "У завантаженні документа відмовлено"
+
+msgid "Document downloaded"
+msgstr "Документ завантажено"
+
+msgid "Document uploaded"
+msgstr "Документ завантажено"
+
+msgid "Document viewed"
+msgstr "Документ переглянуто"
+
+msgid "Download CSV"
+msgstr "Завантажити CSV"
+
+msgid "Ends"
+msgstr "Завершення"
+
+msgid "Event"
+msgstr "Подія"
+
+msgid "Filter"
+msgstr "Відфільтрувати"
+
+msgid "First administrator created"
+msgstr "Створено першого адміністратора"
+
+msgid "First launch completed"
+msgstr "Перший запуск завершено"
+
+msgid "Folder created"
+msgstr "Папку створено"
+
+msgid "Folder deleted"
+msgstr "Папку видалено"
+
+msgid "Folder renamed"
+msgstr "Папку перейменовано"
+
+msgid "From (UTC)"
+msgstr "З (UTC)"
+
+msgid "Instance settings changed"
+msgstr "Налаштування екземпляра змінено"
+
+msgid "Invitation accepted"
+msgstr "Запрошення прийнято"
+
+msgid "Invitation code rejected"
+msgstr "Код за запрошенням відхилено"
+
+msgid "Invitation revoked"
+msgstr "Запрошення відкликано"
+
+msgid "Invitation sent again"
+msgstr "Запрошення надіслано повторно"
+
+msgid "NDA accepted"
+msgstr "NDA прийнято"
+
+msgid "NDA version published"
+msgstr "Опубліковано версію NDA"
+
+msgid "New document version published"
+msgstr "Опубліковано нову версію документа"
+
+msgid "Newer"
+msgstr "Новіші"
+
+msgid "No events match."
+msgstr "Немає відповідних подій."
+
+msgid "Object"
+msgstr "Об’єкт"
+
+msgid "Older"
+msgstr "Старіші"
+
+msgid "Open the audit log"
+msgstr "Відкрити журнал аудиту"
+
+msgid "Outcome"
+msgstr "Результат"
+
+msgid "Overview"
+msgstr "Зведення"
+
+msgid "Page %(page)s of %(total)s"
+msgstr "Сторінка %(page)s з %(total)s"
+
+msgid "Person (part of the email)"
+msgstr "Особа (частина адреси пошти)"
+
+msgid "Recent activity"
+msgstr "Остання активність"
+
+msgid "Request status"
+msgstr "Стан заявки"
+
+msgid "Reset"
+msgstr "Скинути"
+
+msgid "Rights"
+msgstr "Права"
+
+msgid "Room changed"
+msgstr "Кімнату змінено"
+
+msgid "Room created"
+msgstr "Кімнату створено"
+
+msgid "Room template applied"
+msgstr "Шаблон кімнати застосовано"
+
+msgid "Sign-in failed"
+msgstr "Невдалий вхід"
+
+msgid "Signed in"
+msgstr "Вхід виконано"
+
+msgid "Signed out"
+msgstr "Вихід виконано"
+
+msgid "The PDF file cannot be read or is protected by a password."
+msgstr "PDF-файл не читається або захищений паролем."
+
+msgid "The PDF has too many pages."
+msgstr "У PDF забагато сторінок."
+
+msgid "Time (UTC)"
+msgstr "Час (UTC)"
+
+msgid ""
+"Times are in UTC. The log stores event codes only; no passwords, codes, "
+"tokens or file contents."
+msgstr ""
+"Час указано в UTC. У журналі зберігаються лише коди подій: без паролів, "
+"кодів, токенів і вмісту файлів."
+
+msgid "To (UTC)"
+msgstr "До (UTC)"
+
+msgid "Two-factor code accepted"
+msgstr "Код другого фактора прийнято"
+
+msgid "Two-factor code rejected"
+msgstr "Код другого фактора відхилено"
+
+msgid "Two-factor device added"
+msgstr "Додано пристрій другого фактора"
+
+msgid "Two-factor devices removed"
+msgstr "Пристрої другого фактора видалено"
+
+msgid "View"
+msgstr "Переглянути"
+
+msgid "View only"
+msgstr "Лише перегляд"
+
+msgid ""
+"You can close this page. Open it again from this browser to see the current "
+"status."
+msgstr ""
+"Сторінку можна закрити. Відкрийте її знову в цьому браузері, щоб побачити "
+"поточний стан."
+
+msgid "Your request is approved. You can sign in with the password you chose."
+msgstr "Вашу заявку схвалено. Увійти можна з обраним вами паролем."
+
+msgid "Your request was not approved."
+msgstr "Вашу заявку не схвалено."
+
+msgid "active access rights"
+msgstr "чинних прав доступу"
+
+msgid "denied"
+msgstr "відмовлено"
+
+msgid "failed"
+msgstr "невдало"
+
+msgid "invitations waiting"
+msgstr "запрошень очікують"
+
+msgid "requests waiting"
+msgstr "заявок очікують рішення"
+
+msgid "rooms"
+msgstr "кімнат"
+
+msgid "success"
+msgstr "успішно"

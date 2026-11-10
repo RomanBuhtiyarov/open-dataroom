@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Request status" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>{% translate "Request status" %}</h1>
+  <div class="card">
+    {% if status == "approved" %}
+      <p>{% translate "Your request is approved. You can sign in with the password you chose." %}</p>
+      <p><a class="button primary" href="{% url 'login' %}">{% translate "Sign in" %}</a></p>
+    {% elif status == "rejected" %}
+      <p>{% translate "Your request was not approved." %}</p>
+    {% else %}
+      <p>{% translate "Your address is confirmed. An administrator will review your request, and we will email you the decision." %}</p>
+      <p class="muted">{% translate "You can close this page. Open it again from this browser to see the current status." %}</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

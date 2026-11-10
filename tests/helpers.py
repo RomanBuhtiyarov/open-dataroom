@@ -11,7 +11,20 @@ from django_otp.plugins.otp_totp.models import TOTPDevice
 from apps.accounts.models import User
 
 STRONG = "Correct-horse-battery-9"
-PDF = b"%PDF-1.4\n1 0 obj\n<<>>\nendobj\ntrailer\n<<>>\n%%EOF\n"
+def make_pdf(pages=1, size=(300, 400)):
+    """Настоящий PDF с пустыми страницами: загрузка проверяет, что файл открывается."""
+    import pypdfium2 as pdfium
+
+    document = pdfium.PdfDocument.new()
+    for _ in range(pages):
+        document.new_page(*size)
+    buf = io.BytesIO()
+    document.save(buf)
+    document.close()
+    return buf.getvalue()
+
+
+PDF = make_pdf()
 
 
 def code_for(device):

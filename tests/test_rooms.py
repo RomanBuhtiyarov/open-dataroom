@@ -95,7 +95,7 @@ def test_room_grant_allows_viewing_but_download_needs_the_download_right():
     ok = client.get(reverse("document_download", args=[doc.pk]))
     assert ok.status_code == 200 and body(ok) == PDF
     assert "attachment" in ok["Content-Disposition"] and "plan.pdf" in ok["Content-Disposition"]
-    assert ok["Cache-Control"] == "private, no-store" and ok["Accept-Ranges"] == "none"
+    assert ok["Cache-Control"] == "private, no-store" and ok["Accept-Ranges"] == "bytes"
     assert ok["X-Content-Type-Options"] == "nosniff" and ok["Content-Type"] == "application/pdf"
     assert AuditEvent.objects.filter(code="document.downloaded", target=f"document:{doc.pk}:v1").exists()
 

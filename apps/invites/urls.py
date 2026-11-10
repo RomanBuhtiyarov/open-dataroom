@@ -6,6 +6,7 @@ urlpatterns = [
     path("invite/", views.invite_entry, name="invite_entry"),
     path("request-access/", views.request_access, name="request_access"),
     path("request-access/confirm/", views.request_confirm, name="request_confirm"),
+    path("request-access/status/", views.request_status, name="request_status"),
     path("invitations/", admin_views.invitation_list, name="invitation_list"),
     path("invitations/new/", admin_views.invitation_create, name="invitation_create"),
     path("invitations/<int:invitation_id>/resend/", admin_views.invitation_resend, name="invitation_resend"),

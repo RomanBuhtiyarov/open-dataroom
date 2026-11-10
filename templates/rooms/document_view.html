@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ document.title }} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="viewer">
+  <p class="crumbs"><a href="{% url 'home' %}">{% translate "Your rooms" %}</a> /
+    <a href="{% url 'room_detail' room.pk %}">{{ room.name }}</a>{% for c in crumbs %} / <a href="{% url 'room_detail' room.pk %}?folder={{ c.pk }}">{{ c.name }}</a>{% endfor %}
+    / <a href="{% url 'document_detail' document.pk %}">{{ document.title }}</a></p>
+  <h1>{{ document.title }}</h1>
+  <p class="muted">v{{ version.number }}{% if pages %} · {% blocktranslate with total=total %}{{ total }} pages{% endblocktranslate %}{% endif %}
+    · {% translate "View only" %}
+    {% if can_download %} · <a href="{% url 'document_download' document.pk %}{% if request.GET.v %}?version={{ version.number }}{% endif %}">{% translate "Download" %}</a>{% endif %}</p>
+  {% if pages %}
+  <div class="pages">
+    {% for n in pages %}
+    <img class="page" loading="lazy" src="{% url 'document_page' document.pk n %}{% if request.GET.v %}?v={{ version.number }}{% endif %}"
+         alt="{% blocktranslate with page=n total=total %}Page {{ page }} of {{ total }}{% endblocktranslate %}">
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="card"><p>{% translate "A preview is available only for PDF files. This document cannot be shown on screen." %}</p>
+    {% if can_download %}<p><a class="button primary" href="{% url 'document_download' document.pk %}">{% translate "Download" %}</a></p>{% endif %}</div>
+  {% endif %}
+</section>
+{% endblock %}

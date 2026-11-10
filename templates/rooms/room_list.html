@@ -4,6 +4,23 @@
 {% block content %}
 <section>
   <h1>{% translate "Your rooms" %}</h1>
+  {% if overview %}
+  <div class="card overview">
+    <h2>{% translate "Overview" %}</h2>
+    <ul class="stats">
+      <li><strong>{{ overview.rooms }}</strong> {% translate "rooms" %}</li>
+      <li><a href="{% url 'access_overview' %}"><strong>{{ overview.active_grants }}</strong> {% translate "active access rights" %}</a></li>
+      <li><a href="{% url 'request_list' %}"><strong>{{ overview.pending_requests }}</strong> {% translate "requests waiting" %}</a></li>
+      <li><a href="{% url 'invitation_list' %}"><strong>{{ overview.pending_invitations }}</strong> {% translate "invitations waiting" %}</a></li>
+    </ul>
+    <h3>{% translate "Recent activity" %}</h3>
+    {% for e in overview.recent %}
+    <p class="item">{{ e.time|date:"Y-m-d H:i" }} UTC · {{ e.label }}{% if e.actor %} · <span class="muted">{{ e.actor }}</span>{% endif %}</p>
+    {% empty %}<p class="muted">{% translate "No events match." %}</p>
+    {% endfor %}
+    <p><a href="{% url 'audit_list' %}">{% translate "Open the audit log" %}</a></p>
+  </div>
+  {% endif %}
   {% if user.is_admin %}<p><a class="button primary" href="{% url 'room_create' %}">{% translate "New room" %}</a></p>{% endif %}
   {% for room in rooms %}
   <div class="card room">

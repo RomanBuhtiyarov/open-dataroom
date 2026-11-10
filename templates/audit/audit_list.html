@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Audit log" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section>
+  <h1>{% translate "Audit log" %}</h1>
+  <p class="intro">{% translate "Times are in UTC. The log stores event codes only; no passwords, codes, tokens or file contents." %}</p>
+  <div class="card">
+    <form method="get" class="filters">
+      {% for field in form %}<div class="filter">{% include "includes/field.html" with field=field %}</div>{% endfor %}
+      <div class="row">
+        <button type="submit" class="primary">{% translate "Filter" %}</button>
+        <a class="button secondary" href="{% url 'audit_list' %}">{% translate "Reset" %}</a>
+        <a class="button secondary" href="{% url 'audit_export' %}{% if query %}?{{ query }}{% endif %}">{% translate "Download CSV" %}</a>
+      </div>
+    </form>
+  </div>
+  <div class="card table-wrap">
+    <table>
+      <thead><tr>
+        <th>{% translate "Time (UTC)" %}</th><th>{% translate "Person" %}</th><th>{% translate "Event" %}</th>
+        <th>{% translate "Object" %}</th><th>{% translate "Outcome" %}</th>
+      </tr></thead>
+      <tbody>
+      {% for row in rows %}
+      <tr>
+        <td class="nowrap">{{ row.time|date:"Y-m-d H:i:s" }}</td>
+        <td>{% if row.actor %}{{ row.actor }}{% else %}<span class="muted">—</span>{% endif %}</td>
+        <td>{{ row.label }}<br><code class="muted">{{ row.code }}</code></td>
+        <td><code>{{ row.target }}</code></td>
+        <td><span class="badge badge-{{ row.outcome }}">{{ row.outcome_label }}</span></td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="5" class="muted">{% translate "No events match." %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if page.paginator.num_pages > 1 %}
+  <p class="row">
+    {% if page.has_previous %}<a class="button secondary" href="?{% if query %}{{ query }}&{% endif %}page={{ page.previous_page_number }}">{% translate "Newer" %}</a>{% endif %}
+    <span class="muted">{{ page.number }} / {{ page.paginator.num_pages }}</span>
+    {% if page.has_next %}<a class="button secondary" href="?{% if query %}{{ query }}&{% endif %}page={{ page.next_page_number }}">{% translate "Older" %}</a>{% endif %}
+  </p>
+  {% endif %}
+</section>
+{% endblock %}
