@@ -21,7 +21,12 @@
     <p><a href="{% url 'audit_list' %}">{% translate "Open the audit log" %}</a></p>
   </div>
   {% endif %}
-  {% if user.is_admin %}<p><a class="button primary" href="{% url 'room_create' %}">{% translate "New room" %}</a></p>{% endif %}
+  {% if user.is_admin %}<p><a class="button primary" href="{% url 'room_create' %}">{% translate "New room" %}</a></p>
+  <form method="post" action="{% url 'starter_rooms' %}">{% csrf_token %}
+    <div class="row"><button class="secondary" type="submit">{% translate "Create starter rooms" %}</button>
+    <span class="help">{% translate "Investor overview, Due diligence and Restricted legal. Missing rooms only; no access is given to anyone." %}</span></div>
+  </form>
+  {% endif %}
   {% for room in rooms %}
   <div class="card room">
     <h2><a href="{% url 'room_detail' room.pk %}">{{ room.name }}</a></h2>

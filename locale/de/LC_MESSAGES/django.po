@@ -1153,3 +1153,96 @@ msgstr "Der Link funktioniert einmal und läuft nach %(minutes)s Minuten ab."
 msgid "Your password was changed. Sign in with the new password."
 msgstr ""
 "Ihr Passwort wurde geändert. Melden Sie sich mit dem neuen Passwort an."
+
+msgid "A folder cannot be moved into itself."
+msgstr ""
+"Ein Ordner kann nicht in sich selbst oder einen eigenen Unterordner "
+"verschoben werden."
+
+msgid ""
+"Access given to this folder moves with it. Access to the new parent folder "
+"now applies to it as well."
+msgstr ""
+"Zugriff auf diesen Ordner wandert mit. Zugriff auf den neuen übergeordneten "
+"Ordner gilt nun auch für ihn."
+
+msgid "Charter documents"
+msgstr "Gründungsdokumente"
+
+msgid "Confirm the deletion first."
+msgstr "Bestätigen Sie zuerst das Löschen."
+
+msgid "Contracts"
+msgstr "Verträge"
+
+msgid "Create starter rooms"
+msgstr "Starträume anlegen"
+
+msgid "Delete the document"
+msgstr "Dokument löschen"
+
+msgid "Delete this document with all its versions. This cannot be undone."
+msgstr ""
+"Dieses Dokument mit allen Versionen löschen. Das kann nicht rückgängig "
+"gemacht werden."
+
+msgid "Disputes"
+msgstr "Streitigkeiten"
+
+msgid "Document deleted"
+msgstr "Dokument gelöscht"
+
+msgid "Document moved"
+msgstr "Dokument verschoben"
+
+msgid "Folder moved"
+msgstr "Ordner verschoben"
+
+msgid "Investor overview"
+msgstr "Investorenübersicht"
+
+msgid ""
+"Investor overview, Due diligence and Restricted legal. Missing rooms only; "
+"no access is given to anyone."
+msgstr ""
+"Investorenübersicht, Due Diligence und Eingeschränkte Rechtsdokumente. Nur "
+"fehlende Räume; niemandem wird Zugriff gegeben."
+
+msgid "Move"
+msgstr "Verschieben"
+
+msgid "Move this document to"
+msgstr "Dokument verschieben nach"
+
+msgid "Move this folder to"
+msgstr "Ordner verschieben nach"
+
+msgid "Restricted legal"
+msgstr "Eingeschränkte Rechtsdokumente"
+
+msgid "Room root"
+msgstr "Raumstamm"
+
+msgid "Starter rooms created"
+msgstr "Starträume angelegt"
+
+msgid "Starter rooms created: %(count)d."
+msgstr "Angelegte Starträume: %(count)d."
+
+msgid "The document cannot be moved to another room."
+msgstr "Das Dokument kann nicht in einen anderen Raum verschoben werden."
+
+msgid "The document is deleted."
+msgstr "Das Dokument wurde gelöscht."
+
+msgid "The document is moved."
+msgstr "Das Dokument wurde verschoben."
+
+msgid "The folder cannot be moved to another room."
+msgstr "Der Ordner kann nicht in einen anderen Raum verschoben werden."
+
+msgid "The folder is moved."
+msgstr "Der Ordner wurde verschoben."
+
+msgid "The folder tree would be too deep."
+msgstr "Die Ordnerstruktur würde zu tief."

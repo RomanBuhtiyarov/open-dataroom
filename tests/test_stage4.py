@@ -141,7 +141,7 @@ def test_pages_are_rendered_once_and_then_served_from_the_private_cache(media):
     first = client.get(reverse("document_page", args=[doc.pk, 1]))
     cached = list((media / "previews").rglob("1.png"))
     assert len(cached) == 1 and str(cached[0]).startswith(str(media))
-    with mock.patch("apps.rooms.previews.pdfium.PdfDocument", side_effect=AssertionError("must not reopen")):
+    with mock.patch("apps.rooms.previews._run_worker", side_effect=AssertionError("must not reopen")):
         second = client.get(reverse("document_page", args=[doc.pk, 1]))
     assert second.content == first.content
     for url in (f"/media/previews/{room.pk}/x/1.png", f"/static/previews/{room.pk}/x/1.png"):

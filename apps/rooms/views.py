@@ -40,6 +40,15 @@ def _room_url(room_id, folder_id=None):
     return f"{url}?folder={folder_id}" if folder_id else url
 
 
+def _choice(folder):
+    """(идентификатор, путь) для списка выбора папки."""
+    names, node = [], folder
+    while node is not None:
+        names.append(node.name)
+        node = node.parent
+    return folder.pk, " / ".join(reversed(names))
+
+
 def _errors(request, exc):
     for message in exc.messages:
         messages.error(request, message)
@@ -162,6 +171,7 @@ def room_detail(request, room_id):
         "crumbs": _breadcrumbs(access, folder) if folder else [],
         "templates": [(key, label) for key, label in InstanceSettings.RoomTemplate.choices if key != "empty"],
         "name_form": FolderNameForm(),
+        "move_targets": [_choice(f) for f in services.folder_destinations(folder)] if (folder is not None and access.admin) else [],
     }
     return render(request, "rooms/room_detail.html", context)
 
@@ -265,6 +275,7 @@ def document_detail(request, document_id):
         "can_download": policy.can_download_document(request.user, document),
         "crumbs": _breadcrumbs(access, document.folder),
         "form": VersionForm() if access.admin else None,
+        "destinations": [_choice(f) for f in Folder.objects.filter(room=room).select_related("parent") if f.pk != document.folder_id] if access.admin else [],
     })
 
 
@@ -384,7 +395,11 @@ def document_page(request, document_id, number):
     try:
         png = previews.render_page(room.pk, version.stored_name, files.file_path(room.pk, version.stored_name), number)
     except previews.PreviewError:
-        raise Http404
+        # Доступ уже проверен, поэтому состояние можно назвать честно: страница временно не готова.
+        response = HttpResponse(status=503)
+        response["Retry-After"] = "10"
+        response["Cache-Control"] = "no-store"
+        return response
     response = HttpResponse(png, content_type="image/png")
     response["Cache-Control"] = "private, no-store"
     response["Content-Disposition"] = "inline"
@@ -486,3 +501,72 @@ def nda_edit(request, room_id):
         return redirect("nda_edit", room_id=room.pk)
     accepted = current.acceptances.count() if current is not None else 0
     return render(request, "rooms/nda_edit.html", {"room": room, "form": form, "current": current, "accepted": accepted})
+
+
+# --- Перемещение, удаление, стартовый набор -----------------------------------
+
+
+def _dest_folder(room, raw):
+    """Папка назначения из POST. Пустое значение — корень комнаты (None). Чужая комната — 404."""
+    if raw in ("", None):
+        return None
+    try:
+        return get_object_or_404(Folder, pk=int(raw), room=room)
+    except ValueError:
+        raise Http404
+
+
+@admin_required
+@require_POST
+def folder_move(request, folder_id):
+    folder = get_object_or_404(Folder.objects.select_related("room", "parent"), pk=folder_id)
+    destination = _dest_folder(folder.room, request.POST.get("destination"))
+    try:
+        services.move_folder(folder, destination)
+    except ValidationError as exc:
+        _errors(request, exc)
+        return redirect(_room_url(folder.room_id, folder.pk))
+    record(events.FOLDER_MOVED, actor=request.user, target=f"folder:{folder.pk}>{destination.pk if destination else 'root'}")
+    messages.success(request, _("The folder is moved."))
+    return redirect(_room_url(folder.room_id, folder.pk))
+
+
+@admin_required
+@require_POST
+def document_move(request, document_id):
+    document = get_object_or_404(Document.objects.select_related("folder__room"), pk=document_id)
+    destination = _dest_folder(document.folder.room, request.POST.get("destination"))
+    if destination is None:
+        raise Http404
+    try:
+        services.move_document(document, destination)
+    except ValidationError as exc:
+        _errors(request, exc)
+        return redirect("document_detail", document_id=document.pk)
+    record(events.DOCUMENT_MOVED, actor=request.user, target=f"document:{document.pk}>{destination.pk}")
+    messages.success(request, _("The document is moved."))
+    return redirect("document_detail", document_id=document.pk)
+
+
+@admin_required
+@require_POST
+def document_delete(request, document_id):
+    document = get_object_or_404(Document.objects.select_related("folder__room"), pk=document_id)
+    folder = document.folder
+    if request.POST.get("confirm") != "1":
+        messages.error(request, _("Confirm the deletion first."))
+        return redirect("document_detail", document_id=document.pk)
+    pk = document.pk
+    services.delete_document(document)
+    record(events.DOCUMENT_DELETED, actor=request.user, target=f"document:{pk}")
+    messages.success(request, _("The document is deleted."))
+    return redirect(_room_url(folder.room_id, folder.pk))
+
+
+@admin_required
+@require_POST
+def starter_rooms(request):
+    created = services.create_starter_rooms(get_instance(request).effective_locale, request.user)
+    record(events.ROOM_STARTER_APPLIED, actor=request.user, target=f"rooms:{created}")
+    messages.success(request, _("Starter rooms created: %(count)d.") % {"count": created})
+    return redirect("home")

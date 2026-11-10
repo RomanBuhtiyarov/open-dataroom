@@ -53,6 +53,18 @@
       <label for="rename-folder">{% translate "Rename this folder" %}</label>
       <div class="row"><input id="rename-folder" name="name" value="{{ folder.name }}" maxlength="120" required><button class="secondary" type="submit">{% translate "Rename" %}</button></div>
     </form>
+    <form method="post" action="{% url 'folder_move' folder.pk %}">
+      {% csrf_token %}
+      <label for="move-folder">{% translate "Move this folder to" %}</label>
+      <div class="row">
+        <select id="move-folder" name="destination">
+          <option value="">{% translate "Room root" %}</option>
+          {% for pk, label in move_targets %}<option value="{{ pk }}">{{ label }}</option>{% endfor %}
+        </select>
+        <button class="secondary" type="submit">{% translate "Move" %}</button>
+      </div>
+      <p class="help">{% translate "Access given to this folder moves with it. Access to the new parent folder now applies to it as well." %}</p>
+    </form>
     <form method="post" action="{% url 'folder_delete' folder.pk %}">
       {% csrf_token %}
       <div class="row"><button class="secondary" type="submit">{% translate "Delete this folder" %}</button>

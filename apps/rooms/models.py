@@ -10,11 +10,16 @@ class Room(models.Model):
     name = models.CharField(max_length=120)
     description = models.TextField(blank=True, max_length=2000)
     nda_required = models.BooleanField(default=False)
+    # Ключ комнаты из стартового набора: повторное применение набора не создаёт дубликатов.
+    template_key = models.CharField(max_length=40, blank=True, default="")
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, related_name="+")
     created_at = models.DateTimeField(default=timezone.now)
 
     class Meta:
         ordering = ["name", "id"]
+        constraints = [
+            models.UniqueConstraint("template_key", name="rooms_room_unique_template_key", condition=~models.Q(template_key="")),
+        ]
 
     def __str__(self):
         return self.name

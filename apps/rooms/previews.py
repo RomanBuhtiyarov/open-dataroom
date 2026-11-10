@@ -2,36 +2,75 @@
 
 Файл-оригинал не отдаётся: посетитель без права скачивания видит только картинки страниц.
 Картинки строятся по требованию и кэшируются в приватном томе; доступ к ним проверяет политика на каждый запрос.
-Ограничения: число страниц и размер картинки заданы, чтобы один документ не мог исчерпать ресурсы.
-"""
-import io
-import os
 
-import pypdfium2 as pdfium
+Разбор PDF выполняет отдельный процесс (render_worker) с ограничениями: время, память, процессорное
+время (на Linux через setrlimit), чистое окружение без секретов приложения, размер ответа.
+"""
+import os
+import subprocess
+import sys
+import tempfile
+
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 MAX_PAGES = 500
 MAX_SIDE_PX = 1600
+WORKER_TIMEOUT = 30  # секунд
+WORKER_MEMORY = 1024 * 1024 * 1024  # 1 ГиБ адресного пространства (Linux)
+WORKER_CPU = 25  # секунд процессорного времени (Linux)
+MAX_OUTPUT = 40 * 1024 * 1024
+WORKER_SCRIPT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "render_worker.py")
 
 
 class PreviewError(Exception):
-    """Страницу не удалось построить (файл недоступен, номер вне диапазона, повреждённый PDF)."""
+    """Страницу не удалось построить (файл недоступен, номер вне диапазона, повреждённый PDF, превышен лимит)."""
+
+
+def _limits():
+    """Выполняется в дочернем процессе до запуска (только POSIX)."""
+    import resource
+
+    resource.setrlimit(resource.RLIMIT_AS, (WORKER_MEMORY, WORKER_MEMORY))
+    resource.setrlimit(resource.RLIMIT_CPU, (WORKER_CPU, WORKER_CPU))
+    resource.setrlimit(resource.RLIMIT_NOFILE, (64, 64))
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+
+
+def _clean_env():
+    """Ни одна переменная приложения (SECRET_KEY, пароль базы, SMTP) в процесс не попадает."""
+    keep = ("PATH", "SYSTEMROOT", "LANG", "LC_ALL", "TMPDIR", "TEMP", "TMP")
+    return {k: v for k, v in os.environ.items() if k in keep}
+
+
+def _run_worker(args, stdin=None):
+    env = _clean_env()
+    kwargs = {"preexec_fn": _limits} if os.name == "posix" else {}
+    with tempfile.TemporaryDirectory() as cwd:
+        try:
+            result = subprocess.run(
+                [sys.executable, "-I", WORKER_SCRIPT, *args],
+                input=stdin, capture_output=True, timeout=WORKER_TIMEOUT, env=env, cwd=cwd, **kwargs,
+            )
+        except subprocess.TimeoutExpired as exc:
+            raise PreviewError("worker timed out") from exc
+        except OSError as exc:
+            raise PreviewError("worker cannot start") from exc
+    if result.returncode != 0 or len(result.stdout) > MAX_OUTPUT:
+        raise PreviewError("worker failed")
+    return result.stdout
 
 
 def pages_from_bytes(data):
     """Число страниц загружаемого PDF. Нечитаемые и защищённые паролем файлы отклоняются."""
+    unreadable = ValidationError(_("The PDF file cannot be read or is protected by a password."))
     try:
-        document = pdfium.PdfDocument(data)
-    except Exception:  # noqa: BLE001 - pdfium сообщает об ошибках разными классами
-        raise ValidationError(_("The PDF file cannot be read or is protected by a password."))
-    try:
-        count = len(document)
-    finally:
-        document.close()
+        count = int(_run_worker(["count"], stdin=data).decode() or 0)
+    except (PreviewError, ValueError):
+        raise unreadable
     if count < 1:
-        raise ValidationError(_("The PDF file cannot be read or is protected by a password."))
+        raise unreadable
     if count > MAX_PAGES:
         raise ValidationError(_("The PDF has too many pages."))
     return count
@@ -39,13 +78,9 @@ def pages_from_bytes(data):
 
 def pages_from_path(path):
     try:
-        document = pdfium.PdfDocument(str(path))
-    except Exception as exc:  # noqa: BLE001
-        raise PreviewError("cannot open document") from exc
-    try:
-        return len(document)
-    finally:
-        document.close()
+        return int(_run_worker(["count-file", str(path)]).decode())
+    except ValueError as exc:
+        raise PreviewError("bad page count") from exc
 
 
 def cache_path(room_id, stored_name, number):
@@ -57,26 +92,9 @@ def render_page(room_id, stored_name, source_path, number):
     cached = cache_path(room_id, stored_name, number)
     if cached.exists():
         return cached.read_bytes()
-    try:
-        document = pdfium.PdfDocument(str(source_path))
-    except Exception as exc:  # noqa: BLE001
-        raise PreviewError("cannot open document") from exc
-    try:
-        if not 1 <= number <= len(document):
-            raise PreviewError("page out of range")
-        page = document[number - 1]
-        width, height = page.get_size()
-        scale = min(2.0, MAX_SIDE_PX / max(width, height, 1))
-        image = page.render(scale=scale).to_pil().convert("RGB")
-        out = io.BytesIO()
-        image.save(out, format="PNG")
-    except PreviewError:
-        raise
-    except Exception as exc:  # noqa: BLE001
-        raise PreviewError("render failed") from exc
-    finally:
-        document.close()
-    payload = out.getvalue()
+    payload = _run_worker(["render", str(source_path), str(int(number))])
+    if not payload.startswith(b"\x89PNG"):
+        raise PreviewError("not a PNG")
     cached.parent.mkdir(parents=True, exist_ok=True)
     tmp = cached.with_name(f".{cached.name}.tmp")
     tmp.write_bytes(payload)

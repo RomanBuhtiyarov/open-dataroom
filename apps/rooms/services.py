@@ -10,7 +10,7 @@ from django.utils import translation
 from django.utils.translation import gettext, gettext_lazy as _
 
 from . import files
-from .models import MAX_FOLDER_DEPTH, Document, DocumentVersion, Folder
+from .models import MAX_FOLDER_DEPTH, Document, DocumentVersion, Folder, Room
 
 # Шаблоны комнат. Ключ папки стабилен, название берётся на языке экземпляра в момент создания.
 ROOM_TEMPLATES = {
@@ -32,7 +32,20 @@ ROOM_TEMPLATES = {
         ("commercial", _("Commercial")),
         ("it", _("IT and security")),
     ],
+    # Для комнаты с ограниченным доступом (в списке выбора на экране настроек не показывается).
+    "restricted_legal": [
+        ("charter", _("Charter documents")),
+        ("contracts", _("Contracts")),
+        ("disputes", _("Disputes")),
+    ],
 }
+
+# Стартовый набор комнат. Права никому не выдаются: доступ администратор назначает вручную.
+STARTER_ROOMS = [
+    ("overview", _("Investor overview"), "fundraising"),
+    ("diligence", _("Due diligence"), "due_diligence"),
+    ("restricted_legal", _("Restricted legal"), "restricted_legal"),
+]
 
 
 def clean_name(value):
@@ -141,3 +154,105 @@ def add_version(document, uploaded, user):
         files.remove_file(room_id, stored)
         raise
     return version
+
+
+def create_starter_rooms(language, user):
+    """Создаёт недостающие комнаты стартового набора. Повторный вызов ничего не дублирует и права не меняет."""
+    created = 0
+    with translation.override(language):
+        for key, label, folders in STARTER_ROOMS:
+            if Room.objects.filter(template_key=key).exists():
+                continue
+            with transaction.atomic():
+                room = Room.objects.create(name=clean_name(gettext(label)), template_key=key, created_by=user)
+                apply_template(room, folders, language)
+            created += 1
+    return created
+
+
+# --- Перемещение и удаление ---------------------------------------------------
+
+
+def _subtree(folder):
+    """Папка и все вложенные в неё. Возвращает (список идентификаторов, высота поддерева)."""
+    ids, height, level = [folder.id], 1, [folder.id]
+    while True:
+        level = list(Folder.objects.filter(parent_id__in=level).values_list("id", flat=True))
+        if not level:
+            return ids, height
+        ids += level
+        height += 1
+
+
+def folder_destinations(folder):
+    """Папки комнаты, в которые можно переместить `folder` (без неё самой, её потомков и превышения глубины)."""
+    subtree_ids, height = _subtree(folder)
+    result = []
+    for candidate in Folder.objects.filter(room=folder.room).exclude(id__in=subtree_ids).select_related("parent"):
+        if candidate.depth + height <= MAX_FOLDER_DEPTH and candidate.id != folder.parent_id:
+            result.append(candidate)
+    return result
+
+
+def move_folder(folder, new_parent):
+    """Переносит папку внутри комнаты. Права на папку и её содержимое переезжают вместе с ней."""
+    with transaction.atomic():
+        folder = Folder.objects.select_for_update().select_related("room").get(pk=folder.pk)
+        if new_parent is not None:
+            new_parent = Folder.objects.get(pk=new_parent.pk)
+            if new_parent.room_id != folder.room_id:
+                raise ValidationError(_("The folder cannot be moved to another room."))
+            subtree_ids, height = _subtree(folder)
+            if new_parent.id in subtree_ids:
+                raise ValidationError(_("A folder cannot be moved into itself."))
+            if new_parent.depth + height > MAX_FOLDER_DEPTH:
+                raise ValidationError(_("The folder tree would be too deep."))
+        new_parent_id = new_parent.pk if new_parent else None
+        if new_parent_id == folder.parent_id:
+            return folder
+        clash = Folder.objects.filter(room_id=folder.room_id, parent_id=new_parent_id).exclude(pk=folder.pk)
+        if clash.annotate(n=Lower("name")).filter(n=folder.name.lower()).exists():
+            raise ValidationError(_("A folder with this name already exists here."))
+        folder.parent_id = new_parent_id
+        try:
+            folder.save(update_fields=["parent"])
+        except IntegrityError:
+            raise ValidationError(_("A folder with this name already exists here."))
+    return folder
+
+
+def move_document(document, folder):
+    """Переносит документ в другую папку той же комнаты."""
+    with transaction.atomic():
+        document = Document.objects.select_for_update().select_related("folder").get(pk=document.pk)
+        if folder.room_id != document.folder.room_id:
+            raise ValidationError(_("The document cannot be moved to another room."))
+        if folder.pk == document.folder_id:
+            return document
+        if _title_taken(folder, document.title, exclude_id=document.pk):
+            raise ValidationError(_("A document with this title already exists in the folder."))
+        document.folder = folder
+        try:
+            document.save(update_fields=["folder"])
+        except IntegrityError:
+            raise ValidationError(_("A document with this title already exists in the folder."))
+    return document
+
+
+def delete_document(document):
+    """Удаляет документ со всеми версиями. Файлы и кэш превью стираются после фиксации транзакции."""
+    import shutil
+
+    room_id = document.folder.room_id
+    stored = list(document.versions.values_list("stored_name", flat=True))
+    with transaction.atomic():
+        document.delete()
+
+        def cleanup():
+            from django.conf import settings
+
+            for name in stored:
+                files.remove_file(room_id, name)
+                shutil.rmtree(settings.PRIVATE_MEDIA_ROOT / "previews" / str(room_id) / name, ignore_errors=True)
+
+        transaction.on_commit(cleanup)

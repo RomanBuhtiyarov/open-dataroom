@@ -26,6 +26,24 @@
       <div class="row"><button type="submit" class="secondary">{% translate "Publish new version" %}</button></div>
     </form>
   </div>
+  <div class="card">
+    <form method="post" action="{% url 'document_move' document.pk %}">
+      {% csrf_token %}
+      <label for="move-doc">{% translate "Move this document to" %}</label>
+      <div class="row">
+        <select id="move-doc" name="destination" required>
+          {% for pk, label in destinations %}<option value="{{ pk }}">{{ label }}</option>{% endfor %}
+        </select>
+        <button class="secondary" type="submit">{% translate "Move" %}</button>
+      </div>
+    </form>
+    <form method="post" action="{% url 'document_delete' document.pk %}">
+      {% csrf_token %}
+      <div class="check"><input type="checkbox" id="confirm-del" name="confirm" value="1" required>
+        <label for="confirm-del">{% translate "Delete this document with all its versions. This cannot be undone." %}</label></div>
+      <div class="row"><button class="secondary" type="submit">{% translate "Delete the document" %}</button></div>
+    </form>
+  </div>
   {% endif %}
 </section>
 {% endblock %}

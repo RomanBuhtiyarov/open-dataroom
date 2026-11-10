@@ -23,6 +23,7 @@ Status legend: **done**, **next**, **planned**, **later**.
 | 4 | Screens, audit and previews | **done** | Administrator and investor screens, audit log, raster page previews for view-only documents, download by permission, revocation takes effect immediately |
 | 5 | Operations | done | Second instance from the same image, backup and restore procedure, deployment guide with reverse proxy examples |
 | 6 | Specification gaps: security | done | Password reset by one-time link, no-store and no-referrer on token pages, request id in the audit log |
+| 7 | Specification gaps: content | done | Move folders and documents, delete documents, starter rooms, PDF parsing in a separate process |
 
 ### 0. Project skeleton (done)
 
@@ -80,6 +81,14 @@ Status legend: **done**, **next**, **planned**, **later**.
 - Invitation, access-request and password-reset pages send `Cache-Control: no-store` and `Referrer-Policy: no-referrer`; other pages keep `same-origin`.
 - Each audit event stores a server-generated request id (also returned as `X-Request-ID`, shown in the audit screen and the CSV). A value sent by the client is ignored.
 - Known limits: response timing is not equalised between known and unknown addresses; existing sessions of the user are ended by the password change but the reset does not notify other devices.
+
+### 7. Specification gaps: content (done)
+
+- Move a folder to another folder or the room root, and a document to another folder of the same room. Moving across rooms is refused. Access follows the objects: a grant on a folder moves with it, and the folders it lands in start to apply. Cycles, name clashes and the depth limit are refused; each move is audited.
+- Delete a document with all its versions (explicit confirmation, audited). Rows go in one transaction; files and cached previews are removed after it commits.
+- Starter rooms (Investor overview, Due diligence, Restricted legal), created by an explicit administrator action, repeatable without duplicates, giving access to nobody. Names are neutral; instance-specific sets are not part of the repository.
+- PDF parsing (upload check, page count, page images) runs in a separate Python process: clean environment without application secrets, 30 s wall-clock limit, on Linux 1 GiB address space, 25 s CPU time and 64 open files, output size cap. A failed or timed-out render gives `503` with `Retry-After` after the access check passed.
+- Known limits: no restore of a deleted document; a backup taken at the moment a document is deleted can contain a row whose file is gone, so avoid deleting during a backup; on Windows only the time limit applies; page rendering is synchronous, so there is no separate "processing" state beyond the 503; moving does not notify people who lose access.
 
 ## After the first release
 

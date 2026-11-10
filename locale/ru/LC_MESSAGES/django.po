@@ -1120,3 +1120,92 @@ msgstr "Ссылка работает один раз и действует %(mi
 
 msgid "Your password was changed. Sign in with the new password."
 msgstr "Пароль изменён. Войдите с новым паролем."
+
+msgid "A folder cannot be moved into itself."
+msgstr "Папку нельзя переместить в саму себя или в свою вложенную папку."
+
+msgid ""
+"Access given to this folder moves with it. Access to the new parent folder "
+"now applies to it as well."
+msgstr ""
+"Доступ, выданный на эту папку, переезжает вместе с ней. Доступ к новой "
+"родительской папке теперь действует и на неё."
+
+msgid "Charter documents"
+msgstr "Учредительные документы"
+
+msgid "Confirm the deletion first."
+msgstr "Сначала подтвердите удаление."
+
+msgid "Contracts"
+msgstr "Договоры"
+
+msgid "Create starter rooms"
+msgstr "Создать стартовые комнаты"
+
+msgid "Delete the document"
+msgstr "Удалить документ"
+
+msgid "Delete this document with all its versions. This cannot be undone."
+msgstr "Удалить этот документ со всеми версиями. Действие нельзя отменить."
+
+msgid "Disputes"
+msgstr "Споры"
+
+msgid "Document deleted"
+msgstr "Документ удалён"
+
+msgid "Document moved"
+msgstr "Документ перемещён"
+
+msgid "Folder moved"
+msgstr "Папка перемещена"
+
+msgid "Investor overview"
+msgstr "Обзор для инвестора"
+
+msgid ""
+"Investor overview, Due diligence and Restricted legal. Missing rooms only; "
+"no access is given to anyone."
+msgstr ""
+"Обзор для инвестора, Due diligence и Ограниченные юридические документы. "
+"Только недостающие комнаты; доступ никому не выдаётся."
+
+msgid "Move"
+msgstr "Переместить"
+
+msgid "Move this document to"
+msgstr "Переместить документ в"
+
+msgid "Move this folder to"
+msgstr "Переместить папку в"
+
+msgid "Restricted legal"
+msgstr "Ограниченные юридические документы"
+
+msgid "Room root"
+msgstr "Корень комнаты"
+
+msgid "Starter rooms created"
+msgstr "Созданы стартовые комнаты"
+
+msgid "Starter rooms created: %(count)d."
+msgstr "Создано стартовых комнат: %(count)d."
+
+msgid "The document cannot be moved to another room."
+msgstr "Документ нельзя переместить в другую комнату."
+
+msgid "The document is deleted."
+msgstr "Документ удалён."
+
+msgid "The document is moved."
+msgstr "Документ перемещён."
+
+msgid "The folder cannot be moved to another room."
+msgstr "Папку нельзя переместить в другую комнату."
+
+msgid "The folder is moved."
+msgstr "Папка перемещена."
+
+msgid "The folder tree would be too deep."
+msgstr "Дерево папок получилось бы слишком глубоким."
