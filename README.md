@@ -51,6 +51,8 @@ DJANGO_DEBUG=1 .venv/Scripts/python manage.py bootstrap_admin
 Open `http://localhost:8000/`, sign in, scan the QR code with an authenticator app, then fill in the first-launch screen.
 Lost the authenticator? Run `manage.py reset_2fa <email>` on the server; the user enrols a new device at the next sign-in.
 
+Demo data: `DJANGO_DEBUG=1 .venv/Scripts/python manage.py seed_demo` fills a development instance with a fictional company: three rooms, ten documents (PDF with charts, DOCX, XLSX), four visitors with different access (full, view-only, an NDA not yet accepted, expired), a pending invitation, a pending access request and some audit history. Visitor addresses and the shared demo password are listed in the command output and in `apps/core/management/commands/seed_demo.py`. It refuses to run without `DJANGO_DEBUG=1`, never changes existing data and is safe to run again.
+
 The app only accepts the host from `PUBLIC_BASE_URL`; other hosts are rejected.
 Without `DATABASE_URL`, `DJANGO_DEBUG=1` uses SQLite. Production requires PostgreSQL.
 
