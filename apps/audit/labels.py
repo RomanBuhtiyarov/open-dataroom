@@ -46,6 +46,7 @@ LABELS = {
     events.REQUEST_APPROVED: _("Access request approved"),
     events.REQUEST_REJECTED: _("Access request rejected"),
     events.AUDIT_EXPORTED: _("Audit log exported"),
+    events.ANALYTICS_EXPORTED: _("View analytics exported"),
     events.BACKUP_CREATED: _("Backup created"),
     events.BACKUP_RESTORED: _("Instance restored from a backup"),
 }

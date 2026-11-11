@@ -10,6 +10,8 @@ class Room(models.Model):
     name = models.CharField(max_length=120)
     description = models.TextField(blank=True, max_length=2000)
     nda_required = models.BooleanField(default=False)
+    # Водяной знак (email, время, IP) на страницах предпросмотра.
+    watermark_enabled = models.BooleanField(default=True)
     # Ключ комнаты из стартового набора: повторное применение набора не создаёт дубликатов.
     template_key = models.CharField(max_length=40, blank=True, default="")
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, related_name="+")
@@ -166,3 +168,20 @@ class NdaAcceptance(models.Model):
 
     class Meta:
         constraints = [models.UniqueConstraint("user", "version", name="rooms_nda_acceptance_unique")]
+
+
+class PageTime(models.Model):
+    """Время, которое посетитель провёл на странице версии. Учёт приблизительный: секунды видимой страницы.
+
+    Содержимого документов и персональных данных здесь нет; строка существует, если страницу открывали.
+    """
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="+")
+    version = models.ForeignKey(DocumentVersion, on_delete=models.CASCADE, related_name="page_times")
+    page = models.PositiveIntegerField()
+    seconds = models.PositiveIntegerField(default=0)
+    first_seen = models.DateTimeField(default=timezone.now)
+    last_seen = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        constraints = [models.UniqueConstraint("user", "version", "page", name="rooms_pagetime_unique")]

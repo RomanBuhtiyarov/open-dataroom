@@ -1209,3 +1209,83 @@ msgstr "Папку переміщено."
 
 msgid "The folder tree would be too deep."
 msgstr "Дерево папок стало б надто глибоким."
+
+msgid "Activity, last 30 days"
+msgstr "Активність за 30 днів"
+
+msgid ""
+"Counts visitors only; administrators are left out. Time is approximate: "
+"seconds while a page is visible on screen. Times are in UTC."
+msgstr ""
+"Враховуються лише відвідувачі, адміністратори не входять. Час приблизний: "
+"секунди, поки сторінка видима на екрані. Час подано в UTC."
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Document"
+msgstr "Документ"
+
+msgid "Last viewed (UTC)"
+msgstr "Останній перегляд (UTC)"
+
+msgid "Never opened"
+msgstr "Не відкривали"
+
+msgid "No visitor has access yet."
+msgstr "Поки що жоден відвідувач не має доступу."
+
+msgid "Not opened yet"
+msgstr "Ще не відкрито"
+
+msgid "Opened"
+msgstr "Відкрито"
+
+msgid "Page"
+msgstr "Сторінка"
+
+msgid "Page statistics exist only for PDF files."
+msgstr "Статистика за сторінками є лише для PDF-файлів."
+
+msgid ""
+"Shows the visitor's email, time and address on every page. It deters leaks "
+"but does not stop photos of the screen."
+msgstr ""
+"Показує на кожній сторінці пошту відвідувача, час і адресу. Це стримує "
+"витоки, але не заважає сфотографувати екран."
+
+msgid "There are no documents yet."
+msgstr "Документів поки немає."
+
+msgid "Time on pages"
+msgstr "Час на сторінках"
+
+msgid "Time per page is approximate and counts visitors only."
+msgstr "Час на сторінці приблизний, враховуються лише відвідувачі."
+
+msgid "View analytics"
+msgstr "Аналітика переглядів"
+
+msgid "View analytics exported"
+msgstr "Аналітику переглядів вивантажено"
+
+msgid "Views"
+msgstr "Перегляди"
+
+msgid "Visitor"
+msgstr "Відвідувач"
+
+msgid "Visitors"
+msgstr "Відвідувачі"
+
+msgid "Visitors and unopened documents"
+msgstr "Відвідувачі та невідкриті документи"
+
+msgid "Watermark on document pages"
+msgstr "Водяний знак на сторінках документів"
+
+msgid "min"
+msgstr "хв"
+
+msgid "s"
+msgstr "с"

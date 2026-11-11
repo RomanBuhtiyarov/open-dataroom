@@ -28,6 +28,7 @@
       {% if user.is_admin %}<a href="{% url 'invitation_list' %}">{% translate "Invitations" %}</a>
       <a href="{% url 'request_list' %}">{% translate "Access requests" %}</a>
       <a href="{% url 'access_overview' %}">{% translate "Active access" %}</a>
+      <a href="{% url 'analytics' %}">{% translate "View analytics" %}</a>
       <a href="{% url 'audit_list' %}">{% translate "Audit log" %}</a>
       <a href="{% url 'instance_settings' %}">{% translate "Instance settings" %}</a>{% endif %}
     </nav>
@@ -43,5 +44,6 @@
 {% block content %}{% endblock %}
 </main>
 <script src="{% static 'js/lang.js' %}" defer></script>
+{% block scripts %}{% endblock %}
 </body>
 </html>

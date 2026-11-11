@@ -83,7 +83,7 @@ def test_opening_the_viewer_is_audited_once_not_per_page_image():
     for n in (1, 2, 3):
         client.get(reverse("document_page", args=[doc.pk, n]))
     events_ = AuditEvent.objects.filter(code="document.viewed", actor=user)
-    assert events_.count() == 1 and events_.get().target == f"document:{doc.pk}:v1"
+    assert events_.count() == 1 and events_.get().target.startswith(f"document:{doc.pk}:v1:view:")
 
 
 @pytest.mark.django_db

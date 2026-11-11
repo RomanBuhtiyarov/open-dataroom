@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ document.title }} · {% translate "View analytics" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section>
+  <p class="crumbs"><a href="{% url 'analytics' %}">{% translate "View analytics" %}</a> / {{ room.name }}</p>
+  <h1>{{ document.title }}</h1>
+  <p class="intro">{% translate "Time per page is approximate and counts visitors only." %}</p>
+  {% if pages %}
+  <div class="card table-wrap">
+    <table>
+      <thead><tr><th>{% translate "Page" %}</th><th>{% translate "Visitors" %}</th><th>{% translate "Time on pages" %}</th><th aria-hidden="true"></th></tr></thead>
+      <tbody>
+      {% for p in pages %}
+      <tr>
+        <td>{{ p.number }}</td><td>{{ p.viewers }}</td><td class="nowrap">{{ p.seconds }} {% translate "s" %}</td>
+        <td class="bar"><progress max="{{ top }}" value="{{ p.seconds }}" aria-label="{{ p.seconds }}"></progress></td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="card"><p>{% translate "Page statistics exist only for PDF files." %}</p></div>
+  {% endif %}
+</section>
+{% endblock %}

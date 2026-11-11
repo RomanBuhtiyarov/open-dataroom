@@ -1246,3 +1246,84 @@ msgstr "Der Ordner wurde verschoben."
 
 msgid "The folder tree would be too deep."
 msgstr "Die Ordnerstruktur würde zu tief."
+
+msgid "Activity, last 30 days"
+msgstr "Aktivität der letzten 30 Tage"
+
+msgid ""
+"Counts visitors only; administrators are left out. Time is approximate: "
+"seconds while a page is visible on screen. Times are in UTC."
+msgstr ""
+"Es werden nur Besucher gezählt, Administratoren nicht. Die Zeit ist "
+"ungefähr: Sekunden, solange eine Seite auf dem Bildschirm sichtbar ist. "
+"Zeiten in UTC."
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Document"
+msgstr "Dokument"
+
+msgid "Last viewed (UTC)"
+msgstr "Zuletzt angesehen (UTC)"
+
+msgid "Never opened"
+msgstr "Nie geöffnet"
+
+msgid "No visitor has access yet."
+msgstr "Noch hat kein Besucher Zugriff."
+
+msgid "Not opened yet"
+msgstr "Noch nicht geöffnet"
+
+msgid "Opened"
+msgstr "Geöffnet"
+
+msgid "Page"
+msgstr "Seite"
+
+msgid "Page statistics exist only for PDF files."
+msgstr "Seitenstatistiken gibt es nur für PDF-Dateien."
+
+msgid ""
+"Shows the visitor's email, time and address on every page. It deters leaks "
+"but does not stop photos of the screen."
+msgstr ""
+"Zeigt auf jeder Seite E-Mail, Zeit und Adresse des Besuchers. Das schreckt "
+"vor Lecks ab, verhindert aber keine Fotos des Bildschirms."
+
+msgid "There are no documents yet."
+msgstr "Es gibt noch keine Dokumente."
+
+msgid "Time on pages"
+msgstr "Zeit auf den Seiten"
+
+msgid "Time per page is approximate and counts visitors only."
+msgstr "Die Zeit pro Seite ist ungefähr und zählt nur Besucher."
+
+msgid "View analytics"
+msgstr "Ansichtsstatistik"
+
+msgid "View analytics exported"
+msgstr "Ansichtsstatistik exportiert"
+
+msgid "Views"
+msgstr "Ansichten"
+
+msgid "Visitor"
+msgstr "Besucher"
+
+msgid "Visitors"
+msgstr "Besucher"
+
+msgid "Visitors and unopened documents"
+msgstr "Besucher und ungeöffnete Dokumente"
+
+msgid "Watermark on document pages"
+msgstr "Wasserzeichen auf den Dokumentseiten"
+
+msgid "min"
+msgstr "Min."
+
+msgid "s"
+msgstr "s"

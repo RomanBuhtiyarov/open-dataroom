@@ -14,21 +14,25 @@ from .models import Folder, Room
 class RoomForm(forms.ModelForm):
     class Meta:
         model = Room
-        fields = ["name", "description", "nda_required"]
+        fields = ["name", "description", "nda_required", "watermark_enabled"]
         labels = {
             "name": _("Room name"),
             "description": _("Description"),
             "nda_required": _("Require visitors to accept an NDA first"),
+            "watermark_enabled": _("Watermark on document pages"),
         }
         widgets = {"description": forms.Textarea(attrs={"rows": 3})}
-        help_texts = {"nda_required": _("Publish the NDA text on the NDA page of the room.")}
+        help_texts = {
+            "nda_required": _("Publish the NDA text on the NDA page of the room."),
+            "watermark_enabled": _("Shows the visitor's email, time and address on every page. It deters leaks but does not stop photos of the screen."),
+        }
 
 
 class RoomCreateForm(RoomForm):
     template = forms.ChoiceField(label=_("Room template"), choices=InstanceSettings.RoomTemplate.choices)
 
     class Meta(RoomForm.Meta):
-        fields = ["name", "description", "nda_required"]
+        fields = ["name", "description", "nda_required", "watermark_enabled"]
 
 
 class FolderNameForm(forms.Form):

@@ -69,3 +69,18 @@ def test_seeded_visitors_have_the_intended_access():
 
     expired = User.objects.get(email="investor4@example.com")
     assert all(policy.access_for(expired, room) is None for room in Room.objects.all())
+
+
+@pytest.mark.django_db
+def test_seed_fills_view_analytics():
+    from apps.rooms import analytics
+    from apps.rooms.models import PageTime
+
+    make_admin()
+    call_command("seed_demo")
+    count = PageTime.objects.count()
+    assert count > 0
+    call_command("seed_demo")
+    assert PageTime.objects.count() == count
+    data = analytics.summary()
+    assert any(row["seconds"] for row in data["documents"])

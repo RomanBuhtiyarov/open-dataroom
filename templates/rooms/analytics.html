@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "View analytics" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section>
+  <h1>{% translate "View analytics" %}</h1>
+  <p class="intro">{% translate "Counts visitors only; administrators are left out. Time is approximate: seconds while a page is visible on screen. Times are in UTC." %}</p>
+  <p><a class="button secondary" href="{% url 'analytics_export' %}">{% translate "Download CSV" %}</a></p>
+
+  <h2>{% translate "Documents" %}</h2>
+  <div class="card table-wrap">
+    <table>
+      <thead><tr>
+        <th>{% translate "Document" %}</th><th>{% translate "Room" %}</th><th>{% translate "Visitors" %}</th>
+        <th>{% translate "Views" %}</th><th>{% translate "Time on pages" %}</th><th>{% translate "Last viewed (UTC)" %}</th>
+      </tr></thead>
+      <tbody>
+      {% for row in documents %}
+      <tr>
+        <td><a href="{% url 'analytics_document' row.document.pk %}">{{ row.document.title }}</a></td>
+        <td>{{ row.room.name }}</td>
+        <td>{{ row.viewers }}</td>
+        <td>{{ row.views }}</td>
+        <td class="nowrap">{% if not row.seconds %}<span class="muted">—</span>{% elif row.seconds < 60 %}{{ row.seconds }} {% translate "s" %}{% else %}{% widthratio row.seconds 60 1 as minutes %}{{ minutes }} {% translate "min" %}{% endif %}</td>
+        <td class="nowrap">{% if row.last %}{{ row.last|date:"Y-m-d H:i" }}{% else %}<span class="muted">{% translate "Never opened" %}</span>{% endif %}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="6" class="muted">{% translate "There are no documents yet." %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>{% translate "Visitors and unopened documents" %}</h2>
+  <div class="card table-wrap">
+    <table>
+      <thead><tr><th>{% translate "Visitor" %}</th><th>{% translate "Opened" %}</th><th>{% translate "Not opened yet" %}</th></tr></thead>
+      <tbody>
+      {% for row in visitors %}
+      <tr>
+        <td>{{ row.user.email }}</td>
+        <td class="nowrap">{{ row.opened }} / {{ row.visible }}</td>
+        <td>{% for d in row.unopened %}{{ d.title }}{% if not forloop.last %}, {% endif %}{% empty %}<span class="muted">—</span>{% endfor %}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="3" class="muted">{% translate "No visitor has access yet." %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>{% blocktranslate %}Activity, last 30 days{% endblocktranslate %}</h2>
+  <div class="card table-wrap">
+    <table>
+      <thead><tr><th>{% translate "Date" %}</th><th>{% translate "Views" %}</th><th>{% translate "Visitors" %}</th><th aria-hidden="true"></th></tr></thead>
+      <tbody>
+      {% for d in days %}
+      <tr>
+        <td class="nowrap">{{ d.day|date:"Y-m-d" }}</td><td>{{ d.views }}</td><td>{{ d.viewers }}</td>
+        <td class="bar"><progress max="{{ peak }}" value="{{ d.views }}" aria-label="{{ d.views }}"></progress></td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

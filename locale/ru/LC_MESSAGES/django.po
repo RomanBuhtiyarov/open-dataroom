@@ -1209,3 +1209,84 @@ msgstr "Папка перемещена."
 
 msgid "The folder tree would be too deep."
 msgstr "Дерево папок получилось бы слишком глубоким."
+
+msgid "Activity, last 30 days"
+msgstr "Активность за 30 дней"
+
+msgid ""
+"Counts visitors only; administrators are left out. Time is approximate: "
+"seconds while a page is visible on screen. Times are in UTC."
+msgstr ""
+"Учитываются только посетители, администраторы не входят. Время "
+"приблизительное: секунды, пока страница видна на экране. Время указано в "
+"UTC."
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Document"
+msgstr "Документ"
+
+msgid "Last viewed (UTC)"
+msgstr "Последний просмотр (UTC)"
+
+msgid "Never opened"
+msgstr "Не открывали"
+
+msgid "No visitor has access yet."
+msgstr "Пока ни у одного посетителя нет доступа."
+
+msgid "Not opened yet"
+msgstr "Ещё не открыто"
+
+msgid "Opened"
+msgstr "Открыто"
+
+msgid "Page"
+msgstr "Страница"
+
+msgid "Page statistics exist only for PDF files."
+msgstr "Статистика по страницам есть только для PDF-файлов."
+
+msgid ""
+"Shows the visitor's email, time and address on every page. It deters leaks "
+"but does not stop photos of the screen."
+msgstr ""
+"Показывает на каждой странице почту посетителя, время и адрес. Это "
+"сдерживает утечки, но не мешает сфотографировать экран."
+
+msgid "There are no documents yet."
+msgstr "Документов пока нет."
+
+msgid "Time on pages"
+msgstr "Время на страницах"
+
+msgid "Time per page is approximate and counts visitors only."
+msgstr "Время на странице приблизительное, учитываются только посетители."
+
+msgid "View analytics"
+msgstr "Аналитика просмотров"
+
+msgid "View analytics exported"
+msgstr "Аналитика просмотров выгружена"
+
+msgid "Views"
+msgstr "Просмотры"
+
+msgid "Visitor"
+msgstr "Посетитель"
+
+msgid "Visitors"
+msgstr "Посетители"
+
+msgid "Visitors and unopened documents"
+msgstr "Посетители и неоткрытые документы"
+
+msgid "Watermark on document pages"
+msgstr "Водяной знак на страницах документов"
+
+msgid "min"
+msgstr "мин"
+
+msgid "s"
+msgstr "с"

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from . import analytics, views
 
 urlpatterns = [
     path("", views.room_list, name="home"),
@@ -21,6 +21,10 @@ urlpatterns = [
     path("documents/<int:document_id>/download/", views.document_download, name="document_download"),
     path("documents/<int:document_id>/view/", views.document_view, name="document_view"),
     path("documents/<int:document_id>/pages/<int:number>.png", views.document_page, name="document_page"),
+    path("documents/<int:document_id>/pulse/", analytics.document_pulse, name="document_pulse"),
+    path("analytics/", analytics.analytics, name="analytics"),
+    path("analytics/export.csv", analytics.analytics_export, name="analytics_export"),
+    path("analytics/documents/<int:document_id>/", analytics.analytics_document, name="analytics_document"),
     path("rooms/<int:room_id>/access/", views.access_list, name="access_list"),
     path("grants/<int:grant_id>/revoke/", views.grant_revoke, name="grant_revoke"),
     path("access/", views.access_overview, name="access_overview"),

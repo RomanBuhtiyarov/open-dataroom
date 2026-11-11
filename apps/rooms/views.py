@@ -1,3 +1,5 @@
+import secrets
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied, ValidationError
@@ -19,9 +21,10 @@ from apps.audit.service import record
 from apps.core.decorators import admin_required
 from apps.core.instance import get_instance
 from apps.core.models import InstanceSettings
+from apps.core.ratelimit import client_ip
 from apps.invites.models import AccessRequest, Invitation
 
-from . import files, policy, previews, serving, services
+from . import files, policy, previews, serving, services, watermark
 from .forms import FolderNameForm, GrantForm, NdaAcceptForm, NdaForm, RoomCreateForm, RoomForm, UploadForm, VersionForm
 from .models import AccessGrant, Document, Folder, NdaAcceptance, NdaText, NdaVersion, Room
 
@@ -369,13 +372,29 @@ def document_view(request, document_id):
     pages = None
     if version.extension == "pdf":
         pages = range(1, _page_total(room, version) + 1)
-    record(events.DOCUMENT_VIEWED, actor=request.user, target=f"document:{document.pk}:v{version.number}")
+    # Код просмотра попадает и в журнал, и в водяной знак: по снимку страницы находится конкретное событие.
+    view_code = secrets.token_hex(4)
+    record(events.DOCUMENT_VIEWED, actor=request.user, target=f"document:{document.pk}:v{version.number}:view:{view_code}")
     return render(request, "rooms/document_view.html", {
-        "document": document, "room": room, "version": version, "pages": pages,
+        "document": document, "room": room, "version": version, "pages": pages, "view_code": view_code, "track": not access.admin and pages is not None,
         "total": len(pages) if pages is not None else 0,
         "can_download": policy.can_download_document(request.user, document),
         "crumbs": _breadcrumbs(access, document.folder),
     })
+
+
+def _stamped(request, document, version, png):
+    """Страница с водяным знаком. Код просмотра принимается, только если он записан в журнал этому пользователю."""
+    code = request.GET.get("c", "")
+    if not (watermark.VIEW_CODE_RE.match(code) and AuditEvent.objects.filter(
+            code=events.DOCUMENT_VIEWED, actor=request.user,
+            target=f"document:{document.pk}:v{version.number}:view:{code}").exists()):
+        code = ""
+    lines = watermark.stamp_lines(request.user.email, timezone.now(), client_ip(request), code)
+    try:
+        return watermark.apply(png, lines)
+    except (OSError, ValueError):
+        raise Http404  # лучше не показать страницу, чем показать без знака
 
 
 @login_required
@@ -400,6 +419,8 @@ def document_page(request, document_id, number):
         response["Retry-After"] = "10"
         response["Cache-Control"] = "no-store"
         return response
+    if room.watermark_enabled:
+        png = _stamped(request, document, version, png)
     response = HttpResponse(png, content_type="image/png")
     response["Cache-Control"] = "private, no-store"
     response["Content-Disposition"] = "inline"

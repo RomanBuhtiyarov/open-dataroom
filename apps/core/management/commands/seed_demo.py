@@ -20,7 +20,7 @@ from apps.core.models import InstanceSettings
 from apps.invites import services as invite_services
 from apps.invites.models import AccessRequest, Invitation
 from apps.rooms import services
-from apps.rooms.models import AccessGrant, Document, Folder, NdaAcceptance, NdaText, NdaVersion, Room
+from apps.rooms.models import AccessGrant, Document, Folder, NdaAcceptance, NdaText, NdaVersion, PageTime, Room
 
 DEMO_PASSWORD = "Demo-Dataroom-2026!"
 
@@ -170,6 +170,7 @@ class Command(BaseCommand):
                 invite_services.confirm_request(request.pk)
 
         self._activity(admin, users, rooms)
+        self._page_times(users)
 
         self.stdout.write(self.style.SUCCESS(
             f"Demo data ready: {created_rooms} new starter rooms, {added} new documents."))
@@ -199,3 +200,23 @@ class Command(BaseCommand):
         log(29, events.DOCUMENT_DOWNLOAD_DENIED, i2, f"document:{report.pk}", AuditEvent.Outcome.DENIED)
         log(12, events.AUTH_SIGN_IN_FAILED, None, "", AuditEvent.Outcome.FAILED)
         log(2, events.AUTH_SIGNED_IN, i3, f"user:{i3.pk}")
+
+    def _page_times(self, users):
+        """Время на страницах для экрана аналитики. Один раз; только у PDF с известным числом страниц."""
+        if PageTime.objects.exists():
+            return
+        now = timezone.now()
+        plan = [
+            ("investor1@example.com", "Презентация для инвесторов", [40, 25, 70, 12, 18]),
+            ("investor1@example.com", "Отчёт за 3 квартал", [55, 90, 20, 35]),
+            ("investor2@example.com", "Отчёт за 3 квартал", [30, 65, 8]),
+            ("investor3@example.com", "Реестр акционеров", [22]),
+        ]
+        for email, title, seconds in plan:
+            doc = Document.objects.filter(title=title).first()
+            version = doc.versions.first() if doc else None
+            if version is None or version.extension != "pdf":
+                continue
+            for page, value in enumerate(seconds[: version.page_count or 0], start=1):
+                PageTime.objects.create(user=users[email], version=version, page=page, seconds=value,
+                                        first_seen=now - timedelta(hours=5), last_seen=now - timedelta(hours=5))

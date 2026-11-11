@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
 {% block title %}{{ document.title }} · {{ SITE_NAME }}{% endblock %}
 {% block content %}
 <section class="viewer">
@@ -11,9 +11,9 @@
     · {% translate "View only" %}
     {% if can_download %} · <a href="{% url 'document_download' document.pk %}{% if request.GET.v %}?version={{ version.number }}{% endif %}">{% translate "Download" %}</a>{% endif %}</p>
   {% if pages %}
-  <div class="pages">
+  <div class="pages"{% if track %} data-pulse-url="{% url 'document_pulse' document.pk %}" data-csrf="{{ csrf_token }}"{% endif %}>
     {% for n in pages %}
-    <img class="page" loading="lazy" src="{% url 'document_page' document.pk n %}{% if request.GET.v %}?v={{ version.number }}{% endif %}"
+    <img class="page" data-page="{{ n }}" loading="lazy" src="{% url 'document_page' document.pk n %}?c={{ view_code }}{% if request.GET.v %}&amp;v={{ version.number }}{% endif %}"
          alt="{% blocktranslate with page=n total=total %}Page {{ page }} of {{ total }}{% endblocktranslate %}">
     {% endfor %}
   </div>
@@ -23,3 +23,4 @@
   {% endif %}
 </section>
 {% endblock %}
+{% block scripts %}{% if track %}<script src="{% static 'js/viewer.js' %}" defer></script>{% endif %}{% endblock %}

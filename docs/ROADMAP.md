@@ -24,6 +24,7 @@ Status legend: **done**, **next**, **planned**, **later**.
 | 5 | Operations | done | Second instance from the same image, backup and restore procedure, deployment guide with reverse proxy examples |
 | 6 | Specification gaps: security | done | Password reset by one-time link, no-store on token pages, request id in the audit log |
 | 7 | Specification gaps: content | done | Move folders and documents, delete documents, starter rooms, PDF parsing in a separate process |
+| 8 | Watermarks and view analytics | done | Per-room watermark on preview pages (email, time, address, view code), time per page, unopened documents, activity per day, CSV |
 
 ### 0. Project skeleton (done)
 
@@ -90,6 +91,13 @@ Status legend: **done**, **next**, **planned**, **later**.
 - PDF parsing (upload check, page count, page images) runs in a separate Python process: clean environment without application secrets, 30 s wall-clock limit, on Linux 1 GiB address space, 25 s CPU time and 64 open files, output size cap. A failed or timed-out render gives `503` with `Retry-After` after the access check passed.
 - Known limits: no restore of a deleted document; a backup taken at the moment a document is deleted can contain a row whose file is gone, so avoid deleting during a backup; on Windows only the time limit applies; page rendering is synchronous, so there is no separate "processing" state beyond the 503; moving does not notify people who lose access.
 
+### 8. Watermarks and view analytics (done)
+
+- Watermark: every preview page of a room with the switch on (default on) is stamped on the server with the visitor's email, UTC time, client address and a view code. The stamp is part of the image, so it cannot be removed in the browser. The page cache stays shared and unstamped; the stamp is added when the page is served, after the access check. The view code is also written to the audit event `document.viewed`, so a screenshot can be traced to an event. A code that is not logged for that user is ignored. If stamping fails the page is not shown.
+- Analytics (administrator screen "View analytics", CSV export, audited): per document the number of visitors, views, time on pages and last view; per visitor which documents they can see but have not opened; views per day for 30 days; per page time for a PDF. Administrators are not counted.
+- Time is measured by a small script (`static/js/viewer.js`) that reports the visible page numbers every 10 s. The server adds the elapsed time only for continuous viewing (pulses at least 5 s apart, gaps over 12 s add nothing) and caps one page at one hour.
+- Known limits: a watermark deters and traces, it does not stop a photo of the screen; downloads for visitors with the download right stay original files without a stamp; the stamp uses Latin text only (the default font has no Cyrillic), so non-ASCII email characters show as `?`; time is approximate and can be inflated by a visitor who scripts the pulses; without JavaScript no time is recorded; "opened" comes from the audit log and counts a page open, not reading; the summary is computed on request and is meant for a few thousand events, not millions; events recorded before this stage have no view code.
+
 ## After the first release
 
 Ordered roughly by expected value; none of these block the first release.
@@ -98,8 +106,8 @@ Ordered roughly by expected value; none of these block the first release.
 |---|---|
 | Questions and answers | Investor questions on documents and folders, owners, deadlines, answers with attachments, XLSX export |
 | Groups and permission matrix | Grant access to groups instead of individuals, inheritance, "view as" |
-| Dynamic watermarks | Email, IP and time on preview pages |
-| View analytics | Time per page, unopened documents, activity per day |
+| Stamped downloads | The same stamp inside downloadable PDF files |
+| Deeper analytics | Cohorts, charts, per-visitor reports, scheduled email digests |
 | Tamper-evident audit log | Hash chain over log entries, periodic anchoring |
 | Search and OCR | Full-text search inside documents, OCR for scans in all supported languages |
 | Single sign-on | OIDC and SAML, SCIM provisioning |
