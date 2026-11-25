@@ -13,7 +13,7 @@ from apps.audit.models import AuditEvent
 from apps.rooms import services, watermark
 from apps.rooms.models import AccessGrant, Room
 
-from .helpers import make_pdf, pdf_upload, verified_admin_client, viewer
+from .helpers import pdf_upload, verified_admin_client, viewer
 
 
 @pytest.fixture(autouse=True)

@@ -9,6 +9,10 @@ os.environ.pop("DATABASE_URL", None)
 from .settings import *  # noqa: E402,F401,F403
 
 DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}}
+if os.environ.get("TEST_DATABASE_URL"):  # в CI это PostgreSQL 16
+    import dj_database_url
+
+    DATABASES = {"default": dj_database_url.parse(os.environ["TEST_DATABASE_URL"])}
 MIDDLEWARE = [m for m in MIDDLEWARE if "whitenoise" not in m]
 PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
 STORAGES = {

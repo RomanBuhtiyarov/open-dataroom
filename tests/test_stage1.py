@@ -8,7 +8,6 @@ from django.core.management import call_command
 from django.core.management.base import CommandError
 from django.test import Client
 from django.urls import reverse
-from django.utils import timezone
 from django_otp.oath import TOTP
 from django_otp.plugins.otp_totp.models import TOTPDevice
 from PIL import Image

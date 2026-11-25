@@ -18,7 +18,7 @@ from apps.audit.models import AuditEvent
 from apps.core import ratelimit
 from apps.core.log_filters import RedactTokenFilter, redact
 from apps.core.models import InstanceSettings
-from apps.invites import codes, mail, services
+from apps.invites import services
 from apps.invites.models import AccessRequest, EmailCode, Invitation
 from apps.rooms import services as room_services
 from apps.rooms.models import AccessGrant, Room

@@ -15,7 +15,7 @@ from apps.core import backup
 from apps.rooms import services
 from apps.rooms.models import Document, DocumentVersion, Folder, Room
 
-from .helpers import PDF, make_admin, pdf_upload
+from .helpers import make_admin, pdf_upload
 
 
 @pytest.fixture(autouse=True)

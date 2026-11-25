@@ -10,7 +10,7 @@ from apps.accounts.models import User
 from apps.audit import events
 from apps.audit.models import AuditEvent
 
-from .helpers import STRONG, make_admin, verified_admin_client
+from .helpers import STRONG, verified_admin_client
 
 NEW = "Another-strong-pass-77"
 
