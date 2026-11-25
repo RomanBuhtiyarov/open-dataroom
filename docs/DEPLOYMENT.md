@@ -130,5 +130,5 @@ Gunicorn and the proxy log paths without query strings, and the application neve
 - Backups are manual or cron-driven; there is no built-in scheduler, encryption or retention policy.
 - The archive is read into a temporary directory on restore, so you need free disk space equal to the size of the archive's contents.
 - A backup made while a user uploads can contain files without rows; they are unused and harmless. The opposite case matters: deleting a document while a backup runs can leave a row whose file is not in the archive. Do not delete documents during a backup.
-- Restoring into PostgreSQL needs `pg_restore` of the same or a newer major version than the server that made the dump; the image ships the client from Debian trixie.
+- Restoring into PostgreSQL needs `pg_restore` of the same or a newer major version than the server that made the dump; the image ships `postgresql-client-16` from the PostgreSQL repository, matching the `postgres:16` server in Compose (a newer client writes commands an older server rejects, which CI caught). If you move to another server version, change both.
 - Emails that fail to send are recorded and can be resent by an administrator; there is no background retry queue.

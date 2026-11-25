@@ -3,8 +3,12 @@ FROM python:3.12-slim-trixie
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 
 # gettext нужен для compilemessages, postgresql-client (pg_dump, pg_restore) для backup_instance/restore_instance. Превью PDF строит pypdfium2 из pip-колеса: системных пакетов не нужно.
+# Версия клиента должна совпадать с сервером из Compose (PostgreSQL 16): pg_dump новее сервера пишет команды,
+# которых сервер не знает, и pg_restore падает. Debian trixie ставит клиент 17, поэтому берём 16 из репозитория PostgreSQL.
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends gettext postgresql-client \
+    && apt-get install -y --no-install-recommends gettext ca-certificates postgresql-common \
+    && /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y \
+    && apt-get install -y --no-install-recommends postgresql-client-16 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
