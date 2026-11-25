@@ -19,7 +19,7 @@
   </div>
   {% else %}
   <div class="card"><p>{% translate "A preview is available only for PDF files. This document cannot be shown on screen." %}</p>
-    {% if can_download %}<p><a class="button primary" href="{% url 'document_download' document.pk %}">{% translate "Download" %}</a></p>{% endif %}</div>
+    {% if can_download %}<p><a class="button primary" href="{% url 'document_download' document.pk %}">{% translate "Download" %}</a>{% if room.watermark_enabled and not access.admin and version.extension != "pdf" %} <span class="muted">({% translate "without a stamp" %})</span>{% endif %}</p>{% endif %}</div>
   {% endif %}
 </section>
 {% endblock %}

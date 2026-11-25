@@ -1691,3 +1691,13 @@ msgstr "нет доступа"
 
 msgid "personal"
 msgstr "личный"
+
+msgid "The file cannot be prepared for download right now. Try again later."
+msgstr "Сейчас не удаётся подготовить файл к скачиванию. Повторите позже."
+
+msgid "Too many downloads in a short time. Try again in a few minutes."
+msgstr ""
+"Слишком много скачиваний за короткое время. Повторите через несколько минут."
+
+msgid "without a stamp"
+msgstr "без штампа"

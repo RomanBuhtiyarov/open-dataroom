@@ -6,6 +6,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/). The project is i
 ## [Unreleased]
 
 ### Added
+- Stamped PDF downloads: with the watermark on, a visitor's download carries the stamp (email, time, address, code)
+  on every page as vector text; built in the sandboxed worker, kept 15 minutes for resumed downloads; the code is
+  written to the audit event `document.downloaded`. Administrators get the original. DOCX and XLSX are unchanged.
 - Groups of visitors inside a room; access can be granted to a group, and a person's rights are the union of their
   own grants and their groups' grants. Access matrix (rows: room and folders; columns: groups and people) with
   inherited access shown. Read-only "View as" for an administrator, audited. An invitation can add the person to a

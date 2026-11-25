@@ -28,6 +28,8 @@ Status legend: **done**, **next**, **planned**, **later**.
 | 9 | Release readiness | done | CI on GitHub Actions: tests on SQLite and PostgreSQL 16, lint, Docker image build and a Compose smoke test with backup and restore |
 | 10 | Questions and answers | done | Visitor questions on a room, folder or document; administrator inbox with status, assignee and due date; answers with an attachment; optional anonymous sharing; email notices; XLSX export |
 | 11 | Release candidate | done | Browser review of administrator screens and phone width, security review and fixes, CSP, session lifetime, locked and audited dependencies, Dependabot, SECURITY.md, CONTRIBUTING.md, CHANGELOG.md |
+| 12 | Groups and the permission matrix | done | Groups of visitors in a room, access for a group, personal and group rights added together, access matrix, read-only "view as", invitation into a group |
+| 13 | Stamped downloads | done | A PDF copy with the stamp on every page (vector text), built in the sandboxed worker, stamp code in the audit log, a fresh file reused for resumed downloads |
 
 ### 0. Project skeleton (done)
 
@@ -134,6 +136,13 @@ Status legend: **done**, **next**, **planned**, **later**.
 - Audit events: `group.created`, `group.renamed`, `group.deleted`, `group.member_added`, `group.member_removed`, `access.view_as_opened`. `seed_demo` creates two groups with different rights.
 - Known limits: grants are on rooms and folders (a document follows its folder), so the matrix has no per-document rows; groups are flat (no nested groups) and belong to one room; "View as" shows the structure and rights, not the rendered pages, and does not show what a person has answered or asked; a group member sees only what the group's grants allow, plus their personal grants; adding a person to a group does not send an email.
 
+### 13. Stamped downloads (done)
+
+- When a room has the watermark switched on, a visitor who downloads a PDF gets a copy with the same stamp as in the viewer (email, UTC time, address, view code) on every page. The stamp is real vector text, so the file stays searchable and is not rasterised. The administrator still gets the original, and the original file in the private volume is never changed.
+- The stamp is applied by the same sandboxed worker as page rendering (`render_worker.py stamp`): clean environment, time, memory and CPU limits, a 100 MB source limit. If stamping fails, the download is refused (`503`); a file without a stamp is never given while the watermark is on. New stamped files are limited to 10 per user per five minutes (`429`).
+- A stamped file is kept for 15 minutes in the private volume (`stamped/`, not part of backups, purged on the next stamping), so a resumed or repeated download gets the same bytes and the same code, and HTTP Range works. The audit event `document.downloaded` gets the code in its target (`document:<id>:v<n>:stamp:<code>`); email and address are not written to the log.
+- Known limits: DOCX and XLSX are given as they are (the list shows "without a stamp"; if that is not acceptable, switch the watermark off for such a room or upload a PDF copy); a stamp is a deterrent and can be painted over in a PDF editor; the stamp is ASCII-only, as in the viewer; the stamped copy is rebuilt per user, so the first download of a large PDF takes a few seconds; a deleted or changed document may stay in `stamped/` for up to 15 minutes; the time inside a repeated download is the time of the first one.
+
 ## After the first release
 
 Ordered roughly by expected value; none of these block the first release.
@@ -142,7 +151,7 @@ Ordered roughly by expected value; none of these block the first release.
 |---|---|
 | Questions: next steps | Threaded follow-ups, search, edit before answer, daily digests, several attachments |
 | Groups: next steps | Nested groups, groups across rooms, per-document rights, invitations to many people at once |
-| Stamped downloads | The same stamp inside downloadable PDF files |
+| Stamps in Office files | DOCX and XLSX are downloaded without a stamp today |
 | Deeper analytics | Cohorts, charts, per-visitor reports, scheduled email digests |
 | Tamper-evident audit log | Hash chain over log entries, periodic anchoring |
 | Search and OCR | Full-text search inside documents, OCR for scans in all supported languages |

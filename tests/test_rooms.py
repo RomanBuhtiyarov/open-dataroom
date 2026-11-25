@@ -92,6 +92,8 @@ def test_room_grant_allows_viewing_but_download_needs_the_download_right():
 
     g.can_download = True
     g.save()
+    room.watermark_enabled = False  # со знаком файл другой: см. tests/test_stage13.py
+    room.save()
     ok = client.get(reverse("document_download", args=[doc.pk]))
     assert ok.status_code == 200 and body(ok) == PDF
     assert "attachment" in ok["Content-Disposition"] and "plan.pdf" in ok["Content-Disposition"]
@@ -233,7 +235,7 @@ def test_viewer_cannot_use_admin_actions():
 
 @pytest.mark.django_db
 def test_viewer_only_gets_the_current_version_even_when_asking_for_an_old_one():
-    room = make_room()
+    room = make_room(watermark_enabled=False)  # сравниваются байты версии; со знаком см. tests/test_stage13.py
     doc = make_doc(services.create_folder(room, None, "F"))
     services.add_version(doc, pdf_upload("v2.pdf", PDF + b"second"), None)
     client, user = viewer()

@@ -33,6 +33,8 @@ from .models import AccessGrant, Document, Folder, NdaAcceptance, NdaText, NdaVe
 
 RENDER_LIMIT = 120  # страниц, которых ещё нет в кэше, на пользователя
 RENDER_WINDOW = 60  # в минуту
+STAMP_LIMIT = 10  # новых штампованных файлов на пользователя
+STAMP_WINDOW = 300  # за пять минут; повторное скачивание свежего файла предел не расходует
 
 
 def _room_access_or_404(request, room_id):
@@ -332,9 +334,43 @@ def document_download(request, document_id):
     path = files.file_path(room.pk, version.stored_name)
     if not path.exists():
         raise Http404
+    target = f"document:{document.pk}:v{version.number}"
+    if room.watermark_enabled and not access.admin and version.extension == "pdf":
+        stamped = _stamped_download(request, room, version, path)
+        if isinstance(stamped, HttpResponse):
+            return stamped
+        path, code = stamped
+        target += f":stamp:{code}"
     if serving.is_first_chunk(request):
-        record(events.DOCUMENT_DOWNLOADED, actor=request.user, target=f"document:{document.pk}:v{version.number}")
+        record(events.DOCUMENT_DOWNLOADED, actor=request.user, target=target)
     return serving.file_response(request, path, filename=version.original_name, content_type=files.ALLOWED[version.extension])
+
+
+def _stamped_download(request, room, version, path):
+    """PDF со знаком на каждой странице: (путь, код) или готовый ответ с ошибкой.
+
+    Файл без знака при включённом знаке не отдаётся никогда: если знак поставить не удалось, скачивание отклоняется.
+    Свежий файл переиспользуется (докачка получает те же байты и тот же код), поэтому код однозначно указывает на выдачу.
+    """
+    cached = previews.recent_stamped(room.pk, request.user.pk, version.stored_name)
+    if cached is not None and watermark.VIEW_CODE_RE.match(cached[1]):
+        return cached
+    if not ratelimit.allow(ratelimit.make_key("stamp", request.user.pk), STAMP_LIMIT, STAMP_WINDOW):
+        response = HttpResponse(_("Too many downloads in a short time. Try again in a few minutes."), status=429,
+                                content_type="text/plain; charset=utf-8")
+        response["Retry-After"] = "60"
+        response["Cache-Control"] = "no-store"
+        return response
+    code = secrets.token_hex(4)
+    lines = watermark.stamp_lines(request.user.email, timezone.now(), client_ip(request), code)
+    try:
+        return previews.stamp_pdf(room.pk, request.user.pk, version.stored_name, path, code, lines), code
+    except (previews.PreviewError, OSError):
+        response = HttpResponse(_("The file cannot be prepared for download right now. Try again later."), status=503,
+                                content_type="text/plain; charset=utf-8")
+        response["Retry-After"] = "30"
+        response["Cache-Control"] = "no-store"
+        return response
 
 
 # --- Просмотр без скачивания ------------------------------------------------
@@ -382,7 +418,7 @@ def document_view(request, document_id):
     view_code = secrets.token_hex(4)
     record(events.DOCUMENT_VIEWED, actor=request.user, target=f"document:{document.pk}:v{version.number}:view:{view_code}")
     return render(request, "rooms/document_view.html", {
-        "document": document, "room": room, "version": version, "pages": pages, "view_code": view_code, "track": not access.admin and pages is not None,
+        "document": document, "room": room, "access": access, "version": version, "pages": pages, "view_code": view_code, "track": not access.admin and pages is not None,
         "total": len(pages) if pages is not None else 0,
         "can_download": policy.can_download_document(request.user, document),
         "crumbs": _breadcrumbs(access, document.folder),

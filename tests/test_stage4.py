@@ -29,8 +29,8 @@ def media(settings, tmp_path):
     return tmp_path
 
 
-def make_room(name="Alpha"):
-    return Room.objects.create(name=name)
+def make_room(name="Alpha", **extra):
+    return Room.objects.create(name=name, **extra)
 
 
 def make_doc(folder, title="Plan", payload=None, name="plan.pdf"):
@@ -208,7 +208,8 @@ def test_upload_rejects_unreadable_and_oversized_pdfs(media):
 
 @pytest.fixture
 def download_setup():
-    room = make_room()
+    # Здесь проверяется выдача самого файла (диапазоны, журнал); со знаком скачивание проверяет tests/test_stage13.py.
+    room = make_room(watermark_enabled=False)
     doc = make_doc(services.create_folder(room, None, "F"), payload=make_pdf(2))
     client, user = viewer()
     g = grant(user, room, download=True)

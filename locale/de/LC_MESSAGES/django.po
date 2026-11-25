@@ -1731,3 +1731,16 @@ msgstr "kein Zugriff"
 
 msgid "personal"
 msgstr "persönlich"
+
+msgid "The file cannot be prepared for download right now. Try again later."
+msgstr ""
+"Die Datei kann gerade nicht zum Download vorbereitet werden. Bitte versuchen"
+" Sie es später erneut."
+
+msgid "Too many downloads in a short time. Try again in a few minutes."
+msgstr ""
+"Zu viele Downloads in kurzer Zeit. Bitte versuchen Sie es in einigen Minuten"
+" erneut."
+
+msgid "without a stamp"
+msgstr "ohne Stempel"

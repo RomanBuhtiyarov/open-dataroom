@@ -1688,3 +1688,13 @@ msgstr "немає доступу"
 
 msgid "personal"
 msgstr "особистий"
+
+msgid "The file cannot be prepared for download right now. Try again later."
+msgstr ""
+"Зараз не вдається підготувати файл до завантаження. Повторіть пізніше."
+
+msgid "Too many downloads in a short time. Try again in a few minutes."
+msgstr "Забагато завантажень за короткий час. Повторіть за кілька хвилин."
+
+msgid "without a stamp"
+msgstr "без штампа"
