@@ -88,6 +88,8 @@ def visible_to(user):
 
 def _clean_text(value, limit=MAX_TEXT):
     text = (value or "").replace("\r\n", "\n").strip()
+    if "\x00" in text:
+        raise ValidationError(_("The text contains characters that are not allowed."))  # PostgreSQL не хранит NUL
     if not text:
         raise ValidationError(_("Enter a text."))
     if len(text) > limit:

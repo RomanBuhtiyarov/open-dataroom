@@ -97,6 +97,22 @@ def test_admin_cannot_ask_and_empty_text_is_rejected():
 
 
 @pytest.mark.django_db
+def test_nul_characters_are_rejected_not_a_server_error():
+    from django.core.exceptions import ValidationError
+
+    _, admin, room, *_ = setup_world()
+    vclient, user = viewer()
+    grant(user, room)
+    assert vclient.post(reverse("question_ask"), {"text": "bad\x00text", "room": room.pk}).status_code == 200
+    with pytest.raises(ValidationError):
+        services.ask(user, room, "bad\x00text")
+    question = make_question(user, room)
+    with pytest.raises(ValidationError):
+        services.answer(question, admin, "bad\x00answer")
+    assert Question.objects.filter(answered_at__isnull=False).count() == 0
+
+
+@pytest.mark.django_db
 def test_asking_is_rate_limited():
     _, _, room, *_ = setup_world()
     vclient, user = viewer()
@@ -306,12 +322,12 @@ def test_assignee_must_be_an_administrator():
 def test_xlsx_export_is_valid_and_audited():
     client, admin, room, *_ = setup_world()
     _c, user = viewer()
-    q = Question.objects.create(room=room, author=user, subject="=HYPERLINK(1)", text="=1+1\x00", status="new")
+    q = Question.objects.create(room=room, author=user, subject="=HYPERLINK(1)", text="=1+1\x0b", status="new")
     response = client.get(reverse("question_export"))
     assert response.status_code == 200 and "spreadsheetml" in response["Content-Type"]
     with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
         sheet = archive.read("xl/worksheets/sheet1.xml").decode()
-    assert 't="inlineStr"' in sheet and "=1+1" in sheet and "\x00" not in sheet
+    assert 't="inlineStr"' in sheet and "=1+1" in sheet and "\x0b" not in sheet
     assert "<f>" not in sheet  # формулы не создаются
     assert AuditEvent.objects.filter(code=events.QUESTIONS_EXPORTED).exists()
     assert q.pk

@@ -1503,3 +1503,6 @@ msgstr "На ваше запитання відповіли"
 
 msgid "Your questions"
 msgstr "Ваші запитання"
+
+msgid "The text contains characters that are not allowed."
+msgstr "Текст містить недопустимі символи."

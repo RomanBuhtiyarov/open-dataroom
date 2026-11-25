@@ -1541,3 +1541,6 @@ msgstr "Ihre Frage wurde beantwortet"
 
 msgid "Your questions"
 msgstr "Ihre Fragen"
+
+msgid "The text contains characters that are not allowed."
+msgstr "Der Text enthält unzulässige Zeichen."
