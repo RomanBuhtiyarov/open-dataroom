@@ -1290,3 +1290,217 @@ msgstr "мин"
 
 msgid "s"
 msgstr "с"
+
+msgid "A new question was asked in %(site)s."
+msgstr "В %(site)s задан новый вопрос."
+
+msgid "About: %(subject)s"
+msgstr "О чём: %(subject)s"
+
+msgid "All"
+msgstr "Все"
+
+msgid "Answer"
+msgstr "Ответ"
+
+msgid "Answer attachment downloaded"
+msgstr "Вложение к ответу скачано"
+
+msgid "Answer by"
+msgstr "Ответить до"
+
+msgid "Answer no longer shared"
+msgstr "Ответ больше не опубликован для других"
+
+msgid "Answer shared with other visitors"
+msgstr "Ответ опубликован для других посетителей"
+
+msgid "Answer the question first."
+msgstr "Сначала ответьте на вопрос."
+
+msgid "Answered"
+msgstr "Отвечен"
+
+msgid "Answers shared with you"
+msgstr "Ответы, которыми поделились с вами"
+
+msgid "Anyone"
+msgstr "Любой"
+
+msgid "Ask a question"
+msgstr "Задать вопрос"
+
+msgid ""
+"Ask a question from a room, a folder or a document page. Answers shared by "
+"the administrator for areas you can see appear below, without the name of "
+"the person who asked."
+msgstr ""
+"Вопрос можно задать со страницы комнаты, папки или документа. Ответы, "
+"которыми администратор поделился для доступных вам областей, показаны ниже "
+"без имени автора вопроса."
+
+msgid "Asked (UTC)"
+msgstr "Задан (UTC)"
+
+msgid "Assigned to"
+msgstr "Ответственный"
+
+msgid "Attachment"
+msgstr "Вложение"
+
+msgid "Check the form."
+msgstr "Проверьте форму."
+
+msgid "Choose an administrator."
+msgstr "Выберите администратора."
+
+msgid "Close the question"
+msgstr "Закрыть вопрос"
+
+msgid "Closed"
+msgstr "Закрыт"
+
+msgid "Download %(name)s"
+msgstr "Скачать %(name)s"
+
+msgid "Download XLSX"
+msgstr "Скачать XLSX"
+
+msgid "Enter a text."
+msgstr "Введите текст."
+
+msgid "Handling"
+msgstr "Ведение"
+
+msgid ""
+"If the administrator shares the answer, other visitors with access will see "
+"your question and the answer, without your name."
+msgstr ""
+"Если администратор поделится ответом, другие посетители с доступом увидят "
+"ваш вопрос и ответ без вашего имени."
+
+msgid "In progress"
+msgstr "В работе"
+
+msgid "New"
+msgstr "Новый"
+
+msgid "New question in %(site)s"
+msgstr "Новый вопрос в %(site)s"
+
+msgid "Not answered yet."
+msgstr "Ответа пока нет."
+
+msgid "Nothing has been shared yet."
+msgstr "Пока ничем не поделились."
+
+msgid "Open it here:"
+msgstr "Открыть можно здесь:"
+
+msgid "Open the document"
+msgstr "Открыть документ"
+
+msgid "Overdue"
+msgstr "Просрочен"
+
+msgid "PDF, DOCX or XLSX. A new file replaces the old one."
+msgstr "PDF, DOCX или XLSX. Новый файл заменяет прежний."
+
+msgid "Question"
+msgstr "Вопрос"
+
+msgid "Question answered"
+msgstr "Вопрос отвечен"
+
+msgid "Question asked"
+msgstr "Вопрос задан"
+
+msgid "Question assigned"
+msgstr "Вопрос назначен"
+
+msgid "Question closed"
+msgstr "Вопрос закрыт"
+
+msgid "Question reopened"
+msgstr "Вопрос открыт снова"
+
+msgid "Questions"
+msgstr "Вопросы"
+
+msgid "Questions exported"
+msgstr "Вопросы выгружены"
+
+msgid "Read the answer here:"
+msgstr "Прочитать ответ можно здесь:"
+
+msgid "Reopen"
+msgstr "Открыть снова"
+
+msgid "Reply"
+msgstr "Ответить"
+
+msgid "Save the answer"
+msgstr "Сохранить ответ"
+
+msgid "Saved."
+msgstr "Сохранено."
+
+msgid "Send"
+msgstr "Отправить"
+
+msgid "Share the answer"
+msgstr "Поделиться ответом"
+
+msgid ""
+"Share with other visitors who can see this area (your name stays hidden)"
+msgstr ""
+"Показать другим посетителям, которые видят эту область (имя автора вопроса "
+"скрыто)"
+
+msgid "Shared"
+msgstr "Опубликован"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Stop sharing"
+msgstr "Перестать делиться"
+
+msgid "Subject"
+msgstr "Предмет"
+
+msgid "The answer is saved."
+msgstr "Ответ сохранён."
+
+msgid "The text is too long."
+msgstr "Текст слишком длинный."
+
+msgid "There are no questions yet."
+msgstr "Вопросов пока нет."
+
+msgid "Too many questions. Please try again later."
+msgstr "Слишком много вопросов. Попробуйте позже."
+
+msgid "Unassigned"
+msgstr "Не назначен"
+
+msgid "You cannot ask a question here."
+msgstr "Здесь задать вопрос нельзя."
+
+msgid "You have not asked any questions yet."
+msgstr "Вы пока не задавали вопросов."
+
+msgid "Your question"
+msgstr "Ваш вопрос"
+
+msgid "Your question in %(site)s was answered."
+msgstr "На ваш вопрос в %(site)s ответили."
+
+msgid "Your question is sent."
+msgstr "Ваш вопрос отправлен."
+
+msgid "Your question was answered"
+msgstr "На ваш вопрос ответили"
+
+msgid "Your questions"
+msgstr "Ваши вопросы"

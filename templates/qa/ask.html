@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Ask a question" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="narrow">
+  <p class="crumbs"><a href="{% url 'home' %}">{% translate "Your rooms" %}</a> / <a href="{% url 'room_detail' room.pk %}">{{ room.name }}</a></p>
+  <h1>{% translate "Ask a question" %}</h1>
+  <p class="muted">{% blocktranslate with subject=subject %}About: {{ subject }}{% endblocktranslate %}</p>
+  <div class="card">
+    <form method="post" novalidate>
+      {% csrf_token %}
+      <input type="hidden" name="room" value="{{ room.pk }}">
+      {% if folder %}<input type="hidden" name="folder" value="{{ folder.pk }}">{% endif %}
+      {% if document %}<input type="hidden" name="document" value="{{ document.pk }}">{% endif %}
+      {% for field in form %}{% include "includes/field.html" with field=field %}{% endfor %}
+      <div class="row">
+        <button type="submit" class="primary">{% translate "Send" %}</button>
+        <a class="button secondary" href="{% url 'question_list' %}">{% translate "Cancel" %}</a>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

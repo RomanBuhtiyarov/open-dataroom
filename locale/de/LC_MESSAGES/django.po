@@ -1327,3 +1327,217 @@ msgstr "Min."
 
 msgid "s"
 msgstr "s"
+
+msgid "A new question was asked in %(site)s."
+msgstr "In %(site)s wurde eine neue Frage gestellt."
+
+msgid "About: %(subject)s"
+msgstr "Betrifft: %(subject)s"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "Answer"
+msgstr "Antwort"
+
+msgid "Answer attachment downloaded"
+msgstr "Anhang zur Antwort heruntergeladen"
+
+msgid "Answer by"
+msgstr "Antworten bis"
+
+msgid "Answer no longer shared"
+msgstr "Antwort wird nicht mehr geteilt"
+
+msgid "Answer shared with other visitors"
+msgstr "Antwort mit anderen Besuchern geteilt"
+
+msgid "Answer the question first."
+msgstr "Beantworten Sie zuerst die Frage."
+
+msgid "Answered"
+msgstr "Beantwortet"
+
+msgid "Answers shared with you"
+msgstr "Mit Ihnen geteilte Antworten"
+
+msgid "Anyone"
+msgstr "Beliebig"
+
+msgid "Ask a question"
+msgstr "Frage stellen"
+
+msgid ""
+"Ask a question from a room, a folder or a document page. Answers shared by "
+"the administrator for areas you can see appear below, without the name of "
+"the person who asked."
+msgstr ""
+"Fragen können auf der Seite eines Raums, Ordners oder Dokuments gestellt "
+"werden. Vom Administrator geteilte Antworten für Bereiche, die Sie sehen, "
+"erscheinen unten ohne den Namen des Fragestellers."
+
+msgid "Asked (UTC)"
+msgstr "Gestellt (UTC)"
+
+msgid "Assigned to"
+msgstr "Zuständig"
+
+msgid "Attachment"
+msgstr "Anhang"
+
+msgid "Check the form."
+msgstr "Prüfen Sie das Formular."
+
+msgid "Choose an administrator."
+msgstr "Wählen Sie einen Administrator."
+
+msgid "Close the question"
+msgstr "Frage schließen"
+
+msgid "Closed"
+msgstr "Geschlossen"
+
+msgid "Download %(name)s"
+msgstr "%(name)s herunterladen"
+
+msgid "Download XLSX"
+msgstr "XLSX herunterladen"
+
+msgid "Enter a text."
+msgstr "Geben Sie einen Text ein."
+
+msgid "Handling"
+msgstr "Bearbeitung"
+
+msgid ""
+"If the administrator shares the answer, other visitors with access will see "
+"your question and the answer, without your name."
+msgstr ""
+"Teilt der Administrator die Antwort, sehen andere Besucher mit Zugriff Ihre "
+"Frage und die Antwort ohne Ihren Namen."
+
+msgid "In progress"
+msgstr "In Bearbeitung"
+
+msgid "New"
+msgstr "Neu"
+
+msgid "New question in %(site)s"
+msgstr "Neue Frage in %(site)s"
+
+msgid "Not answered yet."
+msgstr "Noch nicht beantwortet."
+
+msgid "Nothing has been shared yet."
+msgstr "Bisher wurde nichts geteilt."
+
+msgid "Open it here:"
+msgstr "Hier öffnen:"
+
+msgid "Open the document"
+msgstr "Dokument öffnen"
+
+msgid "Overdue"
+msgstr "Überfällig"
+
+msgid "PDF, DOCX or XLSX. A new file replaces the old one."
+msgstr "PDF, DOCX oder XLSX. Eine neue Datei ersetzt die alte."
+
+msgid "Question"
+msgstr "Frage"
+
+msgid "Question answered"
+msgstr "Frage beantwortet"
+
+msgid "Question asked"
+msgstr "Frage gestellt"
+
+msgid "Question assigned"
+msgstr "Frage zugewiesen"
+
+msgid "Question closed"
+msgstr "Frage geschlossen"
+
+msgid "Question reopened"
+msgstr "Frage wieder geöffnet"
+
+msgid "Questions"
+msgstr "Fragen"
+
+msgid "Questions exported"
+msgstr "Fragen exportiert"
+
+msgid "Read the answer here:"
+msgstr "Die Antwort lesen Sie hier:"
+
+msgid "Reopen"
+msgstr "Wieder öffnen"
+
+msgid "Reply"
+msgstr "Antworten"
+
+msgid "Save the answer"
+msgstr "Antwort speichern"
+
+msgid "Saved."
+msgstr "Gespeichert."
+
+msgid "Send"
+msgstr "Senden"
+
+msgid "Share the answer"
+msgstr "Antwort teilen"
+
+msgid ""
+"Share with other visitors who can see this area (your name stays hidden)"
+msgstr ""
+"Anderen Besuchern zeigen, die diesen Bereich sehen (Name des Fragestellers "
+"bleibt verborgen)"
+
+msgid "Shared"
+msgstr "Geteilt"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Stop sharing"
+msgstr "Nicht mehr teilen"
+
+msgid "Subject"
+msgstr "Betreff"
+
+msgid "The answer is saved."
+msgstr "Die Antwort ist gespeichert."
+
+msgid "The text is too long."
+msgstr "Der Text ist zu lang."
+
+msgid "There are no questions yet."
+msgstr "Es gibt noch keine Fragen."
+
+msgid "Too many questions. Please try again later."
+msgstr "Zu viele Fragen. Bitte versuchen Sie es später erneut."
+
+msgid "Unassigned"
+msgstr "Nicht zugewiesen"
+
+msgid "You cannot ask a question here."
+msgstr "Hier können Sie keine Frage stellen."
+
+msgid "You have not asked any questions yet."
+msgstr "Sie haben noch keine Fragen gestellt."
+
+msgid "Your question"
+msgstr "Ihre Frage"
+
+msgid "Your question in %(site)s was answered."
+msgstr "Ihre Frage in %(site)s wurde beantwortet."
+
+msgid "Your question is sent."
+msgstr "Ihre Frage wurde gesendet."
+
+msgid "Your question was answered"
+msgstr "Ihre Frage wurde beantwortet"
+
+msgid "Your questions"
+msgstr "Ihre Fragen"

@@ -1,0 +1,5 @@
+{% load i18n %}{% autoescape off %}{% blocktranslate %}A new question was asked in {{ site }}.{% endblocktranslate %}
+
+{% translate "Open it here:" %}
+{{ link }}
+{% endautoescape %}

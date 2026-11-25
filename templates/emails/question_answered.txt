@@ -1,0 +1,5 @@
+{% load i18n %}{% autoescape off %}{% blocktranslate %}Your question in {{ site }} was answered.{% endblocktranslate %}
+
+{% translate "Read the answer here:" %}
+{{ link }}
+{% endautoescape %}

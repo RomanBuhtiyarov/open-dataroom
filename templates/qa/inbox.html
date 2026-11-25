@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Questions" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section>
+  <h1>{% translate "Questions" %}</h1>
+  <div class="card">
+    <form method="get" class="filters">
+      {% for field in form %}<div class="filter">{% include "includes/field.html" with field=field %}</div>{% endfor %}
+      <div class="row">
+        <button type="submit" class="primary">{% translate "Filter" %}</button>
+        <a class="button secondary" href="{% url 'question_list' %}">{% translate "Reset" %}</a>
+        <a class="button secondary" href="{% url 'question_export' %}{% if query %}?{{ query }}{% endif %}">{% translate "Download XLSX" %}</a>
+      </div>
+    </form>
+  </div>
+  <div class="card table-wrap">
+    <table>
+      <thead><tr>
+        <th>{% translate "Asked (UTC)" %}</th><th>{% translate "Subject" %}</th><th>{% translate "Visitor" %}</th>
+        <th>{% translate "Status" %}</th><th>{% translate "Assigned to" %}</th><th>{% translate "Answer by" %}</th>
+      </tr></thead>
+      <tbody>
+      {% for row in rows %}
+      <tr>
+        <td class="nowrap">{{ row.q.created_at|date:"Y-m-d H:i" }}</td>
+        <td><a href="{% url 'question_detail' row.q.pk %}">{{ row.q.subject }}</a><br><span class="muted">{{ row.q.room.name }}</span></td>
+        <td>{% if row.q.author %}{{ row.q.author.email }}{% else %}<span class="muted">—</span>{% endif %}</td>
+        <td><span class="badge">{{ row.q.get_status_display }}</span>{% if row.q.shared %} <span class="badge">{% translate "Shared" %}</span>{% endif %}</td>
+        <td>{% if row.q.assignee %}{{ row.q.assignee.name|default:row.q.assignee.email }}{% else %}<span class="muted">—</span>{% endif %}</td>
+        <td class="nowrap">{% if row.q.due_date %}{{ row.q.due_date|date:"Y-m-d" }}{% if row.overdue %} <span class="badge badge-denied">{% translate "Overdue" %}</span>{% endif %}{% else %}<span class="muted">—</span>{% endif %}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="6" class="muted">{% translate "There are no questions yet." %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

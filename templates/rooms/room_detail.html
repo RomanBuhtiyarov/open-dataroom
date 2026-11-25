@@ -7,6 +7,7 @@
     <a href="{% url 'room_detail' room.pk %}">{{ room.name }}</a>{% for c in crumbs %} / <a href="{% url 'room_detail' room.pk %}?folder={{ c.pk }}">{{ c.name }}</a>{% endfor %}</p>
   <h1>{% if folder %}{{ folder.name }}{% else %}{{ room.name }}{% endif %}</h1>
   {% if not folder and room.description %}<p class="intro">{{ room.description }}</p>{% endif %}
+  {% if not access.admin %}<p><a class="button secondary" href="{% url 'question_ask' %}?{% if folder %}folder={{ folder.pk }}{% else %}room={{ room.pk }}{% endif %}">{% translate "Ask a question" %}</a></p>{% endif %}
 
   {% if access.admin %}
   <p class="row">

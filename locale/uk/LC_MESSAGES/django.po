@@ -1289,3 +1289,217 @@ msgstr "хв"
 
 msgid "s"
 msgstr "с"
+
+msgid "A new question was asked in %(site)s."
+msgstr "У %(site)s поставлено нове запитання."
+
+msgid "About: %(subject)s"
+msgstr "Про що: %(subject)s"
+
+msgid "All"
+msgstr "Усі"
+
+msgid "Answer"
+msgstr "Відповідь"
+
+msgid "Answer attachment downloaded"
+msgstr "Вкладення до відповіді завантажено"
+
+msgid "Answer by"
+msgstr "Відповісти до"
+
+msgid "Answer no longer shared"
+msgstr "Відповідь більше не показується іншим"
+
+msgid "Answer shared with other visitors"
+msgstr "Відповідь опубліковано для інших відвідувачів"
+
+msgid "Answer the question first."
+msgstr "Спочатку дайте відповідь на запитання."
+
+msgid "Answered"
+msgstr "Відповідь дано"
+
+msgid "Answers shared with you"
+msgstr "Відповіді, якими поділилися з вами"
+
+msgid "Anyone"
+msgstr "Будь-хто"
+
+msgid "Ask a question"
+msgstr "Поставити запитання"
+
+msgid ""
+"Ask a question from a room, a folder or a document page. Answers shared by "
+"the administrator for areas you can see appear below, without the name of "
+"the person who asked."
+msgstr ""
+"Запитання можна поставити зі сторінки кімнати, теки або документа. "
+"Відповіді, якими адміністратор поділився для доступних вам ділянок, показано"
+" нижче без імені автора запитання."
+
+msgid "Asked (UTC)"
+msgstr "Поставлено (UTC)"
+
+msgid "Assigned to"
+msgstr "Відповідальний"
+
+msgid "Attachment"
+msgstr "Вкладення"
+
+msgid "Check the form."
+msgstr "Перевірте форму."
+
+msgid "Choose an administrator."
+msgstr "Виберіть адміністратора."
+
+msgid "Close the question"
+msgstr "Закрити запитання"
+
+msgid "Closed"
+msgstr "Закрито"
+
+msgid "Download %(name)s"
+msgstr "Завантажити %(name)s"
+
+msgid "Download XLSX"
+msgstr "Завантажити XLSX"
+
+msgid "Enter a text."
+msgstr "Введіть текст."
+
+msgid "Handling"
+msgstr "Опрацювання"
+
+msgid ""
+"If the administrator shares the answer, other visitors with access will see "
+"your question and the answer, without your name."
+msgstr ""
+"Якщо адміністратор поділиться відповіддю, інші відвідувачі з доступом "
+"побачать ваше запитання та відповідь без вашого імені."
+
+msgid "In progress"
+msgstr "У роботі"
+
+msgid "New"
+msgstr "Нове"
+
+msgid "New question in %(site)s"
+msgstr "Нове запитання в %(site)s"
+
+msgid "Not answered yet."
+msgstr "Відповіді ще немає."
+
+msgid "Nothing has been shared yet."
+msgstr "Поки що нічим не поділилися."
+
+msgid "Open it here:"
+msgstr "Відкрити можна тут:"
+
+msgid "Open the document"
+msgstr "Відкрити документ"
+
+msgid "Overdue"
+msgstr "Прострочено"
+
+msgid "PDF, DOCX or XLSX. A new file replaces the old one."
+msgstr "PDF, DOCX або XLSX. Новий файл замінює попередній."
+
+msgid "Question"
+msgstr "Запитання"
+
+msgid "Question answered"
+msgstr "Відповідь на запитання дано"
+
+msgid "Question asked"
+msgstr "Запитання поставлено"
+
+msgid "Question assigned"
+msgstr "Запитання призначено"
+
+msgid "Question closed"
+msgstr "Запитання закрито"
+
+msgid "Question reopened"
+msgstr "Запитання відкрито знову"
+
+msgid "Questions"
+msgstr "Запитання"
+
+msgid "Questions exported"
+msgstr "Запитання вивантажено"
+
+msgid "Read the answer here:"
+msgstr "Прочитати відповідь можна тут:"
+
+msgid "Reopen"
+msgstr "Відкрити знову"
+
+msgid "Reply"
+msgstr "Відповісти"
+
+msgid "Save the answer"
+msgstr "Зберегти відповідь"
+
+msgid "Saved."
+msgstr "Збережено."
+
+msgid "Send"
+msgstr "Надіслати"
+
+msgid "Share the answer"
+msgstr "Поділитися відповіддю"
+
+msgid ""
+"Share with other visitors who can see this area (your name stays hidden)"
+msgstr ""
+"Показати іншим відвідувачам, які бачать цю ділянку (ім’я автора запитання "
+"приховано)"
+
+msgid "Shared"
+msgstr "Опубліковано"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Stop sharing"
+msgstr "Припинити показ"
+
+msgid "Subject"
+msgstr "Предмет"
+
+msgid "The answer is saved."
+msgstr "Відповідь збережено."
+
+msgid "The text is too long."
+msgstr "Текст надто довгий."
+
+msgid "There are no questions yet."
+msgstr "Запитань поки немає."
+
+msgid "Too many questions. Please try again later."
+msgstr "Забагато запитань. Спробуйте пізніше."
+
+msgid "Unassigned"
+msgstr "Не призначено"
+
+msgid "You cannot ask a question here."
+msgstr "Тут поставити запитання не можна."
+
+msgid "You have not asked any questions yet."
+msgstr "Ви ще не ставили запитань."
+
+msgid "Your question"
+msgstr "Ваше запитання"
+
+msgid "Your question in %(site)s was answered."
+msgstr "На ваше запитання в %(site)s відповіли."
+
+msgid "Your question is sent."
+msgstr "Ваше запитання надіслано."
+
+msgid "Your question was answered"
+msgstr "На ваше запитання відповіли"
+
+msgid "Your questions"
+msgstr "Ваші запитання"

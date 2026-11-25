@@ -75,12 +75,12 @@ def _check_office(uploaded, ext):
         raise mismatch
 
 
-def store_upload(room_id, uploaded):
+def store_upload(room_id, uploaded, base=None):
     """Пишет файл во временный файл, затем атомарно переименовывает. Возвращает (stored_name, size, sha256).
 
     Строка версии в БД создаётся вызывающим кодом только после успеха; при сбое файл удаляется.
     """
-    directory = documents_dir(room_id)
+    directory = (base or documents_dir)(room_id)
     directory.mkdir(parents=True, exist_ok=True)
     stored_name = uuid.uuid4().hex
     final = directory / stored_name
@@ -103,5 +103,5 @@ def store_upload(room_id, uploaded):
     return stored_name, size, digest.hexdigest()
 
 
-def remove_file(room_id, stored_name):
-    file_path(room_id, stored_name).unlink(missing_ok=True)
+def remove_file(room_id, stored_name, base=None):
+    ((base or documents_dir)(room_id) / stored_name).unlink(missing_ok=True)

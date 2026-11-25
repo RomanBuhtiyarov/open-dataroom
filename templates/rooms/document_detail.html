@@ -6,6 +6,7 @@
   <p class="crumbs"><a href="{% url 'home' %}">{% translate "Your rooms" %}</a> /
     <a href="{% url 'room_detail' room.pk %}">{{ room.name }}</a>{% for c in crumbs %} / <a href="{% url 'room_detail' room.pk %}?folder={{ c.pk }}">{{ c.name }}</a>{% endfor %}</p>
   <h1>{{ document.title }}</h1>
+  {% if not access.admin %}<p><a class="button secondary" href="{% url 'question_ask' %}?document={{ document.pk }}">{% translate "Ask a question" %}</a></p>{% endif %}
   <p><a class="button primary" href="{% url 'document_view' document.pk %}">{% translate "View" %}</a></p>
   <div class="card">
     <h2>{% translate "Versions" %}</h2>

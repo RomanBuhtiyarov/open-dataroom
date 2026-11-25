@@ -84,3 +84,19 @@ def test_seed_fills_view_analytics():
     assert PageTime.objects.count() == count
     data = analytics.summary()
     assert any(row["seconds"] for row in data["documents"])
+
+
+@pytest.mark.django_db
+def test_seed_adds_questions_once_without_sending_email():
+    from django.core import mail
+
+    from apps.qa.models import Question
+
+    make_admin()
+    call_command("seed_demo")
+    assert Question.objects.count() == 4 and mail.outbox == []
+    statuses = set(Question.objects.values_list("status", flat=True))
+    assert {"answered", "in_progress", "new"} <= statuses
+    assert Question.objects.filter(shared=True).count() == 1 and Question.objects.exclude(attachment_stored="").count() == 1
+    call_command("seed_demo")
+    assert Question.objects.count() == 4

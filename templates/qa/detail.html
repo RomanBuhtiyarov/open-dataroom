@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ q.subject }} · {% translate "Questions" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section>
+  <p class="crumbs"><a href="{% url 'question_list' %}">{% translate "Questions" %}</a> / {{ q.room.name }}</p>
+  <h1>{{ q.subject }}</h1>
+  <p class="muted">
+    <span class="badge">{{ q.get_status_display }}</span>
+    {% if q.shared %}<span class="badge">{% translate "Shared" %}</span>{% endif %}
+    {% if is_admin or is_author %} · {{ q.created_at|date:"Y-m-d H:i" }} UTC{% endif %}
+    {% if is_admin and q.author %} · {{ q.author.email }}{% endif %}
+    {% if q.document and is_admin %} · <a href="{% url 'document_detail' q.document.pk %}">{% translate "Open the document" %}</a>{% endif %}
+  </p>
+
+  <div class="card">
+    <h2>{% translate "Question" %}</h2>
+    <p class="pre">{{ q.text }}</p>
+  </div>
+
+  <div class="card">
+    <h2>{% translate "Answer" %}</h2>
+    {% if q.answered_at %}
+      <p class="pre">{{ q.answer_text }}</p>
+      <p class="muted">{{ q.answered_at|date:"Y-m-d H:i" }} UTC</p>
+      {% if can_attachment %}<p><a class="button secondary" href="{% url 'question_attachment' q.pk %}">{% blocktranslate with name=q.attachment_name %}Download {{ name }}{% endblocktranslate %}</a>
+        <span class="muted">{{ q.attachment_size|filesizeformat }}</span></p>{% endif %}
+    {% else %}
+      <p class="muted">{% translate "Not answered yet." %}</p>
+    {% endif %}
+  </div>
+
+  {% if is_admin %}
+  <div class="card">
+    <h2>{% translate "Reply" %}</h2>
+    <form method="post" action="{% url 'question_answer' q.pk %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% for field in answer_form %}{% include "includes/field.html" with field=field %}{% endfor %}
+      <div class="row"><button type="submit" class="primary">{% translate "Save the answer" %}</button></div>
+    </form>
+  </div>
+  <div class="card">
+    <h2>{% translate "Handling" %}</h2>
+    <form method="post" action="{% url 'question_assign' q.pk %}">
+      {% csrf_token %}
+      {% for field in assign_form %}{% include "includes/field.html" with field=field %}{% endfor %}
+      {% if overdue %}<p class="error">{% translate "Overdue" %}</p>{% endif %}
+      <div class="row"><button type="submit" class="secondary">{% translate "Save" %}</button></div>
+    </form>
+    <div class="row">
+      {% if q.answered_at %}
+      <form method="post" action="{% url 'question_share' q.pk %}">{% csrf_token %}
+        <input type="hidden" name="shared" value="{% if q.shared %}0{% else %}1{% endif %}">
+        <button type="submit" class="secondary">{% if q.shared %}{% translate "Stop sharing" %}{% else %}{% translate "Share the answer" %}{% endif %}</button>
+      </form>
+      {% endif %}
+      <form method="post" action="{% url 'question_close' q.pk %}">{% csrf_token %}
+        <input type="hidden" name="closed" value="{% if q.status == 'closed' %}0{% else %}1{% endif %}">
+        <button type="submit" class="secondary">{% if q.status == 'closed' %}{% translate "Reopen" %}{% else %}{% translate "Close the question" %}{% endif %}</button>
+      </form>
+    </div>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

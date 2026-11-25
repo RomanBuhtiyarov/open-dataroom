@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     "apps.core",
     "apps.rooms",
     "apps.invites",
+    "apps.qa",
 ]
 
 MIDDLEWARE = [

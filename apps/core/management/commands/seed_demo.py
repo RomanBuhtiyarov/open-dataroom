@@ -10,6 +10,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.management.base import BaseCommand, CommandError
+from django.test.utils import override_settings
 from django.utils import timezone
 
 from apps.accounts.models import User
@@ -19,6 +20,8 @@ from apps.core import demo_files as files
 from apps.core.models import InstanceSettings
 from apps.invites import services as invite_services
 from apps.invites.models import AccessRequest, Invitation
+from apps.qa import services as qa_services
+from apps.qa.models import Question
 from apps.rooms import services
 from apps.rooms.models import AccessGrant, Document, Folder, NdaAcceptance, NdaText, NdaVersion, PageTime, Room
 
@@ -171,6 +174,7 @@ class Command(BaseCommand):
 
         self._activity(admin, users, rooms)
         self._page_times(users)
+        self._questions(admin, users, rooms)
 
         self.stdout.write(self.style.SUCCESS(
             f"Demo data ready: {created_rooms} new starter rooms, {added} new documents."))
@@ -220,3 +224,28 @@ class Command(BaseCommand):
             for page, value in enumerate(seconds[: version.page_count or 0], start=1):
                 PageTime.objects.create(user=users[email], version=version, page=page, seconds=value,
                                         first_seen=now - timedelta(hours=5), last_seen=now - timedelta(hours=5))
+
+    def _questions(self, admin, users, rooms):
+        """Вопросы и ответы для демонстрации. Один раз; письма не отправляются."""
+        if Question.objects.exists():
+            return
+        now = timezone.now()
+        docs = {d.title: d for d in Document.objects.select_related("folder")}
+        report, deck = docs["Отчёт за 3 квартал"], docs["Презентация для инвесторов"]
+        shareholders = docs["Реестр акционеров"]
+
+        def make(user, room, text, document=None, folder=None, hours_ago=0):
+            subject = document.title if document else folder.name if folder else room.name
+            return Question.objects.create(
+                room=room, folder=document.folder if document else folder, document=document, subject=subject,
+                author=users[user], text=text, created_at=now - timedelta(hours=hours_ago))
+
+        with override_settings(EMAIL_BACKEND="django.core.mail.backends.dummy.EmailBackend"):
+            q1 = make("investor1@example.com", rooms["overview"], "How is the recurring share of revenue calculated?", report, hours_ago=30)
+            qa_services.answer(q1, admin, "Recurring revenue is subscription and service fees under contracts of 12 months or longer, divided by total revenue. The 71% in the report uses the last quarter (synthetic).", share=True)
+            q2 = make("investor3@example.com", rooms["diligence"], "Please send the cap table as a spreadsheet.", shareholders, hours_ago=20)
+            qa_services.answer(q2, admin, "The spreadsheet is attached (synthetic data).",
+                               upload=SimpleUploadedFile("cap-table.xlsx", files.make_xlsx([["Holder", "Share, %"], ["Founders", 70], ["Employee pool", 10], ["Angels", 20]])))
+            q3 = make("investor1@example.com", rooms["overview"], "Is the seed round open to a second investor?", hours_ago=48)
+            qa_services.assign(q3, admin, admin, (now - timedelta(days=1)).date())
+            make("investor2@example.com", rooms["overview"], "Which pilot sites are paying customers?", deck, hours_ago=3)

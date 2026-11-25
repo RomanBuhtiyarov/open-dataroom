@@ -6,6 +6,8 @@
 import io
 import zipfile
 
+from .xlsx import make_xlsx  # noqa: F401  (используется seed_demo)
+
 COMPANY = "Nordlicht Robotics (fictional)"
 FOOTER = "Synthetic demo data. Not a real company or real figures."
 
@@ -90,44 +92,6 @@ def make_docx(paragraphs):
             '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>'
         ),
         "word/document.xml": document,
-    })
-
-
-def make_xlsx(rows):
-    from xml.sax.saxutils import escape
-
-    def cell(ref, value):
-        if isinstance(value, (int, float)):
-            return f'<c r="{ref}"><v>{value}</v></c>'
-        return f'<c r="{ref}" t="inlineStr"><is><t>{escape(str(value))}</t></is></c>'
-
-    data = ""
-    for r, row in enumerate(rows, start=1):
-        data += f'<row r="{r}">' + "".join(cell(f"{chr(65 + c)}{r}", v) for c, v in enumerate(row)) + "</row>"
-    return _zip({
-        "[Content_Types].xml": (
-            '<?xml version="1.0" encoding="UTF-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'
-            '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'
-            '<Default Extension="xml" ContentType="application/xml"/>'
-            '<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>'
-            '<Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/></Types>'
-        ),
-        "_rels/.rels": (
-            '<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
-            '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>'
-        ),
-        "xl/workbook.xml": (
-            '<?xml version="1.0" encoding="UTF-8"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" '
-            'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="Model" sheetId="1" r:id="rId1"/></sheets></workbook>'
-        ),
-        "xl/_rels/workbook.xml.rels": (
-            '<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
-            '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/></Relationships>'
-        ),
-        "xl/worksheets/sheet1.xml": (
-            '<?xml version="1.0" encoding="UTF-8"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
-            f"<sheetData>{data}</sheetData></worksheet>"
-        ),
     })
 
 

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Questions" %} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section>
+  <h1>{% translate "Questions" %}</h1>
+  <p class="intro">{% translate "Ask a question from a room, a folder or a document page. Answers shared by the administrator for areas you can see appear below, without the name of the person who asked." %}</p>
+
+  <h2>{% translate "Your questions" %}</h2>
+  <div class="card">
+    {% for q in mine %}
+    <p class="item"><a href="{% url 'question_detail' q.pk %}">{{ q.subject }}</a>
+      <span class="badge">{{ q.get_status_display }}</span>
+      <span class="muted"> · {{ q.created_at|date:"Y-m-d" }}</span></p>
+    {% empty %}<p class="muted">{% translate "You have not asked any questions yet." %}</p>{% endfor %}
+  </div>
+
+  <h2>{% translate "Answers shared with you" %}</h2>
+  <div class="card">
+    {% for q in others %}
+    <p class="item"><a href="{% url 'question_detail' q.pk %}">{{ q.subject }}</a>
+      <span class="muted"> · {{ q.room.name }} · {{ q.answered_at|date:"Y-m-d" }}</span></p>
+    {% empty %}<p class="muted">{% translate "Nothing has been shared yet." %}</p>{% endfor %}
+  </div>
+</section>
+{% endblock %}

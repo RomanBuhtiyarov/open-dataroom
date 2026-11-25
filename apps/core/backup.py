@@ -25,7 +25,7 @@ from django.db.migrations.loader import MigrationLoader
 
 FORMAT = 1
 # Каталоги тома, которые входят в копию. previews/ — кэш, его не копируем.
-MEDIA_DIRS = ("documents", "branding")
+MEDIA_DIRS = ("documents", "branding", "qa")
 
 
 class BackupError(Exception):

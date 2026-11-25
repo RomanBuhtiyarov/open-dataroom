@@ -26,6 +26,7 @@ Status legend: **done**, **next**, **planned**, **later**.
 | 7 | Specification gaps: content | done | Move folders and documents, delete documents, starter rooms, PDF parsing in a separate process |
 | 8 | Watermarks and view analytics | done | Per-room watermark on preview pages (email, time, address, view code), time per page, unopened documents, activity per day, CSV |
 | 9 | Release readiness | done | CI on GitHub Actions: tests on SQLite and PostgreSQL 16, lint, Docker image build and a Compose smoke test with backup and restore |
+| 10 | Questions and answers | done | Visitor questions on a room, folder or document; administrator inbox with status, assignee and due date; answers with an attachment; optional anonymous sharing; email notices; XLSX export |
 
 ### 0. Project skeleton (done)
 
@@ -107,13 +108,22 @@ Status legend: **done**, **next**, **planned**, **later**.
 - Found and fixed by CI: the `Dockerfile` did not build (a broken multi-line `CMD`); the image carried the PostgreSQL 17 client, so `pg_restore` failed against the PostgreSQL 16 server (the image now installs `postgresql-client-16`).
 - Known limits: CI does not check real SMTP, native-speaker translation quality, phones, the Nginx and Caddy examples, or the published ports of a real host; the workflow actions still run on a deprecated Node 20 runtime and need a version bump later; the smoke test creates data through the shell, not through the browser; no dependency pinning or vulnerability scan yet.
 
+### 10. Questions and answers (done)
+
+- A visitor asks a question about a room, a folder or a document, only about what the access policy already shows them (and only after accepting the room's NDA). Administrators answer rather than ask. At most 10 questions per visitor per hour.
+- Visibility: a question is private to its author. The administrator can share an answered question with other visitors who can see that area (a document follows its current folder, so moving it changes the audience); the author's name is hidden from them. If access is revoked, the author no longer sees the question either.
+- The administrator has an inbox with filters (status, assignee, overdue), assigns a responsible administrator and a due date, answers with text and one PDF, DOCX or XLSX attachment (same checks as documents, stored in the private volume under `qa/`, served only through the visibility rules), closes and reopens.
+- Emails (after the transaction commits, in the recipient's language): administrators on a new question, the author on the first answer. They contain only a link, never the question or the answer text; the audit log stores only codes and ids.
+- The inbox exports to XLSX; text is written as text cells, so a value starting with `=` is not a formula. Backups and restores include the attachments.
+- Known limits: one question has one answer (follow-ups are new questions); no search, no editing of a sent question, a single attachment per answer, an attachment is a plain download without a watermark and is not scanned for malware; a later update of an answer sends no new email; the person who asked sees the question and answer even after the question is closed, but not after their access ends; sharing shows the question text to others, which the asking form says.
+
 ## After the first release
 
 Ordered roughly by expected value; none of these block the first release.
 
 | Feature | Notes |
 |---|---|
-| Questions and answers | Investor questions on documents and folders, owners, deadlines, answers with attachments, XLSX export |
+| Questions: next steps | Threaded follow-ups, search, edit before answer, daily digests, several attachments |
 | Groups and permission matrix | Grant access to groups instead of individuals, inheritance, "view as" |
 | Stamped downloads | The same stamp inside downloadable PDF files |
 | Deeper analytics | Cohorts, charts, per-visitor reports, scheduled email digests |
