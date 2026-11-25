@@ -7,7 +7,7 @@
 from django.db.models import Q
 from django.utils import timezone
 
-from .models import AccessGrant, Folder, NdaAcceptance, Room
+from .models import AccessGrant, Folder, GroupMember, NdaAcceptance, Room
 
 
 def is_trusted_admin(user):
@@ -19,8 +19,14 @@ def is_trusted_admin(user):
 
 
 def _active_grants(user):
+    """Личные права пользователя и права всех групп, в которых он состоит. Права только добавляются."""
     now = timezone.now()
-    return AccessGrant.objects.filter(user=user, revoked_at__isnull=True).filter(Q(expires_at__isnull=True) | Q(expires_at__gt=now))
+    groups = GroupMember.objects.filter(user=user).values("group_id")
+    return (
+        AccessGrant.objects.filter(revoked_at__isnull=True)
+        .filter(Q(user=user) | Q(group_id__in=groups))
+        .filter(Q(expires_at__isnull=True) | Q(expires_at__gt=now))
+    )
 
 
 class RoomAccess:
@@ -79,8 +85,17 @@ def access_for(user, room):
         return RoomAccess(room, admin=True)
     if user.is_admin:
         return None  # администратор без второго фактора ничего не получает
-    grants = list(_active_grants(user).filter(room=room))
-    access = RoomAccess(room, grants=grants)
+    return visitor_access(user, room)
+
+
+def visitor_access(user, room):
+    """Права посетителя по его грантам и группам. Для администратора и неактивной записи доступа нет.
+
+    Используется и для «посмотреть как»: администратор видит ровно то, что рассчитала политика, а не отдельную копию логики.
+    """
+    if user.is_admin or not user.is_active:
+        return None
+    access = RoomAccess(room, grants=list(_active_grants(user).filter(room=room)))
     return access if access.any else None
 
 

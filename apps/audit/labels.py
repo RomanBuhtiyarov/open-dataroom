@@ -56,6 +56,12 @@ LABELS = {
     events.QUESTION_REOPENED: _("Question reopened"),
     events.QUESTION_ATTACHMENT_DOWNLOADED: _("Answer attachment downloaded"),
     events.QUESTIONS_EXPORTED: _("Questions exported"),
+    events.GROUP_CREATED: _("Group created"),
+    events.GROUP_RENAMED: _("Group renamed"),
+    events.GROUP_DELETED: _("Group deleted"),
+    events.GROUP_MEMBER_ADDED: _("Group member added"),
+    events.GROUP_MEMBER_REMOVED: _("Group member removed"),
+    events.VIEW_AS_OPENED: _("Access previewed as a visitor"),
     events.BACKUP_CREATED: _("Backup created"),
     events.BACKUP_RESTORED: _("Instance restored from a backup"),
 }

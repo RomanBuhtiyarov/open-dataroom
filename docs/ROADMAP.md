@@ -125,6 +125,15 @@ Status legend: **done**, **next**, **planned**, **later**.
 - Added: a Content-Security-Policy (scripts only from the site, no framing, no plugins, forms only to the site), a session lifetime (12 hours from sign-in, `SESSION_COOKIE_AGE_SECONDS`), exact dependency versions in `requirements-lock.txt` (installed by the Docker image and audited by `pip-audit` in CI), Dependabot, newer GitHub Actions, `SECURITY.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, the version in `dataroom/__init__.py`.
 - Known limits (accepted, not fixed): the login and code-attempt limits check and record in two steps, so a burst of parallel guesses can slightly exceed them; five failed sign-ins for one address block that address for ten minutes, including an administrator's (the lockout is per address by design); the PDF worker has a clean environment and resource limits but no file-system, network or user isolation, so a PDF parser exploit could read other rooms' files (run the container without extra privileges, consider seccomp or a separate user); the retry of a failed decision email is not locked, so a rare double email is possible (rights are never granted twice); `seed_demo` has a fixed password and is safe only because it refuses to run outside `DJANGO_DEBUG=1`; sessions have a fixed lifetime but no idle timeout. No independent audit has been done.
 
+### 12. Groups and the permission matrix (done)
+
+- Groups of visitors inside a room: create, rename, delete, add and remove people. Access can be granted to a group exactly like to a person (a grant belongs to one person or one group). A person's rights are the union of their own grants and the grants of all their groups; there are no deny rules, so closed by default is unchanged. Revoking or expiring a group grant, removing a person from the group, deleting the group, suspending the person: each takes effect on the next request, because everything is computed in `apps/rooms/policy.py`.
+- Access matrix: rows are the room and its folders, columns are groups and people with personal access. Each cell shows the direct level (no access, view only, can download) and a note for access inherited from a parent folder. Saving changes only the cells you changed; an old grant is revoked and a new one created, so the audit log shows every change. The expiry of a replaced grant is kept.
+- "View as": a read-only page that shows the folders and documents a person can see and whether they can download, computed by the same policy. Documents are not opened in the person's name, nothing is recorded as their activity, the administrator's session does not change. Opening it is written to the audit log.
+- An invitation can name a group; the person joins it when the invitation is accepted (once, however many times the link is used).
+- Audit events: `group.created`, `group.renamed`, `group.deleted`, `group.member_added`, `group.member_removed`, `access.view_as_opened`. `seed_demo` creates two groups with different rights.
+- Known limits: grants are on rooms and folders (a document follows its folder), so the matrix has no per-document rows; groups are flat (no nested groups) and belong to one room; "View as" shows the structure and rights, not the rendered pages, and does not show what a person has answered or asked; a group member sees only what the group's grants allow, plus their personal grants; adding a person to a group does not send an email.
+
 ## After the first release
 
 Ordered roughly by expected value; none of these block the first release.
@@ -132,7 +141,7 @@ Ordered roughly by expected value; none of these block the first release.
 | Feature | Notes |
 |---|---|
 | Questions: next steps | Threaded follow-ups, search, edit before answer, daily digests, several attachments |
-| Groups and permission matrix | Grant access to groups instead of individuals, inheritance, "view as" |
+| Groups: next steps | Nested groups, groups across rooms, per-document rights, invitations to many people at once |
 | Stamped downloads | The same stamp inside downloadable PDF files |
 | Deeper analytics | Cohorts, charts, per-visitor reports, scheduled email digests |
 | Tamper-evident audit log | Hash chain over log entries, periodic anchoring |

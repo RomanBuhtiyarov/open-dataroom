@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import analytics, views
+from . import analytics, group_views, views
 
 urlpatterns = [
     path("", views.room_list, name="home"),
@@ -28,6 +28,14 @@ urlpatterns = [
     path("rooms/<int:room_id>/access/", views.access_list, name="access_list"),
     path("grants/<int:grant_id>/revoke/", views.grant_revoke, name="grant_revoke"),
     path("access/", views.access_overview, name="access_overview"),
+    path("rooms/<int:room_id>/groups/", group_views.group_list, name="group_list"),
+    path("groups/<int:group_id>/", group_views.group_detail, name="group_detail"),
+    path("groups/<int:group_id>/rename/", group_views.group_rename, name="group_rename"),
+    path("groups/<int:group_id>/delete/", group_views.group_delete, name="group_delete"),
+    path("groups/<int:group_id>/members/add/", group_views.group_member_add, name="group_member_add"),
+    path("groups/<int:group_id>/members/<int:user_id>/remove/", group_views.group_member_remove, name="group_member_remove"),
+    path("rooms/<int:room_id>/matrix/", group_views.access_matrix, name="access_matrix"),
+    path("rooms/<int:room_id>/view-as/<int:user_id>/", group_views.view_as, name="view_as"),
     path("rooms/<int:room_id>/nda/", views.nda_accept, name="nda_accept"),
     path("rooms/<int:room_id>/nda/edit/", views.nda_edit, name="nda_edit"),
 ]

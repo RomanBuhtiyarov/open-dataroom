@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ group.name }} · {{ room.name }} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section>
+  <p class="crumbs"><a href="{% url 'room_detail' room.pk %}">{{ room.name }}</a> / <a href="{% url 'group_list' room.pk %}">{% translate "Groups" %}</a></p>
+  <h1>{{ group.name }}</h1>
+
+  <div class="card">
+    <h2>{% translate "Members" %}</h2>
+    {% for m in members %}
+    <p class="item">
+      {{ m.user.email }}{% if m.user.name %} <span class="muted">· {{ m.user.name }}</span>{% endif %}
+      · <a href="{% url 'view_as' room.pk m.user.pk %}">{% translate "View as" %}</a>
+      <form method="post" action="{% url 'group_member_remove' group.pk m.user.pk %}" class="inline-form">{% csrf_token %}<button type="submit" class="secondary">{% translate "Remove" %}</button></form>
+    </p>
+    {% empty %}<p class="muted">{% translate "Nobody is in this group yet." %}</p>
+    {% endfor %}
+    <form method="post" action="{% url 'group_member_add' group.pk %}" novalidate>
+      {% csrf_token %}
+      {% for field in member_form %}{% include "includes/field.html" with field=field %}{% endfor %}
+      <div class="row"><button type="submit" class="secondary">{% translate "Add to group" %}</button></div>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>{% translate "Access of the group" %}</h2>
+    {% for row in grants %}
+    <p class="item">
+      {% if row.grant.folder %}{{ row.grant.folder.name }}{% else %}{% translate "The whole room" %}{% endif %} ·
+      {% if row.grant.can_download %}{% translate "can download" %}{% else %}{% translate "view only" %}{% endif %} ·
+      {% if row.grant.revoked_at %}{% translate "revoked" %}{% elif not row.active %}{% translate "expired" %}{% else %}{% translate "active" %}{% endif %}
+      {% if row.active %}<form method="post" action="{% url 'grant_revoke' row.grant.pk %}" class="inline-form">{% csrf_token %}<input type="hidden" name="next" value="{% url 'group_detail' group.pk %}"><button type="submit" class="secondary">{% translate "Revoke" %}</button></form>{% endif %}
+    </p>
+    {% empty %}<p class="muted">{% translate "The group has no access yet." %}</p>
+    {% endfor %}
+    <p class="row">
+      <a class="button secondary" href="{% url 'access_list' room.pk %}">{% translate "Grant access" %}</a>
+      <a class="button secondary" href="{% url 'access_matrix' room.pk %}">{% translate "Access matrix" %}</a>
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>{% translate "Rename or delete" %}</h2>
+    <form method="post" action="{% url 'group_rename' group.pk %}" novalidate>
+      {% csrf_token %}
+      {% for field in rename_form %}{% include "includes/field.html" with field=field %}{% endfor %}
+      <div class="row"><button type="submit" class="secondary">{% translate "Rename" %}</button></div>
+    </form>
+    <form method="post" action="{% url 'group_delete' group.pk %}">
+      {% csrf_token %}
+      <p class="help">{% translate "Deleting the group also removes its access. Members keep only their personal access." %}</p>
+      <div class="row"><button type="submit" class="secondary">{% translate "Delete group" %}</button></div>
+    </form>
+  </div>
+</section>
+{% endblock %}

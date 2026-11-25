@@ -23,7 +23,7 @@ from apps.invites.models import AccessRequest, Invitation
 from apps.qa import services as qa_services
 from apps.qa.models import Question
 from apps.rooms import services
-from apps.rooms.models import AccessGrant, Document, Folder, NdaAcceptance, NdaText, NdaVersion, PageTime, Room
+from apps.rooms.models import AccessGrant, Document, Folder, Group, GroupMember, NdaAcceptance, NdaText, NdaVersion, PageTime, Room
 
 DEMO_PASSWORD = "Demo-Dataroom-2026!"
 
@@ -157,6 +157,19 @@ class Command(BaseCommand):
         grant("investor3@example.com", "diligence", download=True)
         grant("investor4@example.com", "overview", expires=now - timedelta(days=1))
         grant("investor4@example.com", "restricted_legal", revoked=now - timedelta(hours=3))
+
+        # Две группы с разными правами в комнате обзора: права выдаются группе, а не каждому человеку.
+        def group(name, room_key, folder_key, members, download=False):
+            grp, _created = Group.objects.get_or_create(room=rooms[room_key], name=name, defaults={"created_by": admin})
+            for email in members:
+                GroupMember.objects.get_or_create(group=grp, user=users[email], defaults={"added_by": admin})
+            target = folder(room_key, folder_key)
+            if not AccessGrant.objects.filter(group=grp, room=rooms[room_key], folder=target).exists():
+                g = AccessGrant.objects.create(group=grp, room=rooms[room_key], folder=target, can_download=download, created_by=admin)
+                AuditEvent.objects.create(code=events.GRANT_CREATED, actor=admin, target=f"grant:{g.pk}")
+
+        group("Лид-инвесторы", "overview", "summary", ["investor1@example.com", "investor3@example.com"], download=True)
+        group("Наблюдатели", "overview", "team", ["investor2@example.com", "investor3@example.com"])
 
         NdaAcceptance.objects.get_or_create(user=users["investor1@example.com"], version=nda, defaults={"language": "ru"})
 

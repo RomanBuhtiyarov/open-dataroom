@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "View as" %} · {{ room.name }} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section>
+  <p class="crumbs"><a href="{% url 'room_detail' room.pk %}">{{ room.name }}</a> / <a href="{% url 'access_list' room.pk %}">{% translate "Access" %}</a></p>
+  <h1 class="wrap">{% translate "View as" %}: {{ label }}</h1>
+  <div class="notice">{% translate "Read-only preview of what this person can see. Documents are not opened on their behalf, and nothing is recorded as their activity." %}</div>
+  {% if access is None %}
+  <div class="card"><p class="muted">{% translate "This person has no access to the room." %}</p></div>
+  {% else %}
+  {% if nda_pending %}<div class="notice warning">{% translate "This person has not accepted the current NDA yet, so they would see the NDA page first." %}</div>{% endif %}
+  <div class="card">
+    <h2>{% translate "Folders and documents" %}</h2>
+    {% for node in tree %}
+    <p class="item depth-{{ node.depth }}">
+      <strong>{{ node.folder.name }}</strong>
+      <span class="muted">· {% if node.download %}{% translate "can download" %}{% else %}{% translate "view only" %}{% endif %}</span>
+    </p>
+    {% for doc in node.documents %}<p class="item muted depth-{{ node.depth }}"><span class="doc-indent">{{ doc.title }}</span></p>{% endfor %}
+    {% empty %}<p class="muted">{% translate "No folders here." %}</p>
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

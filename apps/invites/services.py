@@ -10,7 +10,7 @@ from django.utils import timezone
 from apps.accounts.models import User, normalize_email
 from apps.audit import events
 from apps.audit.service import record
-from apps.rooms.models import AccessGrant
+from apps.rooms.models import AccessGrant, GroupMember
 
 from . import mail, security
 from .models import AccessRequest, Invitation
@@ -23,14 +23,16 @@ class Unavailable(Exception):
 # --- Приглашения ------------------------------------------------------------
 
 
-def create_invitation(*, email, name, language, room, folder, can_download, access_expires_at, valid_days, created_by, send_email):
+def create_invitation(
+    *, email, name, language, room, folder, can_download, access_expires_at, valid_days, created_by, send_email, group=None,
+):
     """Создаёт приглашение. Возвращает (приглашение, открытый токен). Токен больше нигде не хранится."""
     token = security.new_token()
     days = max(1, min(int(valid_days), settings.INVITATION_MAX_DAYS))
     with transaction.atomic():
         invitation = Invitation.objects.create(
             token_hash=security.hash_token(token), email=normalize_email(email), name=name, language=language,
-            room=room, folder=folder, can_download=can_download, access_expires_at=access_expires_at,
+            room=room, folder=folder, group=group, can_download=can_download, access_expires_at=access_expires_at,
             expires_at=timezone.now() + timedelta(days=days), created_by=created_by,
         )
         record(events.INVITATION_CREATED, actor=created_by, target=f"invitation:{invitation.pk}")
@@ -73,10 +75,14 @@ def find_by_token(token):
 
 
 def _grant_for(invitation, user):
-    return AccessGrant.objects.create(
+    grant = AccessGrant.objects.create(
         user=user, room=invitation.room, folder=invitation.folder, can_download=invitation.can_download,
         expires_at=invitation.access_expires_at, created_by=invitation.created_by,
     )
+    # Группа комнаты приглашения (проверено при создании); повторное принятие не создаёт вторую запись.
+    if invitation.group_id and invitation.group.room_id == invitation.room_id:
+        GroupMember.objects.get_or_create(group=invitation.group, user=user, defaults={"added_by": invitation.created_by})
+    return grant
 
 
 def accept_new_user(invitation_id, *, name, password, language):

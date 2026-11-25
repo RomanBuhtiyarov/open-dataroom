@@ -1544,3 +1544,190 @@ msgstr "Ihre Fragen"
 
 msgid "The text contains characters that are not allowed."
 msgstr "Der Text enthält unzulässige Zeichen."
+
+msgid ""
+"A group gets access to folders once; everyone in the group has it. Rights "
+"only add up: a person has their own access plus the access of all their "
+"groups."
+msgstr ""
+"Eine Gruppe erhält den Zugriff auf Ordner einmal, und alle Mitglieder haben "
+"ihn. Rechte addieren sich nur: Eine Person hat ihren eigenen Zugriff plus "
+"den Zugriff aller ihrer Gruppen."
+
+msgid "A group with this name already exists in the room."
+msgstr "Eine Gruppe mit diesem Namen gibt es in diesem Raum bereits."
+
+msgid "Access matrix"
+msgstr "Rechtematrix"
+
+msgid "Access of the group"
+msgstr "Zugriff der Gruppe"
+
+msgid "Access previewed as a visitor"
+msgstr "Zugriff als Besucher angesehen"
+
+msgid "Add to group"
+msgstr "Zur Gruppe hinzufügen"
+
+msgid "Choose a person."
+msgstr "Wählen Sie eine Person."
+
+msgid "Choose either a person or a group."
+msgstr "Wählen Sie entweder eine Person oder eine Gruppe."
+
+msgid "Create group"
+msgstr "Gruppe erstellen"
+
+msgid "Delete group"
+msgstr "Gruppe löschen"
+
+msgid ""
+"Deleting the group also removes its access. Members keep only their personal"
+" access."
+msgstr ""
+"Mit der Gruppe wird auch ihr Zugriff entfernt. Mitglieder behalten nur ihren"
+" persönlichen Zugriff."
+
+msgid "Folders and documents"
+msgstr "Ordner und Dokumente"
+
+msgid "Group created"
+msgstr "Gruppe erstellt"
+
+msgid "Group deleted"
+msgstr "Gruppe gelöscht"
+
+msgid "Group member added"
+msgstr "Gruppenmitglied hinzugefügt"
+
+msgid "Group member removed"
+msgstr "Gruppenmitglied entfernt"
+
+msgid "Group name"
+msgstr "Gruppenname"
+
+msgid "Group renamed"
+msgstr "Gruppe umbenannt"
+
+msgid "Groups"
+msgstr "Gruppen"
+
+msgid "Groups of this room"
+msgstr "Gruppen dieses Raums"
+
+msgid "Invalid request."
+msgstr "Ungültige Anfrage."
+
+msgid "Members"
+msgstr "Mitglieder"
+
+msgid "New group"
+msgstr "Neue Gruppe"
+
+msgid "Nobody is in this group yet."
+msgstr "In dieser Gruppe ist noch niemand."
+
+msgid "Only active visitors can be added to a group."
+msgstr "Nur aktive Besucher können einer Gruppe hinzugefügt werden."
+
+msgid "Only active visitors can get access."
+msgstr "Nur aktive Besucher können Zugriff erhalten."
+
+msgid ""
+"Optional. The person joins the group when the invitation is accepted and "
+"also gets the group's access."
+msgstr ""
+"Optional. Die Person wird beim Annehmen der Einladung Mitglied der Gruppe "
+"und erhält deren Zugriff."
+
+msgid "Or a group"
+msgstr "Oder eine Gruppe"
+
+msgid ""
+"Read-only preview of what this person can see. Documents are not opened on "
+"their behalf, and nothing is recorded as their activity."
+msgstr ""
+"Nur-Lese-Vorschau dessen, was diese Person sieht. Dokumente werden nicht in "
+"ihrem Namen geöffnet, und es wird nichts als ihre Aktivität erfasst."
+
+msgid "Remove"
+msgstr "Entfernen"
+
+msgid "Rename or delete"
+msgstr "Umbenennen oder löschen"
+
+msgid ""
+"Rows are the room and its folders; columns are groups and people with "
+"personal access. Access to a folder covers its subfolders. The note under a "
+"field shows access inherited from above."
+msgstr ""
+"Zeilen sind der Raum und seine Ordner; Spalten sind Gruppen und Personen mit"
+" persönlichem Zugriff. Der Zugriff auf einen Ordner umfasst seine "
+"Unterordner. Der Hinweis unter einem Feld zeigt den von oben geerbten "
+"Zugriff."
+
+msgid "Save matrix"
+msgstr "Matrix speichern"
+
+msgid "The access matrix is saved. Changes: %(count)d."
+msgstr "Die Rechtematrix ist gespeichert. Änderungen: %(count)d."
+
+msgid "The group does not belong to this room."
+msgstr "Die Gruppe gehört nicht zu diesem Raum."
+
+msgid "The group has no access yet."
+msgstr "Die Gruppe hat noch keinen Zugriff."
+
+msgid "The group is created."
+msgstr "Die Gruppe ist erstellt."
+
+msgid "The group is deleted. Its members keep only their personal access."
+msgstr ""
+"Die Gruppe ist gelöscht. Ihre Mitglieder behalten nur ihren persönlichen "
+"Zugriff."
+
+msgid "The group is renamed."
+msgstr "Die Gruppe ist umbenannt."
+
+msgid "The name is too long."
+msgstr "Der Name ist zu lang."
+
+msgid "The person is added to the group."
+msgstr "Die Person ist der Gruppe hinzugefügt."
+
+msgid "The person is removed from the group."
+msgstr "Die Person ist aus der Gruppe entfernt."
+
+msgid "There are no groups and nobody has personal access yet."
+msgstr "Es gibt noch keine Gruppen, und niemand hat persönlichen Zugriff."
+
+msgid "There are no groups yet."
+msgstr "Es gibt noch keine Gruppen."
+
+msgid "This person has no access to the room."
+msgstr "Diese Person hat keinen Zugriff auf den Raum."
+
+msgid ""
+"This person has not accepted the current NDA yet, so they would see the NDA "
+"page first."
+msgstr ""
+"Diese Person hat die aktuelle NDA noch nicht akzeptiert und würde zuerst die"
+" NDA-Seite sehen."
+
+msgid "View as"
+msgstr "Ansehen als"
+
+msgid "group"
+msgstr "Gruppe"
+
+msgid "inherited: can download"
+msgstr "geerbt: Download erlaubt"
+
+msgid "inherited: view only"
+msgstr "geerbt: nur Ansicht"
+
+msgid "no access"
+msgstr "kein Zugriff"
+
+msgid "personal"
+msgstr "persönlich"

@@ -450,14 +450,14 @@ def access_list(request, room_id):
     form = GrantForm(room, request.POST or None)
     if request.method == "POST" and form.is_valid():
         grant = AccessGrant.objects.create(
-            user=form.cleaned_data["user"], room=room, folder=form.cleaned_data["folder"],
+            user=form.cleaned_data["user"], group=form.cleaned_data["group"], room=room, folder=form.cleaned_data["folder"],
             can_download=form.cleaned_data["can_download"], expires_at=form.cleaned_data["expires_on"],
             created_by=request.user,
         )
         record(events.GRANT_CREATED, actor=request.user, target=f"grant:{grant.pk}")
         messages.success(request, _("Access is granted."))
         return redirect("access_list", room_id=room.pk)
-    grants = room.grants.select_related("user", "folder")
+    grants = room.grants.select_related("user", "group", "folder")
     now = timezone.now()
     rows = [{"grant": g, "active": g.is_active(now)} for g in grants]
     return render(request, "rooms/access_list.html", {"room": room, "form": form, "rows": rows})
@@ -485,7 +485,7 @@ def access_overview(request):
     now = timezone.now()
     grants = (
         AccessGrant.objects.filter(revoked_at__isnull=True).exclude(expires_at__lte=now)
-        .select_related("user", "room", "folder").order_by("room__name", "user__email")
+        .select_related("user", "group", "room", "folder").order_by("room__name", "user__email", "group__name")
     )
     return render(request, "rooms/access_overview.html", {"grants": grants})
 

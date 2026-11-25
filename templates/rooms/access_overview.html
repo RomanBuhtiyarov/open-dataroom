@@ -13,7 +13,7 @@
       <tbody>
       {% for g in grants %}
       <tr>
-        <td>{{ g.user.email }}</td>
+        <td>{% if g.group %}{{ g.group.name }} <span class="muted">({% translate "group" %})</span>{% else %}{{ g.user.email }}{% endif %}</td>
         <td><a href="{% url 'access_list' g.room.pk %}">{{ g.room.name }}</a></td>
         <td>{% if g.folder %}{{ g.folder.name }}{% else %}{% translate "The whole room" %}{% endif %}</td>
         <td>{% if g.can_download %}{% translate "can download" %}{% else %}{% translate "view only" %}{% endif %}</td>

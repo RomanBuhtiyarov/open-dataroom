@@ -1507,3 +1507,187 @@ msgstr "Ваши вопросы"
 
 msgid "The text contains characters that are not allowed."
 msgstr "Текст содержит недопустимые символы."
+
+msgid ""
+"A group gets access to folders once; everyone in the group has it. Rights "
+"only add up: a person has their own access plus the access of all their "
+"groups."
+msgstr ""
+"Группа получает доступ к папкам один раз, и он есть у всех её участников. "
+"Права только складываются: у человека есть его личный доступ и доступ всех "
+"его групп."
+
+msgid "A group with this name already exists in the room."
+msgstr "Группа с таким названием в комнате уже есть."
+
+msgid "Access matrix"
+msgstr "Матрица прав"
+
+msgid "Access of the group"
+msgstr "Доступ группы"
+
+msgid "Access previewed as a visitor"
+msgstr "Просмотр доступа глазами посетителя"
+
+msgid "Add to group"
+msgstr "Добавить в группу"
+
+msgid "Choose a person."
+msgstr "Выберите человека."
+
+msgid "Choose either a person or a group."
+msgstr "Выберите либо человека, либо группу."
+
+msgid "Create group"
+msgstr "Создать группу"
+
+msgid "Delete group"
+msgstr "Удалить группу"
+
+msgid ""
+"Deleting the group also removes its access. Members keep only their personal"
+" access."
+msgstr ""
+"Вместе с группой удаляется и её доступ. У участников остаётся только личный "
+"доступ."
+
+msgid "Folders and documents"
+msgstr "Папки и документы"
+
+msgid "Group created"
+msgstr "Группа создана"
+
+msgid "Group deleted"
+msgstr "Группа удалена"
+
+msgid "Group member added"
+msgstr "Участник добавлен в группу"
+
+msgid "Group member removed"
+msgstr "Участник убран из группы"
+
+msgid "Group name"
+msgstr "Название группы"
+
+msgid "Group renamed"
+msgstr "Группа переименована"
+
+msgid "Groups"
+msgstr "Группы"
+
+msgid "Groups of this room"
+msgstr "Группы этой комнаты"
+
+msgid "Invalid request."
+msgstr "Некорректный запрос."
+
+msgid "Members"
+msgstr "Участники"
+
+msgid "New group"
+msgstr "Новая группа"
+
+msgid "Nobody is in this group yet."
+msgstr "В этой группе пока никого нет."
+
+msgid "Only active visitors can be added to a group."
+msgstr "В группу можно добавить только действующих посетителей."
+
+msgid "Only active visitors can get access."
+msgstr "Доступ можно выдать только действующим посетителям."
+
+msgid ""
+"Optional. The person joins the group when the invitation is accepted and "
+"also gets the group's access."
+msgstr ""
+"Необязательно. Человек войдёт в группу, когда примет приглашение, и получит "
+"доступ группы."
+
+msgid "Or a group"
+msgstr "Или группа"
+
+msgid ""
+"Read-only preview of what this person can see. Documents are not opened on "
+"their behalf, and nothing is recorded as their activity."
+msgstr ""
+"Просмотр только для чтения: что видит этот человек. Документы от его имени "
+"не открываются, и в его активность ничего не записывается."
+
+msgid "Remove"
+msgstr "Убрать"
+
+msgid "Rename or delete"
+msgstr "Переименовать или удалить"
+
+msgid ""
+"Rows are the room and its folders; columns are groups and people with "
+"personal access. Access to a folder covers its subfolders. The note under a "
+"field shows access inherited from above."
+msgstr ""
+"Строки: комната и её папки; столбцы: группы и люди с личным доступом. Доступ"
+" к папке распространяется на её вложенные папки. Пометка под полем "
+"показывает доступ, унаследованный сверху."
+
+msgid "Save matrix"
+msgstr "Сохранить матрицу"
+
+msgid "The access matrix is saved. Changes: %(count)d."
+msgstr "Матрица прав сохранена. Изменений: %(count)d."
+
+msgid "The group does not belong to this room."
+msgstr "Эта группа не относится к этой комнате."
+
+msgid "The group has no access yet."
+msgstr "У группы пока нет доступа."
+
+msgid "The group is created."
+msgstr "Группа создана."
+
+msgid "The group is deleted. Its members keep only their personal access."
+msgstr "Группа удалена. У её участников остался только личный доступ."
+
+msgid "The group is renamed."
+msgstr "Группа переименована."
+
+msgid "The name is too long."
+msgstr "Название слишком длинное."
+
+msgid "The person is added to the group."
+msgstr "Человек добавлен в группу."
+
+msgid "The person is removed from the group."
+msgstr "Человек убран из группы."
+
+msgid "There are no groups and nobody has personal access yet."
+msgstr "Групп пока нет, и личного доступа ни у кого нет."
+
+msgid "There are no groups yet."
+msgstr "Групп пока нет."
+
+msgid "This person has no access to the room."
+msgstr "У этого человека нет доступа к комнате."
+
+msgid ""
+"This person has not accepted the current NDA yet, so they would see the NDA "
+"page first."
+msgstr ""
+"Этот человек ещё не принял действующее NDA, поэтому сначала увидел бы "
+"страницу NDA."
+
+msgid "View as"
+msgstr "Посмотреть как"
+
+msgid "group"
+msgstr "группа"
+
+msgid "inherited: can download"
+msgstr "унаследовано: можно скачивать"
+
+msgid "inherited: view only"
+msgstr "унаследовано: только просмотр"
+
+msgid "no access"
+msgstr "нет доступа"
+
+msgid "personal"
+msgstr "личный"

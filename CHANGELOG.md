@@ -3,6 +3,18 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/). The project is in early development; version
 `0.1.0` is the first release candidate. The version number lives in `dataroom/__init__.py`.
 
+## [Unreleased]
+
+### Added
+- Groups of visitors inside a room; access can be granted to a group, and a person's rights are the union of their
+  own grants and their groups' grants. Access matrix (rows: room and folders; columns: groups and people) with
+  inherited access shown. Read-only "View as" for an administrator, audited. An invitation can add the person to a
+  group. Audit events `group.*` and `access.view_as_opened`.
+
+### Changed
+- `AccessGrant.user` may be empty when `AccessGrant.group` is set; exactly one of them is required (database
+  constraint). Migrations `rooms.0006_groups` and `invites.0002_groups`.
+
 ## [0.1.0] - 2026-11-25
 
 ### Added

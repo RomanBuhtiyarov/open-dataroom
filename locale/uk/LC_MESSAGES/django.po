@@ -1506,3 +1506,185 @@ msgstr "Ваші запитання"
 
 msgid "The text contains characters that are not allowed."
 msgstr "Текст містить недопустимі символи."
+
+msgid ""
+"A group gets access to folders once; everyone in the group has it. Rights "
+"only add up: a person has their own access plus the access of all their "
+"groups."
+msgstr ""
+"Група отримує доступ до папок один раз, і він є в усіх її учасників. Права "
+"лише додаються: людина має свій особистий доступ і доступ усіх своїх груп."
+
+msgid "A group with this name already exists in the room."
+msgstr "Група з такою назвою в кімнаті вже є."
+
+msgid "Access matrix"
+msgstr "Матриця прав"
+
+msgid "Access of the group"
+msgstr "Доступ групи"
+
+msgid "Access previewed as a visitor"
+msgstr "Перегляд доступу очима відвідувача"
+
+msgid "Add to group"
+msgstr "Додати до групи"
+
+msgid "Choose a person."
+msgstr "Виберіть людину."
+
+msgid "Choose either a person or a group."
+msgstr "Виберіть або людину, або групу."
+
+msgid "Create group"
+msgstr "Створити групу"
+
+msgid "Delete group"
+msgstr "Видалити групу"
+
+msgid ""
+"Deleting the group also removes its access. Members keep only their personal"
+" access."
+msgstr ""
+"Разом із групою видаляється і її доступ. В учасників залишається лише "
+"особистий доступ."
+
+msgid "Folders and documents"
+msgstr "Папки та документи"
+
+msgid "Group created"
+msgstr "Групу створено"
+
+msgid "Group deleted"
+msgstr "Групу видалено"
+
+msgid "Group member added"
+msgstr "Учасника додано до групи"
+
+msgid "Group member removed"
+msgstr "Учасника вилучено з групи"
+
+msgid "Group name"
+msgstr "Назва групи"
+
+msgid "Group renamed"
+msgstr "Групу перейменовано"
+
+msgid "Groups"
+msgstr "Групи"
+
+msgid "Groups of this room"
+msgstr "Групи цієї кімнати"
+
+msgid "Invalid request."
+msgstr "Некоректний запит."
+
+msgid "Members"
+msgstr "Учасники"
+
+msgid "New group"
+msgstr "Нова група"
+
+msgid "Nobody is in this group yet."
+msgstr "У цій групі поки нікого немає."
+
+msgid "Only active visitors can be added to a group."
+msgstr "До групи можна додати лише чинних відвідувачів."
+
+msgid "Only active visitors can get access."
+msgstr "Доступ можна надати лише чинним відвідувачам."
+
+msgid ""
+"Optional. The person joins the group when the invitation is accepted and "
+"also gets the group's access."
+msgstr ""
+"Необов'язково. Людина увійде до групи, коли прийме запрошення, і отримає "
+"доступ групи."
+
+msgid "Or a group"
+msgstr "Або група"
+
+msgid ""
+"Read-only preview of what this person can see. Documents are not opened on "
+"their behalf, and nothing is recorded as their activity."
+msgstr ""
+"Перегляд лише для читання: що бачить ця людина. Документи від її імені не "
+"відкриваються, і в її активність нічого не записується."
+
+msgid "Remove"
+msgstr "Прибрати"
+
+msgid "Rename or delete"
+msgstr "Перейменувати або видалити"
+
+msgid ""
+"Rows are the room and its folders; columns are groups and people with "
+"personal access. Access to a folder covers its subfolders. The note under a "
+"field shows access inherited from above."
+msgstr ""
+"Рядки: кімната та її папки; стовпці: групи та люди з особистим доступом. "
+"Доступ до папки поширюється на її вкладені папки. Позначка під полем показує"
+" доступ, успадкований зверху."
+
+msgid "Save matrix"
+msgstr "Зберегти матрицю"
+
+msgid "The access matrix is saved. Changes: %(count)d."
+msgstr "Матрицю прав збережено. Змін: %(count)d."
+
+msgid "The group does not belong to this room."
+msgstr "Ця група не належить цій кімнаті."
+
+msgid "The group has no access yet."
+msgstr "У групи поки немає доступу."
+
+msgid "The group is created."
+msgstr "Групу створено."
+
+msgid "The group is deleted. Its members keep only their personal access."
+msgstr "Групу видалено. В її учасників залишився лише особистий доступ."
+
+msgid "The group is renamed."
+msgstr "Групу перейменовано."
+
+msgid "The name is too long."
+msgstr "Назва задовга."
+
+msgid "The person is added to the group."
+msgstr "Людину додано до групи."
+
+msgid "The person is removed from the group."
+msgstr "Людину вилучено з групи."
+
+msgid "There are no groups and nobody has personal access yet."
+msgstr "Груп поки немає, і особистого доступу ні в кого немає."
+
+msgid "There are no groups yet."
+msgstr "Груп поки немає."
+
+msgid "This person has no access to the room."
+msgstr "У цієї людини немає доступу до кімнати."
+
+msgid ""
+"This person has not accepted the current NDA yet, so they would see the NDA "
+"page first."
+msgstr ""
+"Ця людина ще не прийняла чинну NDA, тому спершу побачила б сторінку NDA."
+
+msgid "View as"
+msgstr "Переглянути як"
+
+msgid "group"
+msgstr "група"
+
+msgid "inherited: can download"
+msgstr "успадковано: можна завантажувати"
+
+msgid "inherited: view only"
+msgstr "успадковано: лише перегляд"
+
+msgid "no access"
+msgstr "немає доступу"
+
+msgid "personal"
+msgstr "особистий"

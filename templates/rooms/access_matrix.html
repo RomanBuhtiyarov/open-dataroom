@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Access matrix" %} · {{ room.name }} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section>
+  <p class="crumbs"><a href="{% url 'room_detail' room.pk %}">{{ room.name }}</a> / <a href="{% url 'access_list' room.pk %}">{% translate "Access" %}</a></p>
+  <h1>{% translate "Access matrix" %}</h1>
+  <p class="intro">{% translate "Rows are the room and its folders; columns are groups and people with personal access. Access to a folder covers its subfolders. The note under a field shows access inherited from above." %}</p>
+  <p class="row">
+    <a class="button secondary" href="{% url 'group_list' room.pk %}">{% translate "Groups" %}</a>
+    <a class="button secondary" href="{% url 'access_list' room.pk %}">{% translate "Access" %}</a>
+  </p>
+  {% if columns %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="card table-wrap">
+      <table class="matrix">
+        <thead><tr>
+          <th>{% translate "Folder" %}</th>
+          {% for c in columns %}<th>{% if c.group %}<a href="{% url 'group_detail' c.group.pk %}">{{ c.label }}</a><br><span class="muted">{% translate "group" %}</span>{% else %}{{ c.label }}<br><span class="muted">{% translate "personal" %}</span>{% endif %}</th>{% endfor %}
+        </tr></thead>
+        <tbody>
+        {% for row in rows %}
+        <tr>
+          <th scope="row" class="depth-{{ row.depth }}">{% if row.folder %}{{ row.folder.name }}{% else %}{% translate "The whole room" %}{% endif %}</th>
+          {% for cell in row.cells %}
+          <td>
+            <select name="{{ cell.name }}">
+              {% for value, label in levels %}<option value="{{ value }}"{% if value == cell.direct %} selected{% endif %}>{{ label }}</option>{% endfor %}
+            </select>
+            {% if cell.inherited == "view" %}<span class="muted help">{% translate "inherited: view only" %}</span>{% elif cell.inherited == "download" %}<span class="muted help">{% translate "inherited: can download" %}</span>{% endif %}
+          </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="row"><button type="submit" class="primary">{% translate "Save matrix" %}</button></div>
+  </form>
+  {% else %}
+  <div class="card"><p class="muted">{% translate "There are no groups and nobody has personal access yet." %}</p></div>
+  {% endif %}
+</section>
+{% endblock %}

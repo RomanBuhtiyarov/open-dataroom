@@ -13,6 +13,7 @@ class Invitation(models.Model):
     language = models.CharField(max_length=5, choices=settings.LANGUAGES)
     room = models.ForeignKey("rooms.Room", on_delete=models.CASCADE, related_name="invitations")
     folder = models.ForeignKey("rooms.Folder", null=True, blank=True, on_delete=models.CASCADE, related_name="+")
+    group = models.ForeignKey("rooms.Group", null=True, blank=True, on_delete=models.SET_NULL, related_name="+")
     can_download = models.BooleanField(default=False)
     access_expires_at = models.DateTimeField(null=True, blank=True)
     expires_at = models.DateTimeField()

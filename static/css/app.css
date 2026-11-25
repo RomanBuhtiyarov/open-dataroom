@@ -74,3 +74,10 @@ code{font-size:12px;word-break:break-all}
 .bar{width:40%;min-width:120px}
 .bar progress{width:100%;height:10px;accent-color:#245245}
 .pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.matrix th[scope=row]{text-align:left;min-width:9rem}
+.matrix select{max-width:100%;min-width:9.5rem}
+.matrix th{text-transform:none}
+.wrap,.item{overflow-wrap:anywhere}
+.matrix td .help{display:block;margin:4px 0 0}
+.depth-1{padding-left:1rem}.depth-2{padding-left:2rem}.depth-3{padding-left:3rem}.depth-4{padding-left:4rem}.depth-5{padding-left:5rem}.depth-6{padding-left:6rem}.depth-7{padding-left:7rem}
+.doc-indent{padding-left:1rem}

@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from apps.accounts.models import User, normalize_email
-from apps.rooms.models import Folder, Room
+from apps.rooms.models import Folder, Group, Room
 
 
 def _folder_label(folder):
@@ -51,6 +51,10 @@ class InvitationForm(AccessScopeMixin, forms.Form):
     language = forms.ChoiceField(label=_("Language of the invitation"), choices=settings.LANGUAGES)
     room = forms.ModelChoiceField(label=_("Room"), queryset=Room.objects.all())
     folder = forms.ModelChoiceField(label=_("Access to"), queryset=Folder.objects.none(), required=False, empty_label=_("The whole room"))
+    group = forms.ModelChoiceField(
+        label=_("Add to group"), queryset=Group.objects.none(), required=False,
+        help_text=_("Optional. The person joins the group when the invitation is accepted and also gets the group's access."),
+    )
     can_download = forms.BooleanField(label=_("Can download originals"), required=False)
     expires_on = forms.DateField(
         label=_("Access ends on"), required=False, widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
@@ -67,6 +71,15 @@ class InvitationForm(AccessScopeMixin, forms.Form):
         folders = Folder.objects.select_related("room", "parent")
         self.fields["folder"].queryset = folders
         self.fields["folder"].label_from_instance = _folder_label
+        self.fields["group"].queryset = Group.objects.select_related("room")
+        self.fields["group"].label_from_instance = lambda g: f"{g.room.name} / {g.name}"
+
+    def clean(self):
+        data = super().clean()
+        group, room = data.get("group"), data.get("room")
+        if group is not None and room is not None and group.room_id != room.id:
+            self.add_error("group", _("The group does not belong to this room."))
+        return data
 
     def clean_email(self):
         return normalize_email(self.cleaned_data["email"])

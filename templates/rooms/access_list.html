@@ -5,6 +5,10 @@
 <section>
   <p class="crumbs"><a href="{% url 'room_detail' room.pk %}">{{ room.name }}</a></p>
   <h1>{% translate "Access" %}</h1>
+  <p class="row">
+    <a class="button secondary" href="{% url 'group_list' room.pk %}">{% translate "Groups" %}</a>
+    <a class="button secondary" href="{% url 'access_matrix' room.pk %}">{% translate "Access matrix" %}</a>
+  </p>
   <div class="card">
     <h2>{% translate "Grant access" %}</h2>
     <form method="post" novalidate>
@@ -17,7 +21,7 @@
     <h2>{% translate "Who has access" %}</h2>
     {% for row in rows %}
     <p class="item">
-      <strong>{{ row.grant.user.email }}</strong> ·
+      <strong>{% if row.grant.group %}{{ row.grant.group.name }}</strong> <span class="muted">({% translate "group" %})</span>{% else %}{{ row.grant.user.email }}</strong> <a href="{% url 'view_as' room.pk row.grant.user.pk %}">{% translate "View as" %}</a>{% endif %} ·
       {% if row.grant.folder %}{{ row.grant.folder.name }}{% else %}{% translate "The whole room" %}{% endif %} ·
       {% if row.grant.can_download %}{% translate "can download" %}{% else %}{% translate "view only" %}{% endif %} ·
       {% if row.grant.revoked_at %}{% translate "revoked" %}{% elif not row.active %}{% translate "expired" %}{% else %}{% translate "active" %}{% endif %}

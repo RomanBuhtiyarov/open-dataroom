@@ -13,6 +13,7 @@
   <p class="row">
     <a class="button secondary" href="{% url 'room_edit' room.pk %}">{% translate "Edit room" %}</a>
     <a class="button secondary" href="{% url 'access_list' room.pk %}">{% translate "Access" %}</a>
+    <a class="button secondary" href="{% url 'group_list' room.pk %}">{% translate "Groups" %}</a>
     <a class="button secondary" href="{% url 'nda_edit' room.pk %}">{% translate "NDA" %}</a>
     <a class="button primary" href="{% url 'document_upload' room.pk %}{% if folder %}?folder={{ folder.pk }}{% endif %}">{% translate "Upload a document" %}</a>
   </p>

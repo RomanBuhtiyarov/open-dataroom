@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Groups" %} · {{ room.name }} · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section>
+  <p class="crumbs"><a href="{% url 'room_detail' room.pk %}">{{ room.name }}</a> / <a href="{% url 'access_list' room.pk %}">{% translate "Access" %}</a></p>
+  <h1>{% translate "Groups" %}</h1>
+  <p class="intro">{% translate "A group gets access to folders once; everyone in the group has it. Rights only add up: a person has their own access plus the access of all their groups." %}</p>
+  <p class="row">
+    <a class="button secondary" href="{% url 'access_matrix' room.pk %}">{% translate "Access matrix" %}</a>
+    <a class="button secondary" href="{% url 'access_list' room.pk %}">{% translate "Access" %}</a>
+  </p>
+  <div class="card">
+    <h2>{% translate "New group" %}</h2>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}{% include "includes/field.html" with field=field %}{% endfor %}
+      <div class="row"><button type="submit" class="primary">{% translate "Create group" %}</button></div>
+    </form>
+  </div>
+  <div class="card">
+    <h2>{% translate "Groups of this room" %}</h2>
+    {% for g in groups %}
+    <p class="item"><a href="{% url 'group_detail' g.pk %}"><strong>{{ g.name }}</strong></a> <span class="muted">· {% translate "Members" %}: {{ g.member_count }}</span></p>
+    {% empty %}<p class="muted">{% translate "There are no groups yet." %}</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

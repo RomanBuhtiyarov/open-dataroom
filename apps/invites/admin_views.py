@@ -49,7 +49,7 @@ def invitation_create(request):
         else:
             invitation, token = services.create_invitation(
                 email=data["email"], name=data["name"], language=data["language"], room=data["room"],
-                folder=data["folder"], can_download=data["can_download"], access_expires_at=data["expires_on"],
+                folder=data["folder"], group=data["group"], can_download=data["can_download"], access_expires_at=data["expires_on"],
                 valid_days=data["valid_days"], created_by=request.user, send_email=data["send_email"],
             )
             return _created_page(request, invitation, token, data["send_email"])

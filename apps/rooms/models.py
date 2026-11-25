@@ -107,10 +107,37 @@ class DocumentVersion(models.Model):
         return f"{self.document_id} v{self.number}"
 
 
-class AccessGrant(models.Model):
-    """Право пользователя на комнату целиком (folder пуст) или на папку с вложенными."""
+class Group(models.Model):
+    """Группа посетителей внутри одной комнаты. Права группы получают все её участники."""
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="grants")
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name="groups")
+    name = models.CharField(max_length=80)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, related_name="+")
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ["name", "id"]
+        constraints = [models.UniqueConstraint(Lower("name"), "room", name="rooms_group_name_unique")]
+
+    def __str__(self):
+        return self.name
+
+
+class GroupMember(models.Model):
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name="members")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="group_memberships")
+    added_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, related_name="+")
+    added_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=["group", "user"], name="rooms_groupmember_unique")]
+
+
+class AccessGrant(models.Model):
+    """Право на комнату целиком (folder пуст) или на папку с вложенными: у пользователя или у группы."""
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE, related_name="grants")
+    group = models.ForeignKey(Group, null=True, blank=True, on_delete=models.CASCADE, related_name="grants")
     room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name="grants")
     folder = models.ForeignKey(Folder, null=True, blank=True, on_delete=models.CASCADE, related_name="grants")
     can_download = models.BooleanField(default=False)
@@ -121,6 +148,17 @@ class AccessGrant(models.Model):
 
     class Meta:
         ordering = ["-created_at", "-id"]
+        constraints = [
+            # Право принадлежит ровно одному субъекту: человеку или группе.
+            models.CheckConstraint(
+                condition=(models.Q(user__isnull=False, group__isnull=True) | models.Q(user__isnull=True, group__isnull=False)),
+                name="rooms_accessgrant_one_subject",
+            ),
+        ]
+
+    @property
+    def subject(self):
+        return self.group if self.group_id else self.user
 
     def is_active(self, now=None):
         now = now or timezone.now()

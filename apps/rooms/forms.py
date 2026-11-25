@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from apps.accounts.models import User
 from apps.core.models import InstanceSettings
 
-from .models import Folder, Room
+from .models import Folder, Group, Room
 
 
 class RoomForm(forms.ModelForm):
@@ -64,7 +64,11 @@ class VersionForm(forms.Form):
 
 
 class GrantForm(forms.Form):
-    user = forms.ModelChoiceField(label=_("Person"), queryset=User.objects.none())
+    user = forms.ModelChoiceField(label=_("Person"), queryset=User.objects.none(), required=False)
+    group = forms.ModelChoiceField(
+        label=_("Or a group"), queryset=Group.objects.none(), required=False,
+        help_text=_("Choose either a person or a group."),
+    )
     folder = forms.ModelChoiceField(label=_("Access to"), queryset=Folder.objects.none(), required=False, empty_label=_("The whole room"))
     can_download = forms.BooleanField(label=_("Can download originals"), required=False)
     expires_on = forms.DateField(
@@ -76,8 +80,15 @@ class GrantForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields["user"].queryset = User.objects.filter(role=User.Role.VIEWER, status=User.Status.ACTIVE).order_by("email")
         self.fields["user"].label_from_instance = lambda u: f"{u.name} <{u.email}>" if u.name else u.email
+        self.fields["group"].queryset = Group.objects.filter(room=room)
         self.fields["folder"].queryset = Folder.objects.filter(room=room).select_related("parent")
         self.fields["folder"].label_from_instance = lambda f: " / ".join(reversed(_path_names(f)))
+
+    def clean(self):
+        data = super().clean()
+        if bool(data.get("user")) == bool(data.get("group")) and not self.errors:
+            self.add_error("group", _("Choose either a person or a group."))
+        return data
 
     def clean_expires_on(self):
         day = self.cleaned_data.get("expires_on")
