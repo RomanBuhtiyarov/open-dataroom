@@ -25,6 +25,7 @@ Status legend: **done**, **next**, **planned**, **later**.
 | 6 | Specification gaps: security | done | Password reset by one-time link, no-store on token pages, request id in the audit log |
 | 7 | Specification gaps: content | done | Move folders and documents, delete documents, starter rooms, PDF parsing in a separate process |
 | 8 | Watermarks and view analytics | done | Per-room watermark on preview pages (email, time, address, view code), time per page, unopened documents, activity per day, CSV |
+| 9 | Release readiness | done | CI on GitHub Actions: tests on SQLite and PostgreSQL 16, lint, Docker image build and a Compose smoke test with backup and restore |
 
 ### 0. Project skeleton (done)
 
@@ -97,6 +98,14 @@ Status legend: **done**, **next**, **planned**, **later**.
 - Analytics (administrator screen "View analytics", CSV export, audited): per document the number of visitors, views, time on pages and last view; per visitor which documents they can see but have not opened; views per day for 30 days; per page time for a PDF. Administrators are not counted.
 - Time is measured by a small script (`static/js/viewer.js`) that reports the visible page numbers every 10 s. The server adds the elapsed time only for continuous viewing (pulses at least 5 s apart, gaps over 12 s add nothing) and caps one page at one hour.
 - Known limits: a watermark deters and traces, it does not stop a photo of the screen; downloads for visitors with the download right stay original files without a stamp; the stamp uses Latin text only (the default font has no Cyrillic), so non-ASCII email characters show as `?`; time is approximate and can be inflated by a visitor who scripts the pulses; without JavaScript no time is recorded; "opened" comes from the audit log and counts a page open, not reading; the summary is computed on request and is meant for a few thousand events, not millions; events recorded before this stage have no view code.
+
+### 9. Release readiness (done)
+
+- CI (`.github/workflows/ci.yml`) runs on every push and pull request: the full test suite on SQLite and on PostgreSQL 16 (`TEST_DATABASE_URL`), `makemigrations --check`, the translation check, `ruff` for real errors (syntax, undefined names, unused imports), and a Docker job (`scripts/ci_compose_smoke.sh`).
+- The Docker job builds the image, starts Compose with PostgreSQL, runs migrations, waits for the healthcheck, checks `/healthz/` and the closed sign-in page, makes a backup, deletes data, restores it with `restore_instance --replace` and checks the data is back, runs the PDF worker (Linux limits) and checks the container log for the secret key, the database password and a test password. All values are generated on the fly.
+- PostgreSQL-only tests (`tests/test_postgres.py`): backup and restore round trip through `pg_dump` and `pg_restore`, refusal to restore over data, case-insensitive unique names.
+- Found and fixed by CI: the `Dockerfile` did not build (a broken multi-line `CMD`); the image carried the PostgreSQL 17 client, so `pg_restore` failed against the PostgreSQL 16 server (the image now installs `postgresql-client-16`).
+- Known limits: CI does not check real SMTP, native-speaker translation quality, phones, the Nginx and Caddy examples, or the published ports of a real host; the workflow actions still run on a deprecated Node 20 runtime and need a version bump later; the smoke test creates data through the shell, not through the browser; no dependency pinning or vulnerability scan yet.
 
 ## After the first release
 
