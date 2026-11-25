@@ -3,7 +3,7 @@
 Format follows [Keep a Changelog](https://keepachangelog.com/). The project is in early development; version
 `0.1.0` is the first release candidate. The version number lives in `dataroom/__init__.py`.
 
-## [0.1.0] - unreleased
+## [0.1.0] - 2026-11-25
 
 ### Added
 - Project skeleton: Django 5.2, PostgreSQL 16 in production (SQLite for development and tests), Docker image and
