@@ -136,10 +136,10 @@ def answer(question, admin, text, upload=None, share=False):
         stored, size, sha = files.store_upload(question.room_id, upload, base=attachments_dir)
         new_file = (stored, upload.name[:255], ext, size, sha)
     old_stored = question.attachment_stored
-    first = question.answered_at is None
     try:
         with transaction.atomic():
             locked = Question.objects.select_for_update().get(pk=question.pk)
+            first = locked.answered_at is None  # под блокировкой: два одновременных ответа не пошлют письмо дважды
             locked.answer_text = text
             locked.answered_by = admin
             locked.answered_at = locked.answered_at or timezone.now()

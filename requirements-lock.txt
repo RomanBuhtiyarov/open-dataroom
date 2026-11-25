@@ -1,0 +1,14 @@
+asgiref==3.13.0
+dj-database-url==3.1.2
+django==5.2.19
+django-otp==1.7.5
+gunicorn==27.0.1
+pillow==13.0.0
+psycopg==3.3.9
+psycopg-binary==3.3.9
+pypdfium2==5.15.2
+segno==1.6.6
+sqlparse==0.6.1
+typing-extensions==4.16.0
+tzdata==2026.6
+whitenoise==6.12.0

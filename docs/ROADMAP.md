@@ -27,6 +27,7 @@ Status legend: **done**, **next**, **planned**, **later**.
 | 8 | Watermarks and view analytics | done | Per-room watermark on preview pages (email, time, address, view code), time per page, unopened documents, activity per day, CSV |
 | 9 | Release readiness | done | CI on GitHub Actions: tests on SQLite and PostgreSQL 16, lint, Docker image build and a Compose smoke test with backup and restore |
 | 10 | Questions and answers | done | Visitor questions on a room, folder or document; administrator inbox with status, assignee and due date; answers with an attachment; optional anonymous sharing; email notices; XLSX export |
+| 11 | Release candidate | done | Browser review of administrator screens and phone width, security review and fixes, CSP, session lifetime, locked and audited dependencies, Dependabot, SECURITY.md, CONTRIBUTING.md, CHANGELOG.md |
 
 ### 0. Project skeleton (done)
 
@@ -116,6 +117,13 @@ Status legend: **done**, **next**, **planned**, **later**.
 - Emails (after the transaction commits, in the recipient's language): administrators on a new question, the author on the first answer. They contain only a link, never the question or the answer text; the audit log stores only codes and ids.
 - The inbox exports to XLSX; text is written as text cells, so a value starting with `=` is not a formula. Backups and restores include the attachments.
 - Known limits: one question has one answer (follow-ups are new questions); no search, no editing of a sent question, a single attachment per answer, an attachment is a plain download without a watermark and is not scanned for malware; a later update of an answer sends no new email; the person who asked sees the question and answer even after the question is closed, but not after their access ends; sharing shows the question text to others, which the asking form says.
+
+### 11. Release candidate (done)
+
+- Reviewed in a browser: the administrator screens (inbox, answer, analytics, audit, access, room settings, instance settings, invitations, requests) on desktop and at 375 px; no horizontal scrolling on any of 16 screens (wide tables scroll inside their card). The administrator header now puts the many links on their own row. A saved due date was not shown in the Russian, Ukrainian and German interface (the date input needs `yyyy-mm-dd`); fixed for all date fields.
+- Security review of the whole code base against the rules in `CLAUDE.md` (an independent read-only pass plus the CI checks). No access-policy bypass was found. Fixed: deleting a folder could turn a shared answer into a room-wide one (now the question moves to the parent folder and stops being shared); numeric parameters such as `²` or a 5000-digit page number caused a server error (now `404`); two simultaneous first answers could send two emails; uncached page renders are limited to 120 per user per minute (`429`, so one visitor cannot occupy every worker).
+- Added: a Content-Security-Policy (scripts only from the site, no framing, no plugins, forms only to the site), a session lifetime (12 hours from sign-in, `SESSION_COOKIE_AGE_SECONDS`), exact dependency versions in `requirements-lock.txt` (installed by the Docker image and audited by `pip-audit` in CI), Dependabot, newer GitHub Actions, `SECURITY.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, the version in `dataroom/__init__.py`.
+- Known limits (accepted, not fixed): the login and code-attempt limits check and record in two steps, so a burst of parallel guesses can slightly exceed them; five failed sign-ins for one address block that address for ten minutes, including an administrator's (the lockout is per address by design); the PDF worker has a clean environment and resource limits but no file-system, network or user isolation, so a PDF parser exploit could read other rooms' files (run the container without extra privileges, consider seccomp or a separate user); the retry of a failed decision email is not locked, so a rare double email is possible (rights are never granted twice); `seed_demo` has a fixed password and is safe only because it refuses to run outside `DJANGO_DEBUG=1`; sessions have a fixed lifetime but no idle timeout. No independent audit has been done.
 
 ## After the first release
 

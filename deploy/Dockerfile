@@ -12,8 +12,9 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Образ ставит точные версии из requirements-lock.txt (обновляется командой pip-compile, см. CONTRIBUTING.md).
+COPY requirements-lock.txt .
+RUN pip install --no-cache-dir -r requirements-lock.txt
 
 COPY . .
 

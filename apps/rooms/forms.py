@@ -68,7 +68,7 @@ class GrantForm(forms.Form):
     folder = forms.ModelChoiceField(label=_("Access to"), queryset=Folder.objects.none(), required=False, empty_label=_("The whole room"))
     can_download = forms.BooleanField(label=_("Can download originals"), required=False)
     expires_on = forms.DateField(
-        label=_("Access ends on"), required=False, widget=forms.DateInput(attrs={"type": "date"}),
+        label=_("Access ends on"), required=False, widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
         help_text=_("Optional. Access ends at the end of this day (UTC)."),
     )
 

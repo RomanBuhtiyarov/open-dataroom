@@ -53,7 +53,7 @@ class InvitationForm(AccessScopeMixin, forms.Form):
     folder = forms.ModelChoiceField(label=_("Access to"), queryset=Folder.objects.none(), required=False, empty_label=_("The whole room"))
     can_download = forms.BooleanField(label=_("Can download originals"), required=False)
     expires_on = forms.DateField(
-        label=_("Access ends on"), required=False, widget=forms.DateInput(attrs={"type": "date"}),
+        label=_("Access ends on"), required=False, widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
         help_text=_("Optional. Access ends at the end of this day (UTC)."),
     )
     valid_days = forms.IntegerField(
@@ -137,7 +137,7 @@ class ApproveForm(AccessScopeMixin, forms.Form):
     room = forms.ModelChoiceField(label=_("Room"), queryset=Room.objects.all(), required=False, empty_label=_("No access yet"))
     folder = forms.ModelChoiceField(label=_("Access to"), queryset=Folder.objects.none(), required=False, empty_label=_("The whole room"))
     can_download = forms.BooleanField(label=_("Can download originals"), required=False)
-    expires_on = forms.DateField(label=_("Access ends on"), required=False, widget=forms.DateInput(attrs={"type": "date"}))
+    expires_on = forms.DateField(label=_("Access ends on"), required=False, widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -11,8 +11,8 @@ class AuditFilterForm(forms.Form):
     code = forms.ChoiceField(label=_("Event"), required=False)
     outcome = forms.ChoiceField(label=_("Outcome"), required=False)
     actor = forms.CharField(label=_("Person (part of the email)"), required=False, max_length=100)
-    date_from = forms.DateField(label=_("From (UTC)"), required=False, widget=forms.DateInput(attrs={"type": "date"}))
-    date_to = forms.DateField(label=_("To (UTC)"), required=False, widget=forms.DateInput(attrs={"type": "date"}))
+    date_from = forms.DateField(label=_("From (UTC)"), required=False, widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"))
+    date_to = forms.DateField(label=_("To (UTC)"), required=False, widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

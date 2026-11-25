@@ -15,6 +15,7 @@ from apps.audit import events
 from apps.audit.service import record
 from apps.core import xlsx
 from apps.core.decorators import admin_required
+from apps.core.util import parse_int
 from apps.rooms import files, policy, serving
 from apps.rooms.models import Document, Folder, Room
 
@@ -66,14 +67,15 @@ def _scope_from(request, user):
     """Комната, папка и документ из параметров запроса. Всё, что пользователь не видит, считается отсутствующим."""
     source = request.POST if request.method == "POST" else request.GET
     document = folder = None
-    if source.get("document", "").isdigit():
-        document = get_object_or_404(Document.objects.select_related("folder__room"), pk=int(source["document"]))
+    document_id, folder_id, room_id = (parse_int(source.get(k, "")) for k in ("document", "folder", "room"))
+    if document_id is not None:
+        document = get_object_or_404(Document.objects.select_related("folder__room"), pk=document_id)
         room = document.folder.room
-    elif source.get("folder", "").isdigit():
-        folder = get_object_or_404(Folder.objects.select_related("room"), pk=int(source["folder"]))
+    elif folder_id is not None:
+        folder = get_object_or_404(Folder.objects.select_related("room"), pk=folder_id)
         room = folder.room
-    elif source.get("room", "").isdigit():
-        room = get_object_or_404(Room, pk=int(source["room"]))
+    elif room_id is not None:
+        room = get_object_or_404(Room, pk=room_id)
     else:
         raise Http404
     access = policy.access_for(user, room)

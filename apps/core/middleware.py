@@ -53,3 +53,28 @@ class SensitivePagesMiddleware:
             # а токен с этих страниц уходит из адреса сразу после первого открытия.
             response["Referrer-Policy"] = "same-origin"
         return response
+
+
+CSP = "; ".join([
+    "default-src 'self'",
+    "script-src 'self'",
+    "style-src 'self' 'unsafe-inline'",  # в шаблоне базовой страницы задан цвет бренда во встроенном стиле
+    "img-src 'self' data:",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "frame-ancestors 'none'",
+])
+
+
+class ContentSecurityPolicyMiddleware:
+    """Политика содержимого: скрипты только свои. Шаблоны не содержат встроенных скриптов, поэтому
+    это дополнительная защита на случай, если когда-нибудь в страницу попадёт чужая разметка."""
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        response = self.get_response(request)
+        response.headers.setdefault("Content-Security-Policy", CSP)
+        return response

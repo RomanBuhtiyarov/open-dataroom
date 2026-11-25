@@ -90,6 +90,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "apps.core.middleware.SensitivePagesMiddleware",
+    "apps.core.middleware.ContentSecurityPolicyMiddleware",
 ]
 
 ROOT_URLCONF = "dataroom.urls"
@@ -121,6 +122,10 @@ if not _db_url:
     else:
         raise ImproperlyConfigured("DATABASE_URL must be set.")
 DATABASES = {"default": dj_database_url.parse(_db_url, conn_max_age=60)}
+if DATABASES["default"]["ENGINE"].endswith("sqlite3"):
+    # Только для разработки: параллельные запросы браузера (картинки страниц, учёт времени) пишут в одну базу.
+    # IMMEDIATE берёт блокировку записи в начале транзакции и ждёт её, вместо мгновенной ошибки «database is locked».
+    DATABASES["default"].setdefault("OPTIONS", {}).update({"transaction_mode": "IMMEDIATE", "timeout": 20})
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # --- Аутентификация --------------------------------------------------------
@@ -147,6 +152,8 @@ OTP_TOTP_THROTTLE_FACTOR = 2
 # Cookie без атрибута Domain: действуют только на хосте экземпляра.
 SESSION_COOKIE_NAME = env("SESSION_COOKIE_NAME", "dataroom_session")
 SESSION_COOKIE_SECURE = _HTTPS
+# Срок жизни сессии с момента входа (по умолчанию 12 часов); после него нужно войти заново.
+SESSION_COOKIE_AGE = int(env("SESSION_COOKIE_AGE_SECONDS", "43200"))
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = "Lax"
 CSRF_COOKIE_NAME = env("CSRF_COOKIE_NAME", "dataroom_csrf")

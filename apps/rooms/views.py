@@ -21,12 +21,18 @@ from apps.audit.service import record
 from apps.core.decorators import admin_required
 from apps.core.instance import get_instance
 from apps.core.models import InstanceSettings
+from apps.core import ratelimit
 from apps.core.ratelimit import client_ip
+from apps.core.util import parse_int
 from apps.invites.models import AccessRequest, Invitation
 
 from . import files, policy, previews, serving, services, watermark
 from .forms import FolderNameForm, GrantForm, NdaAcceptForm, NdaForm, RoomCreateForm, RoomForm, UploadForm, VersionForm
 from .models import AccessGrant, Document, Folder, NdaAcceptance, NdaText, NdaVersion, Room
+
+
+RENDER_LIMIT = 120  # страниц, которых ещё нет в кэше, на пользователя
+RENDER_WINDOW = 60  # в минуту
 
 
 def _room_access_or_404(request, room_id):
@@ -318,7 +324,7 @@ def document_download(request, document_id):
     versions = document.versions.all()
     number = request.GET.get("version")
     if number and access.admin:
-        version = get_object_or_404(versions, number=number if number.isdigit() else 0)
+        version = get_object_or_404(versions, number=parse_int(number) or 0)
     else:
         version = versions.first()
     if version is None:
@@ -338,8 +344,8 @@ def _viewable_version(request, document, access):
     """Версия для просмотра: администратор может выбрать любую, остальные видят только актуальную."""
     versions = document.versions.all()
     number = request.GET.get("v")
-    if number and access.admin and number.isdigit():
-        return get_object_or_404(versions, number=int(number))
+    if number and access.admin and parse_int(number) is not None:
+        return get_object_or_404(versions, number=parse_int(number))
     version = versions.first()
     if version is None:
         raise Http404
@@ -411,6 +417,13 @@ def document_page(request, document_id, number):
     total = _page_total(room, version)
     if not 1 <= number <= total:
         raise Http404
+    if not previews.cache_path(room.pk, version.stored_name, number).exists() and not ratelimit.allow(
+            ratelimit.make_key("render", request.user.pk), RENDER_LIMIT, RENDER_WINDOW):
+        # Каждая ещё не построенная страница запускает отдельный процесс: без предела один посетитель занял бы все рабочие.
+        response = HttpResponse(status=429)
+        response["Retry-After"] = "10"
+        response["Cache-Control"] = "no-store"
+        return response
     try:
         png = previews.render_page(room.pk, version.stored_name, files.file_path(room.pk, version.stored_name), number)
     except previews.PreviewError:

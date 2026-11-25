@@ -21,7 +21,7 @@ class AnswerForm(forms.Form):
 
 class AssignForm(forms.Form):
     assignee = forms.ModelChoiceField(label=_("Assigned to"), queryset=User.objects.none(), required=False)
-    due_date = forms.DateField(label=_("Answer by"), required=False, widget=forms.DateInput(attrs={"type": "date"}))
+    due_date = forms.DateField(label=_("Answer by"), required=False, widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

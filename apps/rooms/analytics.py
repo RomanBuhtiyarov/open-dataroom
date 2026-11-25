@@ -19,6 +19,7 @@ from apps.audit import events
 from apps.audit.models import AuditEvent
 from apps.audit.service import record
 from apps.core.decorators import admin_required
+from apps.core.util import parse_int
 
 from . import policy
 from .models import Document, PageTime, Room
@@ -191,7 +192,7 @@ def document_pulse(request, document_id):
     version = document.versions.first()
     pages = request.POST.getlist("page")[:MAX_PAGES_PER_PULSE]
     total = (version.page_count or 0) if version is not None and version.extension == "pdf" else 0
-    numbers = sorted({int(p) for p in pages if p.isdigit()})
+    numbers = sorted({n for n in (parse_int(p, max_digits=5) for p in pages) if n is not None})
     if not numbers or numbers[0] < 1 or numbers[-1] > total:
         raise Http404
     for number in numbers:

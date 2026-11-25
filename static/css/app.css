@@ -6,7 +6,9 @@ body{margin:0}
 .skip:focus{left:8px;top:8px}
 .top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:15px 4vw;background:#19392f;color:#fff}
 .brand{letter-spacing:.13em}
-.tools{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.tools{display:flex;gap:12px;align-items:center;flex-wrap:wrap;flex:1 1 auto;justify-content:flex-end}
+/* Навигация отдельной строкой под языком и кнопкой выхода: у администратора в ней много ссылок. */
+.tools .links{order:3;flex:1 0 100%;justify-content:flex-end;gap:6px 16px}
 .tools form{display:flex;gap:8px;align-items:center;margin:0}
 .lang label{font-size:12px;margin:0;color:#d8e9dc;font-weight:400}
 .lang select{width:auto;margin:0;padding:4px 6px;color:#1a2a21}

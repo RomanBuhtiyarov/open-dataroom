@@ -13,8 +13,8 @@ jobs:
     name: Tests (SQLite, Python 3.12)
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
@@ -44,8 +44,8 @@ jobs:
     env:
       TEST_DATABASE_URL: postgres://dataroom:ci-only-password@127.0.0.1:5432/dataroom
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
@@ -63,17 +63,29 @@ jobs:
     name: Lint (ruff)
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - run: pip install "ruff>=0.6"
       - run: ruff check --select E9,F63,F7,F82,F401,F811 apps dataroom scripts tests
 
+  audit:
+    name: Dependency audit (pip-audit)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install pip-audit
+      - name: Known vulnerabilities in the locked runtime dependencies
+        run: pip-audit -r requirements-lock.txt --no-deps --disable-pip
+
   docker:
     name: Docker image and Compose smoke test
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Smoke test
         run: bash scripts/ci_compose_smoke.sh
