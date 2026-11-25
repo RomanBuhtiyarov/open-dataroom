@@ -1698,3 +1698,77 @@ msgstr "Забагато завантажень за короткий час. П
 
 msgid "without a stamp"
 msgstr "без штампа"
+
+msgid "Anchor line (optional)"
+msgstr "Рядок-якір (необов'язково)"
+
+msgid "Audit log anchor issued"
+msgstr "Видано якір журналу"
+
+msgid "Audit log integrity checked"
+msgstr "Перевірено цілісність журналу"
+
+msgid "Check now"
+msgstr "Перевірити зараз"
+
+msgid "Checked %(time)s UTC: the chain is broken at entry #%(seq)s."
+msgstr "Перевірено %(time)s UTC: ланцюжок порушено на записі №%(seq)s."
+
+msgid "Checked %(time)s UTC: the chain is intact up to entry #%(seq)s."
+msgstr "Перевірено %(time)s UTC: ланцюжок цілий до запису №%(seq)s."
+
+msgid "Download anchor"
+msgstr "Завантажити якір"
+
+msgid ""
+"Entries are signed in a chain with a key from the server environment. Last "
+"entry: #%(seq)s. Anything that changes, removes or inserts an entry in the "
+"middle breaks the chain. To catch removal at the end, keep an anchor line "
+"outside the server and paste it below when checking."
+msgstr ""
+"Записи підписано ланцюжком, ключ береться з оточення сервера. Останній "
+"запис: №%(seq)s. Будь-яка зміна, видалення чи вставка запису всередині ламає"
+" ланцюжок. Щоб помітити видалення в кінці, зберігайте рядок-якір поза "
+"сервером і вставляйте його нижче під час перевірки."
+
+msgid "Integrity"
+msgstr "Цілісність"
+
+msgid "The anchor line is not valid."
+msgstr "Рядок-якір некоректний."
+
+msgid "The audit log is empty."
+msgstr "Журнал порожній."
+
+msgid "The chain has not been checked yet."
+msgstr "Ланцюжок ще не перевіряли."
+
+msgid "The chain is broken at entry %(seq)s."
+msgstr "Ланцюжок порушено на записі №%(seq)s."
+
+msgid "The log is intact: %(count)s entries checked."
+msgstr "Журнал цілий: перевірено записів — %(count)s."
+
+msgid "an entry differs from the anchor"
+msgstr "запис не збігається з якорем"
+
+msgid "an entry is missing"
+msgstr "запису бракує"
+
+msgid "an entry was added without a signature"
+msgstr "запис додано без підпису"
+
+msgid "an entry was changed"
+msgstr "запис змінено"
+
+msgid "broken"
+msgstr "порушено"
+
+msgid "intact"
+msgstr "цілий"
+
+msgid "the end of the log does not match the recorded head"
+msgstr "кінець журналу не збігається із записаною «головою»"
+
+msgid "the entry named in the anchor is gone"
+msgstr "запис з якоря зник"

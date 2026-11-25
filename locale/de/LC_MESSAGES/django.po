@@ -1744,3 +1744,79 @@ msgstr ""
 
 msgid "without a stamp"
 msgstr "ohne Stempel"
+
+msgid "Anchor line (optional)"
+msgstr "Ankerzeile (optional)"
+
+msgid "Audit log anchor issued"
+msgstr "Anker des Protokolls ausgestellt"
+
+msgid "Audit log integrity checked"
+msgstr "Integrität des Protokolls geprüft"
+
+msgid "Check now"
+msgstr "Jetzt prüfen"
+
+msgid "Checked %(time)s UTC: the chain is broken at entry #%(seq)s."
+msgstr ""
+"Geprüft %(time)s UTC: Die Kette ist bei Eintrag Nr. %(seq)s unterbrochen."
+
+msgid "Checked %(time)s UTC: the chain is intact up to entry #%(seq)s."
+msgstr "Geprüft %(time)s UTC: Die Kette ist bis Eintrag Nr. %(seq)s intakt."
+
+msgid "Download anchor"
+msgstr "Anker herunterladen"
+
+msgid ""
+"Entries are signed in a chain with a key from the server environment. Last "
+"entry: #%(seq)s. Anything that changes, removes or inserts an entry in the "
+"middle breaks the chain. To catch removal at the end, keep an anchor line "
+"outside the server and paste it below when checking."
+msgstr ""
+"Die Einträge sind in einer Kette signiert, der Schlüssel stammt aus der "
+"Serverumgebung. Letzter Eintrag: Nr. %(seq)s. Jede Änderung, Löschung oder "
+"Einfügung in der Mitte unterbricht die Kette. Um das Löschen am Ende zu "
+"bemerken, bewahren Sie eine Ankerzeile außerhalb des Servers auf und fügen "
+"Sie sie unten bei der Prüfung ein."
+
+msgid "Integrity"
+msgstr "Integrität"
+
+msgid "The anchor line is not valid."
+msgstr "Die Ankerzeile ist ungültig."
+
+msgid "The audit log is empty."
+msgstr "Das Protokoll ist leer."
+
+msgid "The chain has not been checked yet."
+msgstr "Die Kette wurde noch nicht geprüft."
+
+msgid "The chain is broken at entry %(seq)s."
+msgstr "Die Kette ist bei Eintrag Nr. %(seq)s unterbrochen."
+
+msgid "The log is intact: %(count)s entries checked."
+msgstr "Das Protokoll ist intakt: %(count)s Einträge geprüft."
+
+msgid "an entry differs from the anchor"
+msgstr "ein Eintrag weicht vom Anker ab"
+
+msgid "an entry is missing"
+msgstr "ein Eintrag fehlt"
+
+msgid "an entry was added without a signature"
+msgstr "ein Eintrag wurde ohne Signatur hinzugefügt"
+
+msgid "an entry was changed"
+msgstr "ein Eintrag wurde geändert"
+
+msgid "broken"
+msgstr "unterbrochen"
+
+msgid "intact"
+msgstr "intakt"
+
+msgid "the end of the log does not match the recorded head"
+msgstr "das Ende des Protokolls passt nicht zum gespeicherten Kopf"
+
+msgid "the entry named in the anchor is gone"
+msgstr "der im Anker genannte Eintrag fehlt"

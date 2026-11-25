@@ -1701,3 +1701,77 @@ msgstr ""
 
 msgid "without a stamp"
 msgstr "без штампа"
+
+msgid "Anchor line (optional)"
+msgstr "Строка-якорь (необязательно)"
+
+msgid "Audit log anchor issued"
+msgstr "Выдан якорь журнала"
+
+msgid "Audit log integrity checked"
+msgstr "Проверена целостность журнала"
+
+msgid "Check now"
+msgstr "Проверить сейчас"
+
+msgid "Checked %(time)s UTC: the chain is broken at entry #%(seq)s."
+msgstr "Проверено %(time)s UTC: цепочка нарушена на записи №%(seq)s."
+
+msgid "Checked %(time)s UTC: the chain is intact up to entry #%(seq)s."
+msgstr "Проверено %(time)s UTC: цепочка цела до записи №%(seq)s."
+
+msgid "Download anchor"
+msgstr "Скачать якорь"
+
+msgid ""
+"Entries are signed in a chain with a key from the server environment. Last "
+"entry: #%(seq)s. Anything that changes, removes or inserts an entry in the "
+"middle breaks the chain. To catch removal at the end, keep an anchor line "
+"outside the server and paste it below when checking."
+msgstr ""
+"Записи подписаны цепочкой, ключ берётся из окружения сервера. Последняя "
+"запись: №%(seq)s. Любая правка, удаление или вставка записи в середине "
+"ломает цепочку. Чтобы заметить удаление в конце, храните строку-якорь вне "
+"сервера и вставляйте её ниже при проверке."
+
+msgid "Integrity"
+msgstr "Целостность"
+
+msgid "The anchor line is not valid."
+msgstr "Строка-якорь некорректна."
+
+msgid "The audit log is empty."
+msgstr "Журнал пуст."
+
+msgid "The chain has not been checked yet."
+msgstr "Цепочку ещё не проверяли."
+
+msgid "The chain is broken at entry %(seq)s."
+msgstr "Цепочка нарушена на записи №%(seq)s."
+
+msgid "The log is intact: %(count)s entries checked."
+msgstr "Журнал цел: проверено записей — %(count)s."
+
+msgid "an entry differs from the anchor"
+msgstr "запись не совпадает с якорем"
+
+msgid "an entry is missing"
+msgstr "записи не хватает"
+
+msgid "an entry was added without a signature"
+msgstr "запись добавлена без подписи"
+
+msgid "an entry was changed"
+msgstr "запись изменена"
+
+msgid "broken"
+msgstr "нарушена"
+
+msgid "intact"
+msgstr "цела"
+
+msgid "the end of the log does not match the recorded head"
+msgstr "конец журнала не совпадает с записанной «головой»"
+
+msgid "the entry named in the anchor is gone"
+msgstr "запись из якоря исчезла"

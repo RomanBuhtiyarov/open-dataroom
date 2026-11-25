@@ -6,6 +6,10 @@ Format follows [Keep a Changelog](https://keepachangelog.com/). The project is i
 ## [Unreleased]
 
 ### Added
+- Tamper-evident audit log: every entry has a number and an HMAC-SHA256 signature chained to the previous one
+  (`AUDIT_CHAIN_KEY`, falls back to a key derived from `SECRET_KEY`). `verify_audit` and `audit_anchor` commands,
+  a check and an anchor download on the audit screen, `seq` and `chain_mac` in the CSV export, events
+  `audit.verified` and `audit.anchor_issued`. Existing entries are sealed by the migration and marked `legacy`.
 - Stamped PDF downloads: with the watermark on, a visitor's download carries the stamp (email, time, address, code)
   on every page as vector text; built in the sandboxed worker, kept 15 minutes for resumed downloads; the code is
   written to the audit event `document.downloaded`. Administrators get the original. DOCX and XLSX are unchanged.
@@ -15,6 +19,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/). The project is i
   group. Audit events `group.*` and `access.view_as_opened`.
 
 ### Changed
+- `AuditEvent` gains `seq`, `actor_ref`, `legacy`, `chain_mac` and a new table holds the chain head
+  (migration `audit.0003_audit_chain`, which also seals the existing entries).
 - `AccessGrant.user` may be empty when `AccessGrant.group` is set; exactly one of them is required (database
   constraint). Migrations `rooms.0006_groups` and `invites.0002_groups`.
 

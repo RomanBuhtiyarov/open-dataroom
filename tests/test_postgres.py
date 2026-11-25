@@ -60,3 +60,35 @@ def test_case_insensitive_unique_names_hold_on_postgresql():
     Folder.objects.create(room=room, name="Finance")
     with pytest.raises(IntegrityError), transaction.atomic():
         Folder.objects.create(room=room, name="FINANCE")
+
+
+@pytest.mark.django_db(transaction=True)
+def test_parallel_audit_writes_get_unique_numbers_and_keep_the_chain_valid():
+    """Блокировка «головы» цепочки: параллельные запросы не делят номер (этап 14)."""
+    import threading
+
+    from django.db import connections
+
+    from apps.audit import chain, events
+    from apps.audit.models import AuditEvent
+    from apps.audit.service import record
+
+    errors = []
+
+    def work(index):
+        try:
+            for step in range(10):
+                record(events.ROOM_CREATED, target=f"room:{index}-{step}")
+        except Exception as exc:  # noqa: BLE001
+            errors.append(exc)
+        finally:
+            connections.close_all()
+
+    threads = [threading.Thread(target=work, args=(i,)) for i in range(6)]
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join()
+    assert not errors
+    assert [e.seq for e in AuditEvent.objects.order_by("seq")] == list(range(1, 61))
+    assert chain.verify().ok

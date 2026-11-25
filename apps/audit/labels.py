@@ -46,6 +46,8 @@ LABELS = {
     events.REQUEST_APPROVED: _("Access request approved"),
     events.REQUEST_REJECTED: _("Access request rejected"),
     events.AUDIT_EXPORTED: _("Audit log exported"),
+    events.AUDIT_VERIFIED: _("Audit log integrity checked"),
+    events.AUDIT_ANCHOR_ISSUED: _("Audit log anchor issued"),
     events.ANALYTICS_EXPORTED: _("View analytics exported"),
     events.QUESTION_ASKED: _("Question asked"),
     events.QUESTION_ASSIGNED: _("Question assigned"),

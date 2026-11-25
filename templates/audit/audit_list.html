@@ -5,6 +5,28 @@
 <section>
   <h1>{% translate "Audit log" %}</h1>
   <p class="intro">{% translate "Times are in UTC. The log stores event codes only; no passwords, codes, tokens or file contents." %}</p>
+  <div class="card" id="integrity">
+    <h2>{% translate "Integrity" %}</h2>
+    {% if check %}
+      {% if check.ok %}
+      <p><span class="badge badge-ok">{% translate "intact" %}</span>
+        {% blocktranslate with seq=check.seq time=check.time|date:"Y-m-d H:i" %}Checked {{ time }} UTC: the chain is intact up to entry #{{ seq }}.{% endblocktranslate %}</p>
+      {% else %}
+      <p><span class="badge badge-failed">{% translate "broken" %}</span>
+        {% blocktranslate with seq=check.seq time=check.time|date:"Y-m-d H:i" %}Checked {{ time }} UTC: the chain is broken at entry #{{ seq }}.{% endblocktranslate %}
+        {% if check.reason %}<span class="muted">({{ check.reason }})</span>{% endif %}</p>
+      {% endif %}
+    {% else %}
+      <p class="muted">{% translate "The chain has not been checked yet." %}</p>
+    {% endif %}
+    <p class="muted">{% blocktranslate with seq=head_seq %}Entries are signed in a chain with a key from the server environment. Last entry: #{{ seq }}. Anything that changes, removes or inserts an entry in the middle breaks the chain. To catch removal at the end, keep an anchor line outside the server and paste it below when checking.{% endblocktranslate %}</p>
+    <form method="post" action="{% url 'audit_verify' %}" class="row">
+      {% csrf_token %}
+      <input type="text" name="anchor" maxlength="200" placeholder="AUDIT-ANCHOR v1 …" aria-label="{% translate "Anchor line (optional)" %}">
+      <button type="submit" class="primary">{% translate "Check now" %}</button>
+      <a class="button secondary" href="{% url 'audit_anchor' %}">{% translate "Download anchor" %}</a>
+    </form>
+  </div>
   <div class="card">
     <form method="get" class="filters">
       {% for field in form %}<div class="filter">{% include "includes/field.html" with field=field %}</div>{% endfor %}
@@ -19,7 +41,7 @@
     <table>
       <thead><tr>
         <th>{% translate "Time (UTC)" %}</th><th>{% translate "Person" %}</th><th>{% translate "Event" %}</th>
-        <th>{% translate "Object" %}</th><th>{% translate "Outcome" %}</th>
+        <th>{% translate "Object" %}</th><th>{% translate "Outcome" %}</th><th>#</th>
       </tr></thead>
       <tbody>
       {% for row in rows %}
@@ -29,9 +51,10 @@
         <td>{{ row.label }}<br><code class="muted">{{ row.code }}</code></td>
         <td><code>{{ row.target }}</code>{% if row.request_id %}<br><code class="muted" title="{% translate "Request ID" %}">{{ row.request_id }}</code>{% endif %}</td>
         <td><span class="badge badge-{{ row.outcome }}">{{ row.outcome_label }}</span></td>
+        <td class="nowrap muted">{% if row.seq %}{{ row.seq }}{% endif %}</td>
       </tr>
       {% empty %}
-      <tr><td colspan="5" class="muted">{% translate "No events match." %}</td></tr>
+      <tr><td colspan="6" class="muted">{% translate "No events match." %}</td></tr>
       {% endfor %}
       </tbody>
     </table>

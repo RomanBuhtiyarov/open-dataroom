@@ -70,6 +70,18 @@ Because the archive holds confidential documents, it must be stored encrypted, w
 
 Schedule it with cron on the host, for example nightly, and keep several generations. Check that the file is non-empty and that the command exit code is 0; a failure writes nothing to the target path.
 
+### The audit log chain
+
+Every audit entry is signed in a chain with a key from the environment (`AUDIT_CHAIN_KEY`; if it is empty, a key is derived from `SECRET_KEY`). Set `AUDIT_CHAIN_KEY` before the first `migrate` and keep it with the copy of `.env`, apart from the database: whoever has both can rebuild the chain. The chain is restored together with the database. If the key changes later, older entries fail the check.
+
+```bash
+docker compose exec web python manage.py verify_audit                 # walk the chain
+docker compose exec web python manage.py audit_anchor                 # print one anchor line
+docker compose exec web python manage.py verify_audit --anchor "AUDIT-ANCHOR v1 120 <hex> 2026-11-25"
+```
+
+The anchor line holds no personal data. Keep it outside the server (mail, a ticket, paper), for example after each backup. Without an anchor, removing the last entries is caught only by the stored head, which an attacker with database access can also edit. Entries that existed before the upgrade to this version are sealed by the migration and marked `legacy`; the chain cannot prove they were untouched before that. The same check is on the audit screen ("Check now").
+
 ## 5. Restore
 
 1. Start a clean instance of the **same or a newer** program version (`docker compose up -d`, then `migrate`). Do not run `bootstrap_admin`.

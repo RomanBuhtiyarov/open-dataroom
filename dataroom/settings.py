@@ -201,6 +201,8 @@ STORAGES = {
     "staticfiles": {"BACKEND": "whitenoise.storage.CompressedStaticFilesStorage"},
 }
 # Приватный том документов. Не входит в STATIC/MEDIA и не раздаётся напрямую.
+# Ключ подписи цепочки журнала аудита (этап 14). Пусто: ключ выводится из SECRET_KEY.
+AUDIT_CHAIN_KEY = env("AUDIT_CHAIN_KEY", "")
 PRIVATE_MEDIA_ROOT = Path(env("PRIVATE_MEDIA_ROOT", str(BASE_DIR / "private_media")))
 MAX_UPLOAD_BYTES = int(env("MAX_UPLOAD_BYTES", str(50 * 1024 * 1024)))
 # Логотип экземпляра: небольшой PNG, JPEG или WebP (SVG не принимается).

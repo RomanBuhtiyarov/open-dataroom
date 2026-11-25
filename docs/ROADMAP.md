@@ -30,6 +30,7 @@ Status legend: **done**, **next**, **planned**, **later**.
 | 11 | Release candidate | done | Browser review of administrator screens and phone width, security review and fixes, CSP, session lifetime, locked and audited dependencies, Dependabot, SECURITY.md, CONTRIBUTING.md, CHANGELOG.md |
 | 12 | Groups and the permission matrix | done | Groups of visitors in a room, access for a group, personal and group rights added together, access matrix, read-only "view as", invitation into a group |
 | 13 | Stamped downloads | done | A PDF copy with the stamp on every page (vector text), built in the sandboxed worker, stamp code in the audit log, a fresh file reused for resumed downloads |
+| 14 | Tamper-evident audit log | done | Every audit entry is signed in a chain (HMAC-SHA256, key from the environment), a check command and screen, an anchor line kept outside the server, CSV with number and signature |
 
 ### 0. Project skeleton (done)
 
@@ -143,6 +144,16 @@ Status legend: **done**, **next**, **planned**, **later**.
 - A stamped file is kept for 15 minutes in the private volume (`stamped/`, not part of backups, purged on the next stamping), so a resumed or repeated download gets the same bytes and the same code, and HTTP Range works. The audit event `document.downloaded` gets the code in its target (`document:<id>:v<n>:stamp:<code>`); email and address are not written to the log.
 - Known limits: DOCX and XLSX are given as they are (the list shows "without a stamp"; if that is not acceptable, switch the watermark off for such a room or upload a PDF copy); a stamp is a deterrent and can be painted over in a PDF editor; the stamp is ASCII-only, as in the viewer; the stamped copy is rebuilt per user, so the first download of a large PDF takes a few seconds; a deleted or changed document may stay in `stamped/` for up to 15 minutes; the time inside a repeated download is the time of the first one.
 
+### 14. Tamper-evident audit log (done)
+
+- Every audit entry gets a sequence number and a signature: HMAC-SHA256 over its fields (number, time, person, event code, object, outcome, request id) and the signature of the previous entry. The key is `AUDIT_CHAIN_KEY` from the environment; if it is empty, a key is derived from `SECRET_KEY`. Without the key the chain cannot be recomputed after editing the database.
+- Writing locks one "head" row (number and signature of the last entry), so parallel requests never share a number; a rolled-back transaction leaves no gap. Deleting a user keeps the chain valid, because the person's id is stored in the entry separately from the foreign key.
+- Existing entries are sealed by the migration and marked `legacy`: the chain protects what was sealed, and nothing can prove those entries were untouched before the upgrade.
+- `manage.py verify_audit [--anchor LINE | --anchor-file FILE]` walks the chain and reports the first broken entry: changed (`mismatch`), removed in the middle (`gap`), added without a signature (`unsealed`), end of the log removed (`head`), or the entry named by an anchor changed or gone. The same check is on the audit screen ("Check now"); the last result is read from the log itself (`audit.verified`).
+- `manage.py audit_anchor` and the "Download anchor" button give one line `AUDIT-ANCHOR v1 <number> <signature> <date>`. Keep it outside the server (mail, ticket, paper). It holds no personal data. Pasting it into a check proves the log still contains that entry and everything before it.
+- The CSV export has two new columns, `seq` and `chain_mac`. New events: `audit.verified`, `audit.anchor_issued`.
+- Known limits: someone who controls both the database and the server environment (the key) can rebuild the whole chain, and only an anchor kept elsewhere catches that; removal at the very end is caught only by the head (which can also be edited) or by an anchor; changing `AUDIT_CHAIN_KEY` or, when it is empty, `SECRET_KEY` makes older entries fail the check (set the key before the first migration and keep it with the backup of `.env`); the check reads the whole log in one pass, so a very large log takes a while; writing is serialised on one row, a bottleneck only at very high event rates; anchors are made by hand, there is no scheduled export.
+
 ## After the first release
 
 Ordered roughly by expected value; none of these block the first release.
@@ -153,7 +164,6 @@ Ordered roughly by expected value; none of these block the first release.
 | Groups: next steps | Nested groups, groups across rooms, per-document rights, invitations to many people at once |
 | Stamps in Office files | DOCX and XLSX are downloaded without a stamp today |
 | Deeper analytics | Cohorts, charts, per-visitor reports, scheduled email digests |
-| Tamper-evident audit log | Hash chain over log entries, periodic anchoring |
 | Search and OCR | Full-text search inside documents, OCR for scans in all supported languages |
 | Single sign-on | OIDC and SAML, SCIM provisioning |
 | Electronic signing of NDAs | Today an NDA is accepted with a recorded version |
