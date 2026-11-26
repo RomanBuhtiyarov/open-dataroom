@@ -1,9 +1,18 @@
 # Changelog
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). The project is in early development; version
-`0.1.0` is the first release candidate. The version number lives in `dataroom/__init__.py`.
+`0.1.0` was the first release candidate. The version number lives in `dataroom/__init__.py`.
 
 ## [Unreleased]
+
+## [0.2.0] - 2026-11-26
+
+### Upgrading from 0.1.0
+- Take a backup first.
+- Set `AUDIT_CHAIN_KEY` in `.env` **before** running `migrate`, and keep it apart from the database. If it stays
+  empty, the key is derived from `SECRET_KEY`. Changing the key later makes older audit entries fail the check.
+- Run `migrate`: it adds groups and the audit chain, and seals the existing audit entries (marked `legacy`).
+- In rooms with the watermark on, visitors now receive stamped copies of downloaded PDF files.
 
 ### Added
 - Tamper-evident audit log: every entry has a number and an HMAC-SHA256 signature chained to the previous one
@@ -23,6 +32,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/). The project is i
   (migration `audit.0003_audit_chain`, which also seals the existing entries).
 - `AccessGrant.user` may be empty when `AccessGrant.group` is set; exactly one of them is required (database
   constraint). Migrations `rooms.0006_groups` and `invites.0002_groups`.
+
+### Known limits
+See `docs/ROADMAP.md` (per milestone) and `SECURITY.md`. In short: no independent security audit, no real SMTP
+check, translations not reviewed by native speakers, phone layouts not checked on real devices; DOCX and XLSX are
+downloaded without a stamp; a stamp can be painted over in a PDF editor; the audit chain cannot protect against
+someone who holds both the database and the key unless an anchor line is kept elsewhere.
 
 ## [0.1.0] - 2026-11-25
 
